@@ -1,6 +1,6 @@
 ## VIF Process Lab
 
- Installing Laravel Homestead (recommended):(https://laravel.com/docs/5.2/homestead)](https://laravel.com/docs/5.2/homestead)
+ Installing Laravel Homestead (recommended):[https://laravel.com/docs/5.2/homestead](https://laravel.com/docs/5.2/homestead)
  
 .yaml file ~/.homestead
 
