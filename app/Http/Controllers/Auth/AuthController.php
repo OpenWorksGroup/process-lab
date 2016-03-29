@@ -70,25 +70,29 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        /**
+        * Seed DB with roles and abilities. See Providers/BouncerServiceProvider.php
+        **/
+        Bouncer::seed();
       
-      $user = User::create([
+        $user = User::create([
           'name' => $data['name'],
           'email' => $data['email'],
           'password' => bcrypt($data['password']),
           'profile_url' => $data['profile_url'],
           'last_login_at' => Carbon::now(),
-      ]);
-      
-      if ($data['site'] == "new")
-      {    
-          $settings = Settings::create([
-              'title' => $data['site_title'],
-              'admins' => serialize(array($user['id'])),
           ]);
+      
+          if ($data['site'] == "new")
+          {    
+              $settings = Settings::create([
+                  'title' => $data['site_title'],
+                  'admins' => serialize(array($user['id'])),
+              ]);
+              Bouncer::assign('admin')->to($user);
+          }
           
-         Bouncer::assign('admin')->to($user);
-      }
-      return $user;
+          return $user;
     }
     
 }

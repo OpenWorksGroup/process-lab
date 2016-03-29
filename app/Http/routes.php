@@ -29,16 +29,17 @@
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
-    Route::get('/start',  'AdminController@start');
+    Route::get('/start',  'Admin\StartController@index');
     Route::get('/',  'HomeController@index');
+    Route::get('/typography', 'TypographyController@index');
 });  
 
 /* Admin Routes */
 
 Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
-    Route::get('/admin/dashboard', 'AdminController@index');   
-    Route::get('/admin/register-user', 'AdminController@userRegistrationCreate');
-    Route::post('/admin/register-user', 'AdminController@userRegistrationStore');
+    Route::get('/admin/dashboard', 'Admin\AdminController@index');   
+    Route::get('/admin/register-user', 'Admin\UserRegistrationController@index');
+    Route::post('/admin/register-user', 'Admin\UserRegistrationController@create');
 });
 
 
