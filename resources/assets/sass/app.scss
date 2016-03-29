@@ -1,8 +1,25 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "_variables.scss";
+@import "../bower/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+/** General **/
  
- .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
-     margin-right: -20px;
-     margin-left: 0;
-     color: red;
+ h1, .h1 {
+   background-color: transparent;
+   background: url("../images/orange-divider.png") repeat-x, left bottom;
+   background-repeat: repeat-x;
+   background-attachment: scroll;
+   background-position: left bottom;
+   background-clip: border-box;
+   background-origin: padding-box;
+   background-size: auto auto;
+   display: inline-block;
  }
 
+
+
+ /* 
+  .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
+      margin-right: -20px;
+      margin-left: 0;
+      color: red;
+  }*/

@@ -7,28 +7,20 @@
 
     <title>{{ $siteTitle }} {{ isset($pageTitle) ? '| '.$pageTitle : '' }}</title>
 
-    <!-- Fonts -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
     <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     
-    <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
+ <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
+
     
+    <!-- Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <script src="https://fb.me/react-with-addons-0.14.7.min.js"></script>
     <script src="https://fb.me/react-dom-0.14.7.min.js"></script>
+    <script src="https://use.typekit.net/rqb4xyg.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default">
@@ -81,8 +73,6 @@
     @yield('content')
 
     <!-- JavaScripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script src="{{ asset('/js/vendor.js') }}"></script>
 </body>
 </html>
