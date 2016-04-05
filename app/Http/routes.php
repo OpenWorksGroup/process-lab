@@ -40,6 +40,9 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/dashboard', 'Admin\AdminController@index');   
     Route::get('/admin/register-user', 'Admin\UserRegistrationController@index');
     Route::post('/admin/register-user', 'Admin\UserRegistrationController@create');
+    Route::get('/admin/manage-users', 'Admin\UserManagementController@index');
+    Route::get('/admin/edit-user/{userId}', 'Admin\UserEditController@index');
+    Route::post('/admin/edit-user', 'Admin\UserEditController@update');
 });
 
 

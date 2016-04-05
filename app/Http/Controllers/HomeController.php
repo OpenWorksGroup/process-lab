@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Settings;
+use App\Setting;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +33,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $settings = Settings::all();
+        $settings = Setting::all();
 
         if ($settings->isEmpty()) 
         { 

@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Settings;
+use App\Setting;
 
 class Start
 {
@@ -16,7 +16,7 @@ class Start
      */
     public function handle($request, Closure $next)
     {
-        $settings = Settings::all();
+        $settings = Setting::all();
         if ($settings->isEmpty()) 
         { 
           return view('start');   

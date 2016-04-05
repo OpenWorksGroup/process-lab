@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Settings;
+use App\Setting;
 use Illuminate\Support\Facades\Auth;
 
 class UserRouter
@@ -18,7 +18,7 @@ class UserRouter
     
     public function handle($request, Closure $next)
     {
-        $settings = Settings::all();
+        $settings = Setting::all();
         $rootAdmins = unserialize($settings[0]['attributes']['admins']);
         
         $user_id = Auth::id();

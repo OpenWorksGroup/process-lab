@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Settings;
+use App\Setting;
 use Validator;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
@@ -85,7 +85,7 @@ class AuthController extends Controller
       
           if ($data['site'] == "new")
           {    
-              $settings = Settings::create([
+              $settings = Setting::create([
                   'title' => $data['site_title'],
                   'admins' => serialize(array($user['id'])),
               ]);

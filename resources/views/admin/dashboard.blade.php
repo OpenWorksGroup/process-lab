@@ -9,7 +9,7 @@
 
                 <div class="panel-body">
                     <div>
-                        <a class="btn btn-default" href="/admin/register-user" role="button">Register User</a>
+                        <a class="btn btn-default" href="/admin/manage-users" role="button">Manage Users</a>
                     </div>
                 </div>
             </div>

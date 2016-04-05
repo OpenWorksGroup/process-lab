@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
-use App\Roles;
+use App\Role;
 use App\User;
 use App\Tag;
 use App\TagRelationship;
@@ -19,7 +19,7 @@ class UserRegistrationController extends Controller
     
  public function index(Request $request)
  {
-     $roles = Roles::all()->sortBy('name');
+     $roles = Role::all()->sortBy('name');
      $formRoles = [];
      foreach ($roles as $role)
      {
