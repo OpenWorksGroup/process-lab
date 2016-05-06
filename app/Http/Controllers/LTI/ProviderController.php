@@ -145,6 +145,8 @@ class ProviderController extends Controller
             }
             $request->session()->put('user', $user); 
             
+            /** redirect user based on role. Add LTI roles **/
+            
             if (Bouncer::is($user)->an('admin'))
             {
                 return redirect('/admin');
