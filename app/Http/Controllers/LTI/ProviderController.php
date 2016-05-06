@@ -144,8 +144,15 @@ class ProviderController extends Controller
               
             }
             $request->session()->put('user', $user); 
-         
-             return redirect('/dashboard/'.$user->id);  
+            
+            if (Bouncer::is($user)->an('admin'))
+            {
+                return redirect('/admin');
+            }
+            else
+            {
+                return redirect('/dashboard/'.$user->id);  
+            }
     }
     
            
