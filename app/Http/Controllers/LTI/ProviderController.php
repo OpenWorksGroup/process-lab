@@ -67,10 +67,9 @@ class ProviderController extends Controller
                     return;
                 }
                 
-                $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
-                
-                
-                
+              //  $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
+              $string1 = 'POST&https%3A%2F%2Fdml.viflearn.com%3A8000%2Flti%2Fauth&';
+
                 $keys = UtilitiesClass::urlencode_rfc3986(array_keys($input));
                 $values = UtilitiesClass::urlencode_rfc3986(array_values($input));
                 $params = array_combine($keys, $values);
