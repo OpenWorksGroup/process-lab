@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'profile_url',
+        'name', 'email', 'password', 'profile_url', 'lti_user_id', 'profile_image'
     ];
 
     /**
@@ -26,4 +26,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    /**
+     * A user can have many roles
+     *
+     * @return $userRoles
+     */
+    
+    public function scopeGetUserName($query, $userId)
+    {
+        return $query->select('name')->where('id', $userId)->value('name');
+    } 
 }

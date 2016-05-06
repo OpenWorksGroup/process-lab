@@ -20,9 +20,51 @@
                             <div class="col-md-6">
                                 <input type="text" v-model="site_title" class="form-control" name="site_title" value="{{ old('site_title') }}">
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('site_title'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('site_title') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('lti_consumer_name') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">LTI Consumer Name</label>
+
+                            <div class="col-md-6">
+                                <input type="text" v-model="lti_consumer_name" class="form-control" name="lti_consumer_name" value="{{ old('lti_consumer_name') }}">
+
+                                @if ($errors->has('lti_consumer_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('lti_consumer_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('lti_consumer_key') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">LTI Consumer Key</label>
+
+                            <div class="col-md-6">
+                                <input type="text" v-model="lti_consumer_key" class="form-control" name="lti_consumer_key" value="{{ old('lti_consumer_key') }}">
+
+                                @if ($errors->has('lti_consumer_key'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('lti_consumer_key') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('lti_secret') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">LTI Secret</label>
+
+                            <div class="col-md-6">
+                                <input type="text" v-model="lti_secret" class="form-control" name="lti_secret" value="{{ old('lti_secret') }}">
+
+                                @if ($errors->has('lti_secret'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('lti_secret') }}</strong>
                                     </span>
                                 @endif
                             </div>

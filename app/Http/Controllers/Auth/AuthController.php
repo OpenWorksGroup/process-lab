@@ -54,6 +54,9 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'site_title' => 'required|max:255',
+            'lti_consumer_name' => 'required|max:255',
+            'lti_consumer_key' => 'required|max:255',
+            'lti_secret' => 'required|max:255',
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
@@ -87,7 +90,10 @@ class AuthController extends Controller
           {    
               $settings = Setting::create([
                   'title' => $data['site_title'],
-                  'admins' => serialize(array($user['id'])),
+                  'lti_consumer_name' => $data['lti_consumer_name'],
+                  'lti_consumer_key' => $data['lti_consumer_key'],
+                  'lti_secret' => $data['lti_secret'],
+
               ]);
               Bouncer::assign('admin')->to($user);
           }

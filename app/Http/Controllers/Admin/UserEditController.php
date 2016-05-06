@@ -22,7 +22,7 @@ class UserEditController extends Controller
      * @return Response
    */
     
-    public function index($userId)
+    public function edit($userId)
     {
         $user = User::find($userId);
         if (empty($user)) abort(404);
@@ -49,11 +49,12 @@ class UserEditController extends Controller
      * Update the the user roles.
      *
      * @param  Request  $request
+     * @param  $userId
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$userId)
     {
-        $userId = $request->userId;
+       // $userId = $request->userId;
         
         $this->validate($request, [
             'roles' => 'required'
@@ -67,6 +68,6 @@ class UserEditController extends Controller
             Bouncer::assign($role)->to($user);
         } 
         
-        return redirect('/admin/edit-user/'.$userId)->with('success', 'Roles have been updated.');
+        return redirect('/admin/user/'.$userId)->with('success', 'Roles have been updated.');
     }
 }

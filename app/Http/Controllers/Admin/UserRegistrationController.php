@@ -17,7 +17,7 @@ use Bouncer;
 class UserRegistrationController extends Controller
 {
     
- public function index(Request $request)
+ public function create(Request $request)
  {
      $roles = Role::all()->sortBy('name');
      $formRoles = [];
@@ -32,7 +32,7 @@ class UserRegistrationController extends Controller
          ]);    
  }   
  
- public function create(Request $request)
+ public function store(Request $request)
  {
      // should be global
     $adminUser = Auth::user();
@@ -62,16 +62,14 @@ class UserRegistrationController extends Controller
      $tags = preg_split("/[\s,]+/", $request->user_tags);
      
      foreach ($tags as $tag)
-     {
-         $tagName = strtolower($tag);
-         
-         $foundTag = Tag::where('tag', '=', $tagName)->first();
+     {        
+         $foundTag = Tag::where('tag', '=', $tag)->first();
          
          if (! $foundTag) 
          { 
          
              $tagSave = Tag::create([
-                 'tag' => $tagName, 
+                 'tag' => $tag, 
                  'type' => "User", 
                  'created_by' => 'Admin', 
                  'user_id' => $adminUserId

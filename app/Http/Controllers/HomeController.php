@@ -63,12 +63,12 @@ class HomeController extends Controller
                 
                 if (Bouncer::is($user)->an('admin'))
                 {
-                    return redirect('/admin/dashboard');
+                    return redirect('/admin');
                 }
                 else
                 {
                     // Temp placeholder. Will change this to author dashboard once we get there.
-                    return view('pages.landing');
+                    return redirect('/dashboard/'.$user->id);
                 }
             }
             else

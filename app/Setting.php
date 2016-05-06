@@ -12,6 +12,6 @@ class Setting extends Model
    * @var array
    */
   protected $fillable = [
-      'title', 'consumer_key',
+      'title', 'lti_consumer_name','lti_consumer_key', 'lti_secret',
   ];
 }

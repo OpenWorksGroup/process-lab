@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div>
-                    <a class="btn btn-default" href="/admin/user-register" role="button">Add New User</a>
+                    <a class="btn btn-default" href="/admin/tag" role="button">Add New Tag</a>
                 </div>
             </div>
         </div>
@@ -22,23 +22,23 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Profile Url</th>
-                        <th>Created</th>
+                        <th>Tag</th>
+                        <th>Type</th>
+                        <th>Created By</th>
+                         <th>Created</th>
                         <th>Updated</th>
-                        <th>Last Login</th>
-                        <th></th>
+                        <th colspan="2"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($tags as $tag)
                         <tr>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->profile_url }}</td>
-                            <td>{{ $user->created_at }}</td>
-                            <td>{{ $user->updated_at }}</td>
-                            <td>{{ $user->last_login_at }}</td>
-                            <td><a class="btn btn-default" href="/admin/user/{{ $user->id }}" role="button">Edit Roles</a><!-- Delete--></td>
+                            <td>{{ $tag->tag }}</td>
+                            <td>{{ $tag->type }}</td>
+                            <td>{{ $tag->created_by }}: {{ $tag->creator }}</td>
+                            <td>{{ $tag->created_at }}</td>
+                            <td>{{ $tag->updated_at }}</td>
+                            <td colspan="2"><a class="btn btn-default" href="/admin/tag/{{ $tag->id }}" role="button">Edit Tag</a></td>
                         </tr>
                     @endforeach 
                 </tbody>                      

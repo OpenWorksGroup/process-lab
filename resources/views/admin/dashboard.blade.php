@@ -9,8 +9,16 @@
 
                 <div class="panel-body">
                     <div>
-                        <a class="btn btn-default" href="/admin/manage-users" role="button">Manage Users</a>
+                        <a class="btn btn-default" href="/admin/settings" role="button">Manage Site Settings</a>
                     </div>
+                    <br/>
+                    <div>
+                        <a class="btn btn-default" href="/admin/users" role="button">Manage Users</a>
+                    </div>
+                    <br/>
+              <!--      <div>
+                        <a class="btn btn-default" href="/admin/tags" role="button">Manage Tags</a>
+                    </div>-->
                 </div>
             </div>
         </div>
