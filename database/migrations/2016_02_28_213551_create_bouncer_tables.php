@@ -20,6 +20,7 @@ class CreateBouncerTables extends Migration
             $table->integer('entity_id')->unsigned()->nullable();
             $table->string('entity_type')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['name', 'entity_id', 'entity_type']);
         });
@@ -28,11 +29,14 @@ class CreateBouncerTables extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create(Models::table('user_roles'), function (Blueprint $table) {
             $table->integer('role_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->primary(['role_id', 'user_id']);
 
@@ -46,6 +50,8 @@ class CreateBouncerTables extends Migration
         Schema::create(Models::table('user_abilities'), function (Blueprint $table) {
             $table->integer('ability_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->primary(['ability_id', 'user_id']);
 
@@ -59,6 +65,8 @@ class CreateBouncerTables extends Migration
         Schema::create(Models::table('role_abilities'), function (Blueprint $table) {
             $table->integer('ability_id')->unsigned()->index();
             $table->integer('role_id')->unsigned()->index();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->primary(['ability_id', 'role_id']);
 
