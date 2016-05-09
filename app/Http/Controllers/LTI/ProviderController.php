@@ -48,7 +48,7 @@ class ProviderController extends Controller
                "user_image" => "bail|required|url",
                "lis_person_name_full" => "bail|required",
                "lis_person_contact_email_primary" => "bail|required|email",
-               "custom_user_profile_url" => "bail|required|url"
+               "custom_tc_profile_url" => "bail|required|url"
             ]);
             
               // dd($input);
@@ -135,7 +135,7 @@ class ProviderController extends Controller
                     'name' => $input['lis_person_name_full'],
                     'email' => $email,
                     'lti_user_id' => $ltiUserId,
-                    'profile_url' => $input['custom_user_profile_url'],
+                    'profile_url' => $input['custom_tc_profile_url'],
                     'profile_image' => $input['user_image'],
                     'last_login_at' => Carbon::now(),
                 ]);
