@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Classes\UtilitiesClass;
 use App\Setting;
 use App\User;
+use App\Tag;
+use App\TagRelationship;
 use Validator;
 use Carbon\Carbon;
 use Bouncer;
@@ -67,8 +69,8 @@ class ProviderController extends Controller
                     return;
                 }
                 
-              //  $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
-              $string1 = 'POST&https%3A%2F%2Fdml.viflearn.com%2Flti%2Fauth&';
+                $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
+             // $string1 = 'POST&https%3A%2F%2Fdml.viflearn.com%2Flti%2Fauth&';
 
                 $keys = UtilitiesClass::urlencode_rfc3986(array_keys($input));
                 $values = UtilitiesClass::urlencode_rfc3986(array_values($input));
@@ -143,6 +145,27 @@ class ProviderController extends Controller
                 Bouncer::assign('author')->to($user);
               
             }
+            
+            foreach($input as $key => $value) {
+                if (preg_match('/^custom_user_tags/',$key)){
+                    $tags = explode(",",$value);
+                    foreach($tags as $tag) {
+                        $newTag = Tag::firstOrCreate(array('type' => "user", 'tag' => trim($tag), 'created_by' => 'system'));
+                        $newTagRel = TagRelationship::firstOrCreate(array('tag_id' => $newTag->id, 'user_id' => $user->id));
+                    }
+                }
+                else if (preg_match('/^custom_user_tag/',$key)){
+                   $tags = explode(",",$value);
+                   $labelArr = explode("_",$key);
+                   $label = array_pop($labelArr);
+                   foreach($tags as $tag) {
+                      // var_dump($tag." ".$label);
+                       $newTag = Tag::firstOrCreate(array('type' => "user", 'label' => $label, 'tag' => trim($tag), 'created_by' => 'system'));
+                       $newTagRel = TagRelationship::firstOrCreate(array('tag_id' => $newTag->id, 'user_id' => $user->id));
+                  }    
+                }
+            };
+
             $request->session()->put('user', $user); 
             
             /** redirect user based on role. Add LTI roles **/
