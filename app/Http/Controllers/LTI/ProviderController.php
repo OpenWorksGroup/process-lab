@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\LTI;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Classes\UtilitiesClass;
@@ -69,13 +70,13 @@ class ProviderController extends Controller
                     return;
                 }
                 
-              //  $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
-              $string1 = 'POST&https%3A%2F%2Fdml.viflearn.com%2Flti%2Fauth&';
+               // $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
+                $string1 = 'POST&https%3A%2F%2Fdml.viflearn.com%2Flti%2Fauth&';
 
                 $keys = UtilitiesClass::urlencode_rfc3986(array_keys($input));
                 $values = UtilitiesClass::urlencode_rfc3986(array_values($input));
                 $params = array_combine($keys, $values);
-               // dd($params);
+
                 uksort($params, 'strcmp');
      
                 $pairs = array();
@@ -142,10 +143,14 @@ class ProviderController extends Controller
                     'last_login_at' => Carbon::now(),
                 ]);
               
-                Bouncer::assign('author')->to($user);
-              
+                /* every user is an author */
+                Bouncer::assign('author')->to($user);              
             }
             
+            /* set user as authenticated */
+            Auth::login($user, true);
+            $request->session()->put('user', $user); 
+          
             foreach($input as $key => $value) {
                 if (preg_match('/^custom_user_tags/',$key)){
                     $tags = explode(",",$value);
@@ -165,8 +170,28 @@ class ProviderController extends Controller
                   }    
                 }
             };
-
-            $request->session()->put('user', $user); 
+            
+            /* if any roles are sent via LTI add them here */
+            
+            if (! empty($input['roles'])){
+                
+                $rolesTranslateArr = [
+                    'learner' => 'author',
+                    'administrator' => 'admin',
+                    'mentor' => 'online facilitator',
+                    'instructor' => 'peer reviewer',
+                    'mentor/reviewer' => 'expert reviewer'
+                ];
+                
+                $roles = explode(",",$input['roles']);
+                
+                foreach($roles as $role) {
+                    $role = trim(strtolower($role));
+                    Bouncer::assign($rolesTranslateArr[$role])->to($user);
+                }
+            }
+            
+           // $request->session()->put('user', $user); 
             
             /** redirect user based on role. Add LTI roles **/
             
@@ -179,74 +204,4 @@ class ProviderController extends Controller
                 return redirect('/dashboard/'.$user->id);  
             }
     }
-    
-           
-
-        
-    //dd($request);
-            
-          // var_dump($request);
-      
-         // dd($request);
-      
-       
-          // var_dump(hash_algos());
-         //  var_dump($request->oauth_consumer_key);
-         //  var_dump($request->oauth_signature_method);
-         //  var_dump($request->oauth_timestamp);
-         //  var_dump($request->oauth_version);
-         //  var_dump($request->oauth_nonce);
-     
-       /*  $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
-     
-         $input = $request->all();
-         unset($input['oauth_signature']);
-         $keys = UtilitiesClass::urlencode_rfc3986(array_keys($input));
-         $values = UtilitiesClass::urlencode_rfc3986(array_values($input));
-         $params = array_combine($keys, $values);
-
-         uksort($params, 'strcmp');
-     
-         $pairs = array();
-     
-         foreach ($params as $parameter => $value) {
-           if (is_array($value)) {
-             sort($value, SORT_STRING);
-             foreach ($value as $duplicate_value) {
-               $pairs[] = $parameter . '=' . $duplicate_value;
-             }
-           } else {
-             $pairs[] = $parameter . '=' . $value;
-           }
-         }
-     
-         $string2 = implode('&', $pairs);
-     
-         $string3 = $string1.UtilitiesClass::urlencode_rfc3986($string2);
-         var_export($string3);
-
-         echo "<br/><br/>";
- 
-
-           $key = $consumer_secret.'&';
-
-           $signed = base64_encode(hash_hmac('sha1', $string3, $key, true));
-       
-           var_dump('signature processed '.$signed);
-           var_dump('oauth_signature sent '.$request->oauth_signature);
-       
-           var_dump(strlen($signed));
-           var_dump(strlen($request->oauth_signature));
-       
-           if ($signed === $request->oauth_signature) {
-                   echo "hashes match!";
-               } 
-           
-              // $test1 = base64_encode(hash_hmac('sha1', 'hello', $key, true));
-             //  $test2 = base64_encode(hash_hmac('sha1', 'hello', $key, true));
-           
-              // var_dump($test1);
-             //  var_dump($test2);
-       
-           dd('');*/
 }
