@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>Tag</th>
+                        <th>Label</th>
                         <th>Type</th>
                         <th>Created By</th>
                          <th>Created</th>
@@ -34,8 +35,9 @@
                     @foreach ($tags as $tag)
                         <tr>
                             <td>{{ $tag->tag }}</td>
+                            <td>{{ $tag->label }}</td>
                             <td>{{ $tag->type }}</td>
-                            <td>{{ $tag->created_by }}: {{ $tag->creator }}</td>
+                            <td>{{ $tag->creator }} ({{ $tag->created_by }})</td>
                             <td>{{ $tag->created_at }}</td>
                             <td>{{ $tag->updated_at }}</td>
                             <td colspan="2"><a class="btn btn-default" href="/admin/tag/{{ $tag->id }}" role="button">Edit Tag</a></td>

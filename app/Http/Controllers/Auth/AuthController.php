@@ -53,7 +53,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'site_title' => 'required|max:255',
+            'title' => 'required|max:255',
             'lti_consumer_name' => 'required|max:255',
             'lti_consumer_key' => 'required|max:255',
             'lti_secret' => 'required|max:255',
@@ -89,7 +89,7 @@ class AuthController extends Controller
           if ($data['site'] == "new")
           {    
               $settings = Setting::create([
-                  'title' => $data['site_title'],
+                  'title' => $data['title'],
                   'lti_consumer_name' => $data['lti_consumer_name'],
                   'lti_consumer_key' => $data['lti_consumer_key'],
                   'lti_secret' => $data['lti_secret'],

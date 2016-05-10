@@ -16,9 +16,9 @@
                         <a class="btn btn-default" href="/admin/users" role="button">Manage Users</a>
                     </div>
                     <br/>
-              <!--      <div>
+                    <div>
                         <a class="btn btn-default" href="/admin/tags" role="button">Manage Tags</a>
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>

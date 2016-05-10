@@ -40,14 +40,18 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin', 'Admin\AdminController@index');   
+    Route::get('/admin/settings', 'Admin\SettingsEditController@edit');   
+    Route::patch('/admin/settings', 'Admin\SettingsEditController@update');  
     Route::get('/admin/user-register', 'Admin\UserRegistrationController@create');
     Route::post('/admin/user-register', 'Admin\UserRegistrationController@store');
     Route::get('/admin/users', 'Admin\UserManagementController@index');
     Route::get('/admin/user/{userId}', 'Admin\UserEditController@edit');
-    Route::patch('/admin/user/{userId}', 'Admin\UserEditController@update');
+    Route::patch('/admin/user/{userId}', ['as' => 'user.update', 'uses' =>'Admin\UserEditController@update']);
     Route::get('/admin/tags', 'Admin\TagManagementController@index');
+    Route::get('/admin/tag', 'Admin\TagCreateController@create');
+    Route::post('/admin/tag', 'Admin\TagCreateController@store');
     Route::get('/admin/tag/{tagId}', 'Admin\TagEditController@edit');
-    Route::patch('/admin/tag/{tagId}', 'Admin\TagEditController@update');
+    Route::patch('/admin/tag/{tagId}', ['as' => 'tag.update', 'uses' =>'Admin\TagEditController@update']);
 });
 
 Route::group(['middleware' => ['lti']], function () {

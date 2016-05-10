@@ -15,7 +15,8 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tag');
-            $table->string('type'); //User,Template,Content,Review,Content
+            $table->string('label');
+            $table->string('type'); //user,site
             $table->string('created_by'); //Site,User
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');

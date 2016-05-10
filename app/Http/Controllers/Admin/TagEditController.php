@@ -26,7 +26,7 @@ class TagEditController extends Controller
        
 
         return view('admin.editTag')->with([
-            'pageTitle'=>'Edit '.$tag->tag,
+            'pageTitle'=>'Edit Tag',
             'tag' => $tag
             ]);    
     }
