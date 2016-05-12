@@ -19,6 +19,10 @@
                     <div>
                         <a class="btn btn-default" href="/admin/tags" role="button">Manage Tags</a>
                     </div>
+                    <br/>
+                    <div>
+                        <a class="btn btn-default" href="/admin/templates" role="button">Manage Templates</a>
+                    </div>
                 </div>
             </div>
         </div>

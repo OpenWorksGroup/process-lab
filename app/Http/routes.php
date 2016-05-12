@@ -52,6 +52,11 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::post('/admin/tag', 'Admin\TagCreateController@store');
     Route::get('/admin/tag/{tagId}', 'Admin\TagEditController@edit');
     Route::patch('/admin/tag/{tagId}', ['as' => 'tag.update', 'uses' =>'Admin\TagEditController@update']);
+    Route::get('/admin/templates', 'Admin\TemplateManagementController@index');
+    Route::get('/admin/template', 'Admin\TemplateCreateController@create');
+    Route::post('/admin/template', 'Admin\TemplateCreateController@store');
+    Route::get('/admin/template/{templateId}', 'Admin\TemplateEditController@edit');
+    Route::patch('/admin/template/{templateId}', ['as' => 'template.update', 'uses' => 'Admin\TemplateEditController@update']);
 });
 
 Route::group(['middleware' => ['lti']], function () {
