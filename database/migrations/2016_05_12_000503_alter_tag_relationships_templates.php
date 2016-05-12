@@ -13,7 +13,7 @@ class AlterTagRelationshipsTemplates extends Migration
     public function up()
     {
         Schema::table('tag_relationships', function ($table) {
-            $table->integer('template_id')->unsigned();
+            $table->integer('template_id')->unsigned()->nullable();
             $table->foreign('template_id')->references('id')->on('templates');
         });
     }
