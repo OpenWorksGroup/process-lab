@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div>
-                    <a class="btn btn-default" href="/admin/tag" role="button">Add New Tag</a>
+                    <a class="btn btn-default" href="/admin/tags/create" role="button">Add New Tag</a>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                             <td>{{ $tag->creator }} ({{ $tag->created_by }})</td>
                             <td>{{ $tag->created_at }}</td>
                             <td>{{ $tag->updated_at }}</td>
-                            <td colspan="2"><a class="btn btn-default" href="/admin/tag/{{ $tag->id }}" role="button">Edit Tag</a></td>
+                            <td colspan="2"><a class="btn btn-default" href="/admin/tags/{{ $tag->id }}" role="button">Edit Tag</a></td>
                         </tr>
                     @endforeach 
                 </tbody>                      

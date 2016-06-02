@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Setting;
 
-class SettingsEditController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Update the specified user.

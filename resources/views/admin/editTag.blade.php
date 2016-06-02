@@ -21,7 +21,7 @@
           
           <div class="row">
               <div class="col-md-12">
-                  {!! Form::model($tag, array('route' => array('tag.update', $tag->id))) !!}
+                  {!! Form::model($tag, array('route' => array('tags.update', $tag->id))) !!}
                    
                   <div class="form-group{{ $errors->has('tag') ? ' has-error' : '' }}">
                       {{ Form::text('tag', null, array('class' => 'form-control')) }}

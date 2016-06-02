@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-12">
             
-            {!! Form::model($settings, ['action' => 'Admin\SettingsEditController@update']) !!}
+            {!! Form::model($settings, ['action' => 'Admin\SettingsController@update']) !!}
             
                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                     {{ Form::label('Site Title', null, ['class' => 'control-label']) }}

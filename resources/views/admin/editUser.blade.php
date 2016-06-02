@@ -22,7 +22,7 @@
             <div class="col-md-12">
                 <div class="text-warning">Please note: Any changes made here may be overidden by User Roles data set in the VIF Learning Center.</div>
                 
-                {!! Form::open(array('route' => array('user.update', $userId))) !!}
+                {!! Form::open(array('route' => array('users.update', $userId))) !!}
                 
                 <div class="form-group{{ $errors->has('roles') ? ' has-error' : '' }}">
                     {{ Form::label('Roles', null, ['class' => 'control-label']) }}

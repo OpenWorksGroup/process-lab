@@ -24,8 +24,7 @@
 */
 
 
-/*Route::get('/user-router', ['middleware' => 'userRouter', function () {
-}]);*/
+Route::post('/lti/auth', 'LTI\ProviderController@store');
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
@@ -34,33 +33,41 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/typography', 'TypographyController@index');
     Route::get('/lti/response', 'LTI\responseController@index');
     Route::get('/dashboard/{userId}', 'UserDashboardController@index');
+    Route::get('/content-tags', 'ContentTagsRetrieveController@index');
+    Route::post('/content-tags', 'ContentTagsAddController@store');
 });  
 
 /* Admin Routes */
 
 Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin', 'Admin\AdminController@index');   
-    Route::get('/admin/settings', 'Admin\SettingsEditController@edit');   
-    Route::patch('/admin/settings', 'Admin\SettingsEditController@update');  
-    Route::get('/admin/user-register', 'Admin\UserRegistrationController@create');
-    Route::post('/admin/user-register', 'Admin\UserRegistrationController@store');
-    Route::get('/admin/users', 'Admin\UserManagementController@index');
-    Route::get('/admin/user/{userId}', 'Admin\UserEditController@edit');
-    Route::patch('/admin/user/{userId}', ['as' => 'user.update', 'uses' =>'Admin\UserEditController@update']);
-    Route::get('/admin/tags', 'Admin\TagManagementController@index');
-    Route::get('/admin/tag', 'Admin\TagCreateController@create');
-    Route::post('/admin/tag', 'Admin\TagCreateController@store');
-    Route::get('/admin/tag/{tagId}', 'Admin\TagEditController@edit');
-    Route::patch('/admin/tag/{tagId}', ['as' => 'tag.update', 'uses' =>'Admin\TagEditController@update']);
-    Route::get('/admin/templates', 'Admin\TemplateManagementController@index');
+    Route::get('/admin/settings', 'Admin\SettingsController@edit');   
+    Route::patch('/admin/settings', 'Admin\SettingsController@update');  
+
+    Route::get('/admin/users', 'Admin\UserController@index');
+    Route::get('/admin/users/create', 'Admin\UserController@create');
+    Route::post('/admin/users', 'Admin\UserController@store');
+    Route::get('/admin/users/{userId}', 'Admin\UserController@edit');
+    Route::patch('/admin/users/{userId}', ['as' => 'users.update', 'uses' =>'Admin\UserController@update']);
+
+    Route::get('/admin/tags', 'Admin\TagController@index');
+    Route::get('/admin/tags/create', 'Admin\TagController@create');
+    Route::post('/admin/tags', 'Admin\TagController@store');
+    Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
+    Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
+
+
+    Route::get('/admin/templates', 'Admin\TemplateController@index');
+    Route::get('/admin/templates/create', 'Admin\TemplateController@create');
+    Route::post('/admin/templates', 'Admin\TemplateController@store');
+    Route::get('/admin/template/{templateId}', 'Admin\TemplateController@edit');
+    Route::patch('/admin/templates/{templateId}', ['as' => 'templates.update', 'uses' => 'Admin\TemplateController@update']);
+
+   /* Route::get('/admin/templates', 'Admin\TemplateManagementController@index');
     Route::get('/admin/template', 'Admin\TemplateCreateController@create');
     Route::post('/admin/template', 'Admin\TemplateCreateController@store');
     Route::get('/admin/template/{templateId}', 'Admin\TemplateEditController@edit');
-    Route::patch('/admin/template/{templateId}', ['as' => 'template.update', 'uses' => 'Admin\TemplateEditController@update']);
-});
-
-Route::group(['middleware' => ['lti']], function () {
-    Route::post('/lti/auth', 'LTI\ProviderController@store');
+    Route::patch('/admin/template/{templateId}', ['as' => 'template.update', 'uses' => 'Admin\TemplateEditController@update']);*/
 });
 
 

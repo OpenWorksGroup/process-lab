@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div>
-                    <a class="btn btn-default" href="/admin/user-register" role="button">Add New User</a>
+                    <a class="btn btn-default" href="/admin/users/create" role="button">Add New User</a>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->updated_at }}</td>
                             <td>{{ $user->last_login_at }}</td>
-                            <td><a class="btn btn-default" href="/admin/user/{{ $user->id }}" role="button">Edit Roles</a><!-- Delete--></td>
+                            <td><a class="btn btn-default" href="/admin/users/{{ $user->id }}" role="button">Edit Roles</a><!-- Delete--></td>
                         </tr>
                     @endforeach 
                 </tbody>                      

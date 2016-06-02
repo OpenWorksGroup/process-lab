@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-12">
      
-                {!! Form::open(array('action' => 'Admin\TagCreateController@store')) !!}  
+                {!! Form::open(array('action' => 'Admin\TagController@store')) !!}  
         
                 <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                     {{ Form::label('Type', null, ['class' => 'control-label']) }}
