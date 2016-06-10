@@ -33,8 +33,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/typography', 'TypographyController@index');
     Route::get('/lti/response', 'LTI\responseController@index');
     Route::get('/dashboard/{userId}', 'UserDashboardController@index');
-    Route::get('/content-tags', 'ContentTagsRetrieveController@index');
-    Route::post('/content-tags', 'ContentTagsAddController@store');
+    Route::get('/api/content-tags', 'API\ContentTagsController@index');
+    Route::post('/api/content-tags', 'API\ContentTagsController@store');
 });  
 
 /* Admin Routes */
@@ -43,6 +43,7 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin', 'Admin\AdminController@index');   
     Route::get('/admin/settings', 'Admin\SettingsController@edit');   
     Route::patch('/admin/settings', 'Admin\SettingsController@update');  
+    Route::get('/api/admin/settings', 'Admin\API\SettingsController@index');
 
     Route::get('/admin/users', 'Admin\UserController@index');
     Route::get('/admin/users/create', 'Admin\UserController@create');
@@ -62,13 +63,4 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::post('/admin/templates', 'Admin\TemplateController@store');
     Route::get('/admin/template/{templateId}', 'Admin\TemplateController@edit');
     Route::patch('/admin/templates/{templateId}', ['as' => 'templates.update', 'uses' => 'Admin\TemplateController@update']);
-
-   /* Route::get('/admin/templates', 'Admin\TemplateManagementController@index');
-    Route::get('/admin/template', 'Admin\TemplateCreateController@create');
-    Route::post('/admin/template', 'Admin\TemplateCreateController@store');
-    Route::get('/admin/template/{templateId}', 'Admin\TemplateEditController@edit');
-    Route::patch('/admin/template/{templateId}', ['as' => 'template.update', 'uses' => 'Admin\TemplateEditController@update']);*/
 });
-
-
-
