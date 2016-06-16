@@ -19,7 +19,6 @@ var TagsEditor = React.createClass({
 	 });
 
 	 return {
-      templateId: this.props.id,
 		  tags: [],
 		  suggestions: contentTags,
       error: undefined,
@@ -34,7 +33,7 @@ var TagsEditor = React.createClass({
   handleAddition: function(tag) {
     this.setState({ error: undefined});
     var data = {};
-    data['templateId'] = this.props.id;
+    data['template_id'] = this.props.id;
     data['tag'] = tag;
 
     $.ajax({
@@ -44,7 +43,6 @@ var TagsEditor = React.createClass({
       dataType: 'json',
     })
     .success(function(result) {
-      console.log("RESULT "+result);
 
       var tags = this.state.tags;
 

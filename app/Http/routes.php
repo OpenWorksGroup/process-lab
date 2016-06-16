@@ -34,7 +34,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/lti/response', 'LTI\responseController@index');
     Route::get('/dashboard/{userId}', 'UserDashboardController@index');
     Route::get('/api/content-tags', 'API\ContentTagsController@index');
-    Route::post('/api/content-tags', 'API\ContentTagsController@store');
+    Route::post('/api/content-tags/create', 'API\ContentTagsController@store');
 });  
 
 /* Admin Routes */
@@ -51,16 +51,22 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/users/{userId}', 'Admin\UserController@edit');
     Route::patch('/admin/users/{userId}', ['as' => 'users.update', 'uses' =>'Admin\UserController@update']);
 
+    Route::get('/admin/templates', 'Admin\TemplateController@index');
+    Route::get('/admin/templates/create', 'Admin\TemplateController@create');
+    Route::post('/admin/templates', 'Admin\TemplateController@store');
+    Route::get('/admin/template/{templateId}', 'Admin\TemplateController@edit');
+    Route::patch('/admin/templates/{templateId}', ['as' => 'templates.update', 'uses' => 'Admin\TemplateController@update']);
+
     Route::get('/admin/tags', 'Admin\TagController@index');
     Route::get('/admin/tags/create', 'Admin\TagController@create');
     Route::post('/admin/tags', 'Admin\TagController@store');
     Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
     Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
 
+    //Route::get('/admin/course', 'Admin\TagController@index');
+    //Route::get('/admin/course/create', 'Admin\TagController@create');
+    Route::post('/admin/templates/course', 'Admin\TemplateCourseController@store');
+   // Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
+    //Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
 
-    Route::get('/admin/templates', 'Admin\TemplateController@index');
-    Route::get('/admin/templates/create', 'Admin\TemplateController@create');
-    Route::post('/admin/templates', 'Admin\TemplateController@store');
-    Route::get('/admin/template/{templateId}', 'Admin\TemplateController@edit');
-    Route::patch('/admin/templates/{templateId}', ['as' => 'templates.update', 'uses' => 'Admin\TemplateController@update']);
 });

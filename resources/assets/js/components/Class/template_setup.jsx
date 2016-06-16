@@ -13,9 +13,6 @@ var classNames = require('classnames');
 var moment = require('moment');
 
 var TemplateSetUp = React.createClass({
-    componentDidUpdate: function(prevProps, prevState) {
-        localStorage.state = JSON.stringify(this.state);
-    },
     propTypes: {
         id: React.PropTypes.number,
         title: React.PropTypes.string,
@@ -79,9 +76,7 @@ var TemplateSetUp = React.createClass({
         data[name] = value;
 
         this.setState({ error: {}});
-        this.setState({ error: {}});
         this.setState({name:value});
-       // console.log(data);
         $.ajax({
             type: 'POST',
             url: '/admin/templates',
@@ -94,7 +89,6 @@ var TemplateSetUp = React.createClass({
             this.setState({success:name});
         }.bind(this))
         .error(function(result) {
-           // console.log(result);
             var error = result.responseJSON;
             this.setState({ error: error });
         }.bind(this));

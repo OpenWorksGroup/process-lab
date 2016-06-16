@@ -22,7 +22,7 @@ class ContentTagsController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $templateId = $input['templateId'];
+        $template_id = $input['template_id'];
         $tag = trim($input['tag']);
         $user = Auth::user();
 
@@ -53,7 +53,7 @@ class ContentTagsController extends Controller
         }
 
         $tagRelSearch = TagRelationship::where('tag_id', '=', $tagId)
-                        ->where('template_id', '=', $templateId)
+                        ->where('template_id', '=', $template_id)
                         ->first();
 
         if ($tagRelSearch) 
@@ -63,7 +63,7 @@ class ContentTagsController extends Controller
         else {
            $tagRel = TagRelationship::create([
                 'tag_id' => $tagId,
-                'template_id' => $templateId,
+                'template_id' => $template_id,
                 'user_id' => $user->id
             ]); 
         }
