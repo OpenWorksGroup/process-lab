@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Tag;
 use App\TagRelationship;
 use Log;
 
 class ContentTagsController extends Controller
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     public function index(Request $request)
     {
         $tags = Tag::all()->sortBy('tag');
@@ -40,7 +44,7 @@ class ContentTagsController extends Controller
         if ($tagSearch) 
         {
            $tagId = $tagSearch->id;
-            Log::info('TAG SEARCH: '.$tagId);
+           // Log::info('TAG SEARCH: '.$tagId);
         }
         else {
             $tagNew = Tag::create([
@@ -68,5 +72,30 @@ class ContentTagsController extends Controller
             ]); 
         }
         return response()->json(['success' => $tag + ' added.'], 200); 
+    }
+
+    public function destroy(Request $request)
+    {
+        $input = $request->all();
+        if ($input['template_id'])
+        {
+            $template_id = $input['template_id'];
+            $tag = trim($input['tag']);
+
+            $tagSearch = Tag::where('tag', '=', $tag)
+                        ->where('type', '=', "content")
+                        ->first();
+
+            //Log::info($tagSearch->id);
+
+            $tagRelSearch = TagRelationship::where('tag_id', '=', $tagSearch->id)->first();
+            $tagRelSearch -> delete();
+
+            /** delete working but not soft delete (updating deleted_at col)  **/
+
+            return response()->json(['success' => $tag + ' relationship deleted.'], 200); 
+        }
+                
+
     }
 }

@@ -34,7 +34,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/lti/response', 'LTI\responseController@index');
     Route::get('/dashboard/{userId}', 'UserDashboardController@index');
     Route::get('/api/content-tags', 'API\ContentTagsController@index');
-    Route::post('/api/content-tags/create', 'API\ContentTagsController@store');
+    Route::post('/api/content-tags', 'API\ContentTagsController@store');
+    Route::delete('/api/content-tags', 'API\ContentTagsController@destroy');
 });  
 
 /* Admin Routes */
@@ -60,6 +61,7 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/tags', 'Admin\TagController@index');
     Route::get('/admin/tags/create', 'Admin\TagController@create');
     Route::post('/admin/tags', 'Admin\TagController@store');
+   // Route::delete('/admin/tags/{tagId}', 'Admin\TagController@delete');
     Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
     Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
 

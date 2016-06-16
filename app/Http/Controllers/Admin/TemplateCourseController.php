@@ -22,9 +22,9 @@ public function store(Request $request)
            // Log::info($request);
 
             $this->validate($request, [
-                'course_id' => 'required_with:course_title,course_url',
-                'course_title' => 'required_with:course_id',
-                'course_url' => 'required_with:course_id'
+                'course_id' => 'required',
+                'course_title' => 'required',
+                'course_url' => 'required'
             ]);
 
             $templateCourse = TemplateCourse::find($request['template_course_id']);
@@ -37,9 +37,9 @@ public function store(Request $request)
         else {
 
             $this->validate($request, [
-                'course_id' => 'required_with:course_title,course_url',
-                'course_title' => 'unique:template_courses,course_title|required_with:course_id',
-                'course_url' => 'required_with:course_id'
+                'course_id' => 'required',
+                'course_title' => 'unique:template_courses,course_title|required',
+                'course_url' => 'required'
             ]);
 
             $templateCourse = TemplateCourse::create([
