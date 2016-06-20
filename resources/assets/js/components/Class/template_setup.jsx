@@ -113,6 +113,7 @@ var TemplateSetUp = React.createClass({
          
             groupClass[field] = classNames({
                 'form-group': true,
+                'col-md-10': true,
             'has-error': errKey == field
             });
 

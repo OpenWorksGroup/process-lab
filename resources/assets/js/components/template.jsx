@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TemplateSetUp from './Class/template_setup.jsx';
-import CourseEditor from './Class/course_editor.jsx';
-import TagsEditor from './Class/tags_editor.jsx';
+import CourseEditor from './Class/template_course_editor.jsx';
+import TagsEditor from './Class/template_tags_editor.jsx';
+import SectionsEditor from './Class/template_sections_editor.jsx';
 
 var TemplateForm = React.createClass({
 	getInitialState: function() {
@@ -12,7 +13,7 @@ var TemplateForm = React.createClass({
     },
 	addId: function(id) {
 		this.state.id << id;
-    	this.setState({id: id});
+    this.setState({id: id});
   	},
 	render: function() {
     	return (
@@ -20,6 +21,7 @@ var TemplateForm = React.createClass({
         		<TemplateSetUp addId={this.addId}/>
             <CourseEditor id={this.state.id}/>
         		<TagsEditor id={this.state.id}/>
+            <SectionsEditor id={this.state.id}/>
       		</div>
     	);
   	}

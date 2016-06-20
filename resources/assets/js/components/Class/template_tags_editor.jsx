@@ -14,7 +14,9 @@ var TagsEditor = React.createClass({
 	 })
 	 .success(function(dataTags) {
 		  _.each(dataTags, function(dataTag){
-			 contentTags.push(dataTag['tag']);
+            if (dataTag['type'] == "content") {
+                contentTags.push(dataTag['tag']);
+            }
 		  });
 	 });
 
@@ -25,10 +27,37 @@ var TagsEditor = React.createClass({
     }
   },
   handleDelete: function(i) {
+    this.setState({ error: undefined});
+    var data = {};
+    data['template_id'] = this.props.id;
+
     var tags = this.state.tags;
+    var tag = tags[i]['text'];
+    data['tag'] = tag;
+
     tags.splice(i, 1);
     this.setState({tags: tags});
-    //add delete from tag_relationships here
+
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/content-tags/',
+      data: data,
+      dataType: 'json',
+    })
+    .success(function(result) {
+        if (result['success']) {
+            tags.splice(i, 1);
+            this.setState({tags: tags});
+        }      
+
+    }.bind(this))
+    .error(function(result) {
+      var error = result.responseJSON;
+      if (error) {
+        var errMessage = error['tag'] + error['message'];
+        this.setState({ error: errMessage });
+      }
+    }.bind(this)); 
   },
   handleAddition: function(tag) {
     this.setState({ error: undefined});
@@ -55,9 +84,10 @@ var TagsEditor = React.createClass({
     }.bind(this))
     .error(function(result) {
       var error = result.responseJSON;
-      var errMessage = error['tag']+error['message'];
-      this.setState({ error: errMessage });
-
+      if (error) {
+        var errMessage = error['tag'] + error['message'];
+        this.setState({ error: errMessage });
+      }
     }.bind(this));   
   },
   handleDrag: function(tag, currPos, newPos) {
@@ -80,7 +110,7 @@ var TagsEditor = React.createClass({
       }
 
       return (
-        <div>
+        <div className="col-md-10">
         <label className="control-label">Tags</label>
         <ReactTags tags={tags}
         suggestions={contentTags}

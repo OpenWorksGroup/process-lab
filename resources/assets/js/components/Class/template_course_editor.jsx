@@ -89,6 +89,7 @@ var CourseEditor = React.createClass({
         _.each(fields, function(field){
             groupClass[field] = classNames({
                 'form-group': true,
+                'col-md-3': true,
             	'has-error': errKey == field
             });
 
@@ -99,7 +100,7 @@ var CourseEditor = React.createClass({
 
         return (
 
-        	<form className="form-inline">
+        	<form>
                 <div className={groupClass['course_id']}>
                     <label htmlFor='course_id' className="control-label">Course Id</label>
                     <input 
@@ -137,7 +138,8 @@ var CourseEditor = React.createClass({
                     <span className="help-block text-danger">{helpBlock['course_url']}</span>
                 </div>
 
-                <div><button class="btn btn-default" type="submit" onClick={this.saveChange} onBlur={this.handleChange}>{submit_button}</button>
+                <div className="col-md-3">
+                <button className="btn btn-default" type="submit" onClick={this.saveChange} onBlur={this.handleChange}>{submit_button}</button>
                 &nbsp; <span className={successClass['submit_result']}><i className="fa fa-check"></i></span>
                 </div>
             </form>
