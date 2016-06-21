@@ -44,12 +44,21 @@ class SettingsController extends Controller
             'lti_consumer_key' => 'required|max:255',
             'lti_secret' => 'required|max:255'
         ]);
-            
+
+        /**
+         * Gather Competency Framework Values labels and write to json object
+         */
+
         $settings = Setting::all()->first();
         $settings->title = $request['title'];
         $settings->lti_consumer_name = $request['lti_consumer_name'];
         $settings->lti_consumer_key = $request['lti_consumer_key'];
-        $settings->lti_secret = $request['lti_secret'];           
+        $settings->lti_secret = $request['lti_secret'];  
+        $settings->competency_framework_description_1 = $request['competency_framework_description_1']; 
+        $settings->competency_framework_description_2 = $request['competency_framework_description_2']; 
+        $settings->competency_framework_description_3 = $request['competency_framework_description_3']; 
+        $settings->competency_framework_description_4 = $request['competency_framework_description_4']; 
+
         $settings->save();
         
         return redirect('/admin/settings')->with('success', 'Settings have been updated.');

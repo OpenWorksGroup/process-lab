@@ -4,6 +4,7 @@ import TemplateSetUp from './Class/template_setup.jsx';
 import CourseEditor from './Class/template_course_editor.jsx';
 import TagsEditor from './Class/template_tags_editor.jsx';
 import SectionsEditor from './Class/template_sections_editor.jsx';
+import RubricEditor from './Class/template_rubric_editor.jsx';
 
 var TemplateForm = React.createClass({
 	getInitialState: function() {
@@ -22,6 +23,7 @@ var TemplateForm = React.createClass({
             <CourseEditor id={this.state.id}/>
         		<TagsEditor id={this.state.id}/>
             <SectionsEditor id={this.state.id}/>
+            <RubricEditor id={this.state.id}/>
       		</div>
     	);
   	}

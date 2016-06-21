@@ -25,6 +25,7 @@
     "npm": "^3.5.3",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-select": "^0.9.1",
     "react-tag-input": "^3.0.0"
   }
 }

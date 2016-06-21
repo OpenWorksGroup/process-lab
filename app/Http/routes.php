@@ -45,6 +45,8 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/settings', 'Admin\SettingsController@edit');   
     Route::patch('/admin/settings', 'Admin\SettingsController@update');  
     Route::get('/api/admin/settings', 'Admin\API\SettingsController@index');
+    Route::post('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@store');
+    Route::delete('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@destroy');
 
     Route::get('/admin/users', 'Admin\UserController@index');
     Route::get('/admin/users/create', 'Admin\UserController@create');
@@ -65,10 +67,20 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
     Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
 
-    //Route::get('/admin/course', 'Admin\TagController@index');
-    //Route::get('/admin/course/create', 'Admin\TagController@create');
     Route::post('/admin/templates/course', 'Admin\TemplateCourseController@store');
-   // Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
-    //Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
+
+    Route::post('/admin/templates/section', 'Admin\TemplateSectionController@store');
+
+    Route::post('/admin/templates/section-field', 'Admin\TemplateSectionFieldController@store');
+
+    Route::get('/admin/competency-frameworks', 'Admin\CompetencyFrameworkController@index');
+    Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve');
+    Route::get('/admin/competency-framework/create', 'Admin\CompetencyFrameworkController@create');
+    Route::post('/admin/competency-framework', 'Admin\CompetencyFrameworkController@store');
+    Route::post('/admin/competency-framework-category', 'Admin\CompetencyFrameworkCategoryController@store');
+    Route::get('/admin/competency-framework/{cfId}', 'Admin\CompetencyFrameworkController@edit');
+
+    Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve');
+    Route::get('/admin/competency-frameworks-categories/retrieve', 'Admin\CompetencyFrameworkCategoryController@retrieve');
 
 });

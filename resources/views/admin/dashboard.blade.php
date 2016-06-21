@@ -23,6 +23,10 @@
                     <div>
                         <a class="btn btn-default" href="/admin/templates" role="button">Manage Templates</a>
                     </div>
+                    <br/>
+                    <div>
+                        <a class="btn btn-default" href="/admin/competency-frameworks" role="button">Manage Competency Frameworks</a>
+                    </div>
                 </div>
             </div>
         </div>
