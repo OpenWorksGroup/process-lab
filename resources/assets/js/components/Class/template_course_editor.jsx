@@ -138,7 +138,7 @@ var CourseEditor = React.createClass({
                     <span className="help-block text-danger">{helpBlock['course_url']}</span>
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-3 template-course-button">
                 <button className="btn btn-default" type="submit" onClick={this.saveChange} onBlur={this.handleChange}>{submit_button}</button>
                 &nbsp; <span className={successClass['submit_result']}><i className="fa fa-check"></i></span>
                 </div>

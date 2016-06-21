@@ -110,7 +110,7 @@ var TagsEditor = React.createClass({
       }
 
       return (
-        <div className="col-md-10">
+        <div className="col-md-10" id="tags-editor">
         <label className="control-label">Tags</label>
         <ReactTags tags={tags}
         suggestions={contentTags}

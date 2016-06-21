@@ -22,8 +22,30 @@
 
    .required {
       color: $brand-danger;
-      font-weight: bold;
+      font-weight: normal;
+      font-size: 10px;
+      vertical-align: super;
    }
+
+   #tags-editor {
+    margin-bottom: 50px;
+   }
+
+   .template-course-button {
+      margin-top: 25px;
+   }
+
+  .removeClick {
+      display: inline-block;
+      float: right;
+      margin-top: -30px;
+      cursor: pointer;
+   }
+
+   .removeClick:hover{
+      color: $brand-danger;
+   }
+
 
   /* Example Styles for React Tags*/
 div.ReactTags__tags {

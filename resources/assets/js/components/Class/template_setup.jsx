@@ -94,7 +94,7 @@ var TemplateSetUp = React.createClass({
         }.bind(this));
     },
     render: function() {
-        var fields = ["title","description","required_num_reviews","required_period_time"];
+        var fields = ["title","description","include_collaborative_feedback","required_num_reviews","required_period_time"];
         var groupClass = [], successClass = [], helpBlock = [], errValue = "";
         var errKey = _.keys(this.state.error)[0];
         var successKey = this.state.success;
