@@ -16,10 +16,7 @@ $(() => {
   console.log('frameworkId '+frameworkId);
   if (competencyFrameworkForm) {
         if (frameworkId) {
-            ReactDOM.render(<CompetencyFrameworkForm 
-          frameworkId={frameworkId}
-        />,
-        competencyFrameworkForm);
+            ReactDOM.render(<CompetencyFrameworkForm frameworkId={frameworkId}/>,competencyFrameworkForm);
         }
         else {
             ReactDOM.render(<CompetencyFrameworkForm />,competencyFrameworkForm);
