@@ -93,12 +93,7 @@ var SectionItem = React.createClass({
         if (this.state.section_id) {
             data['section_id'] = this.state.section_id;
         }
- 
-      //  console.log("2 test id "+template_id);
-
-       // console.log("DATA "+JSON.stringify(data));
-
-
+        
         this.setState({ error: {}});
         this.setState({ success: ""});
 
@@ -253,8 +248,8 @@ var SectionField = React.createClass({
 
     },
     render: function() {
-        console.log('section id '+section_id);
-        console.log("Field Section "+sectionFieldNum+" id "+this.state.field_section_id);
+       // console.log('section id '+section_id);
+       // console.log("Field Section "+sectionFieldNum+" id "+this.state.field_section_id);
         return (
 
             <div className="row">
