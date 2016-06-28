@@ -61,7 +61,7 @@ var RubricEditor = React.createClass({
         data['framework_id'] = this.state.framework_id;
         data['category_id'] = null;
 
-        console.log("FRAMEWORK DELETE DATA "+JSON.stringify(data));
+       // console.log("FRAMEWORK DELETE DATA "+JSON.stringify(data));
 
         $.ajax({
             type: 'DELETE',
@@ -70,7 +70,7 @@ var RubricEditor = React.createClass({
             dataType: 'json',
         })
         .success(function(result) {
-            console.log(JSON.stringify(result));
+          //  console.log(JSON.stringify(result));
 
             if (result['success']) {
                 this.setState({framework_id: undefined});
@@ -207,7 +207,7 @@ var CompetencyCategory = React.createClass({
             dataType: 'json',
         })
         .success(function(result) {
-            console.log(JSON.stringify(result));
+           // console.log(JSON.stringify(result));
 
             if (result['success']) {
                 this.setState({category_id: undefined});
@@ -312,7 +312,7 @@ var CategoryDescriptions = React.createClass({
         data['framework_id'] = this.props.framework_id;
         data['category_id'] = this.props.category_id;
 
-        console.log("DATA "+JSON.stringify(data));
+       // console.log("DATA "+JSON.stringify(data));
 
         if (this.state.rubric_id) { // don't show checkmark if description is empty
             data['rubric_id'] = this.state.rubric_id;

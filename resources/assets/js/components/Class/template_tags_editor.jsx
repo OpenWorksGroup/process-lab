@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import FormSavedNotice from '../form_saved_notice.jsx';
 
 var ReactTags = require('react-tag-input').WithContext;
 import _ from 'underscore';
 var contentTags = [];
+var classNames = require('classnames');
 
 var TagsEditor = React.createClass({
 
@@ -24,6 +26,7 @@ var TagsEditor = React.createClass({
 		  tags: [],
 		  suggestions: contentTags,
       error: undefined,
+      success: undefined
     }
   },
   handleDelete: function(i) {
@@ -61,8 +64,17 @@ var TagsEditor = React.createClass({
   },
   handleAddition: function(tag) {
     this.setState({ error: undefined});
-    var data = {};
-    data['template_id'] = this.props.id;
+    this.setState({ success: undefined});
+
+    var data = {}; 
+    if (this.props.id) {      
+      data['template_id'] = this.props.id;
+    }
+    else {
+      this.setState({ error: "Please add a Title above." });
+      return;
+    }
+
     data['tag'] = tag;
 
     $.ajax({
@@ -80,6 +92,7 @@ var TagsEditor = React.createClass({
         text: tag
       });
       this.setState({tags: tags});
+      this.setState({ success: "tag saved" });
 
     }.bind(this))
     .error(function(result) {
@@ -101,7 +114,7 @@ var TagsEditor = React.createClass({
     this.setState({ tags: tags });
     },
     render: function() {
-      var tags = this.state.tags;
+      var tags = this.state.tags,groupClass = [];
       var suggestions = this.state.suggestions;
       var errValue = "";
 
@@ -109,16 +122,27 @@ var TagsEditor = React.createClass({
           errValue = this.state.error;
       }
 
+      groupClass['tags'] = classNames({
+        'form-group': true,
+        'col-md-10': true,
+        'has-error': this.state.error
+      });
+
       return (
-        <div className="col-md-10" id="tags-editor">
-        <label className="control-label">Tags</label>
+        <div className={groupClass['tags']} id="tags-editor">
+
+        {this.state.success ?
+              <FormSavedNotice/>
+              : null}
+        <label htmlFor='tags' className="control-label">Template Tags</label>
         <ReactTags tags={tags}
         suggestions={contentTags}
         handleDelete={this.handleDelete}
         handleAddition={this.handleAddition}
         handleDrag={this.handleDrag}
         autofocus={false}
-        minQueryLength={2}/>
+        minQueryLength={2}
+        />
 
         <span className="help-block text-danger">{errValue}</span>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
+import FormSavedNotice from '../form_saved_notice.jsx';
 
 var classNames = require('classnames');
 
@@ -44,6 +45,7 @@ var CourseEditor = React.createClass({
         };
 
         data['template_id'] = this.props.id;
+ 
 
         if (this.state.template_course_id) {
             data['template_course_id'] = this.state.template_course_id;
@@ -69,7 +71,7 @@ var CourseEditor = React.createClass({
         }.bind(this));
     },
     render: function() {
-        var fields = ["course_id","course_title","course_url"];
+        var fields = ["template_id","course_id","course_title","course_url"];
         var groupClass = [], successClass = [], helpBlock = [], errValue = "";
         var successKey = this.state.success;
         var submit_button = this.state.submit_button;
@@ -89,11 +91,16 @@ var CourseEditor = React.createClass({
         _.each(fields, function(field){
             groupClass[field] = classNames({
                 'form-group': true,
-                'col-md-3': true,
-            	'has-error': errKey == field
+                'col-md-12': field == 'template_id',
+                'col-md-3': field != 'template_id',
+            	'has-error': errKey == field,
+                'has-error': errKey == 'template_id'
             });
 
-            if (errKey == field) {
+            if (errKey == "template_id") {
+                helpBlock["template_id"] = "Please add a Title above."
+            }
+            else if (errKey == field) {
                 helpBlock[field] = errValue;
             }
         });
@@ -101,6 +108,11 @@ var CourseEditor = React.createClass({
         return (
 
         	<form>
+                <div>
+                    {this.state.success ?
+                        <FormSavedNotice/>
+                    : null}
+                </div>
                 <div className={groupClass['course_id']}>
                     <label htmlFor='course_id' className="control-label">Course Id</label>
                     <input 
@@ -141,6 +153,10 @@ var CourseEditor = React.createClass({
                 <div className="col-md-3 template-course-button">
                 <button className="btn btn-default" type="submit" onClick={this.saveChange} onBlur={this.handleChange}>{submit_button}</button>
                 &nbsp; <span className={successClass['submit_result']}><i className="fa fa-check"></i></span>
+                </div>
+
+                <div className={groupClass['template_id']}>
+                    <span className="help-block text-danger">{helpBlock['template_id']}</span>
                 </div>
             </form>
 		)

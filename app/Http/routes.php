@@ -38,15 +38,23 @@ Route::group(['middleware' => ['web']], function () {
     Route::delete('/api/content-tags', 'API\ContentTagsController@destroy');
 });  
 
+/** Artifact Mockups **/
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/artifact-builder',  'Artifact\BuilderMockupController@index');
+    Route::get('/artifact-builder/ask',  'Artifact\BuilderMockupController@buildAsk');
+    /*Route::get('/artifact-builder/investigate',  'Artifact\BuilderMockupController@buildInvestigate');
+    Route::get('/artifact-builder/synthesize',  'Artifact\BuilderMockupController@buildSynthesize');
+    Route::get('/artifact-builder/share',  'Artifact\BuilderMockupController@buildShare');
+    Route::get('/artifact-builder/reflect',  'Artifact\BuilderMockupController@buildReflect');*/
+    Route::get('/artifact-builder/tag',  'Artifact\BuilderMockupController@buildTag');
+});
+
 /* Admin Routes */
 
 Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin', 'Admin\AdminController@index');   
     Route::get('/admin/settings', 'Admin\SettingsController@edit');   
     Route::patch('/admin/settings', 'Admin\SettingsController@update');  
-    Route::get('/api/admin/settings', 'Admin\API\SettingsController@index');
-    Route::post('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@store');
-    Route::delete('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@destroy');
 
     Route::get('/admin/users', 'Admin\UserController@index');
     Route::get('/admin/users/create', 'Admin\UserController@create');
@@ -58,7 +66,7 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/templates/create', 'Admin\TemplateController@create');
     Route::post('/admin/templates', 'Admin\TemplateController@store');
     Route::get('/admin/template/{templateId}', 'Admin\TemplateController@edit');
-    Route::patch('/admin/templates/{templateId}', ['as' => 'templates.update', 'uses' => 'Admin\TemplateController@update']);
+    Route::patch('/admin/templates/{templateId}', 'Admin\TemplateController@update');
 
     Route::get('/admin/tags', 'Admin\TagController@index');
     Route::get('/admin/tags/create', 'Admin\TagController@create');
@@ -69,10 +77,6 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
 
     Route::post('/admin/templates/course', 'Admin\TemplateCourseController@store');
 
-    Route::post('/admin/templates/section', 'Admin\TemplateSectionController@store');
-
-    Route::post('/admin/templates/section-field', 'Admin\TemplateSectionFieldController@store');
-
     Route::get('/admin/competency-frameworks', 'Admin\CompetencyFrameworkController@index');
     Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve');
     Route::get('/admin/competency-framework/create', 'Admin\CompetencyFrameworkController@create');
@@ -82,5 +86,11 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
 
     Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve');
     Route::get('/admin/competency-frameworks-categories/retrieve', 'Admin\CompetencyFrameworkCategoryController@retrieve');
+
+    Route::get('/api/admin/settings', 'Admin\API\SettingsController@index');
+    Route::post('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@store');
+    Route::delete('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@destroy');
+    Route::post('/api/admin/templates/section', 'Admin\API\TemplateSectionController@store');
+    Route::post('/api/admin/admin/templates/section-field', 'Admin\API\TemplateSectionFieldController@store');
 
 });

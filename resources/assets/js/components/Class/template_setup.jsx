@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
+import FormSavedNotice from '../form_saved_notice.jsx';
 
 /**
 To dos:
@@ -74,7 +75,7 @@ var TemplateSetUp = React.createClass({
         }
 
         data[name] = value;
-
+        this.setState({ success: undefined});
         this.setState({ error: {}});
         this.setState({name:value});
         $.ajax({
@@ -125,6 +126,12 @@ var TemplateSetUp = React.createClass({
         
         return (
             <form>
+                <div>
+                    {this.state.success ?
+                        <FormSavedNotice/>
+                    : null}
+                </div>
+
                 <div className={groupClass['title']}>
                     <label htmlFor='title' className="control-label">Title</label>
                     <span className="required"><i className="fa fa-asterisk"></i></span>
@@ -151,6 +158,7 @@ var TemplateSetUp = React.createClass({
                     value={this.props.description} 
                     onChange={this.handleChange} 
                     onBlur={this.saveChange}
+                    disabled ={!this.state.id}
                     />
                     
                     <span className="help-block text-danger">{helpBlock['description']}</span>
@@ -162,7 +170,9 @@ var TemplateSetUp = React.createClass({
                     name="include_collaborative_feedback"
                     checked={this.state.include_collaborative_feedback}
                     onChange={this.saveChange}
-                    value={this.state.include_collaborative_feedback} />
+                    value={this.state.include_collaborative_feedback} 
+                    disabled ={!this.state.id}
+                    />
                       &nbsp; Include Collaborative Feedback
                     </label>  
                 </div>
@@ -179,6 +189,7 @@ var TemplateSetUp = React.createClass({
                     value={this.state.required_num_reviews} 
                     onChange={this.handleChange} 
                     onBlur={this.saveChange}
+                    disabled ={!this.state.id}
                     />
                     <span className="help-block text-danger">{helpBlock['required_num_reviews']}</span> 
                 </div>
@@ -193,6 +204,7 @@ var TemplateSetUp = React.createClass({
                     value={this.state.required_period_time} 
                     onChange={this.handleChange} 
                     onBlur={this.saveChange}
+                    disabled ={!this.state.id}
                     />
                     <span className="help-block text-danger">{helpBlock['required_period_time']}</span>
                 </div>

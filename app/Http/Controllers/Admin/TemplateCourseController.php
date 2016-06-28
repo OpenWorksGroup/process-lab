@@ -37,6 +37,7 @@ class TemplateCourseController extends Controller
         else {
 
             $this->validate($request, [
+                'template_id' => 'required',
                 'course_id' => 'required',
                 'course_title' => 'unique:template_courses,course_title|required',
                 'course_url' => 'required'

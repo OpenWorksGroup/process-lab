@@ -30,7 +30,7 @@ class TemplateRubricController extends Controller
     	}
     	else {
 
-    		Log::info($request['framework_id']);
+    		//Log::info($request['framework_id']);
 
             $rubric = TemplateRubric::create([
                 'template_id' => $request['template_id'],
@@ -53,7 +53,7 @@ class TemplateRubricController extends Controller
 
     	$input = $request->all();
 
-		Log::info($input);
+		//Log::info($input);
 		//
 		//
 		/** Remove one competency category */

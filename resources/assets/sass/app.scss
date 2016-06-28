@@ -46,8 +46,14 @@
       color: $brand-danger;
    }
 
+   /* General formatting */
 
-  /* Example Styles for React Tags*/
+   .padding-left-20 {
+      padding-left: 20px;
+   }
+
+
+/* Example Styles for React Tags Module*/
 div.ReactTags__tags {
     position: relative;
 }
@@ -107,4 +113,53 @@ div.ReactTags__suggestions li mark {
 div.ReactTags__suggestions ul li.active {
     background: #b7cfe0;
     cursor: pointer;
+}
+
+/** Artifact Navigation **/
+
+.navbar-fixed-left {
+  width: 200px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+}
+
+.navbar-fixed-left .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 199px;
+}
+
+.navbar-fixed-left + .container {
+  padding-left: 160px;
+}
+
+/* On using dropdown menu (To right shift popuped) */
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+  margin-top: -50px;
+  margin-left: 140px;
+}
+
+.navbar-inverse {
+  background-color: #01B5B6;
+  border: none;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-brand a { 
+  color: $white !important;
+}
+
+.crouton {
+  color: #FFF;
+  line-height: 140%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  max-width: 700px;
+  width: 90%;
+  padding:20px;
+  text-align: center;
+  z-index: 99999;
+  margin: 0 auto;
+  background-color: #01B5B6; 
 }

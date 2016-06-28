@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.adminApp')
 
 @section('content')
     <div class="container">
@@ -12,11 +12,7 @@
         
         <div class="row">
             <div class="col-md-12">
-                @if(Session::has('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ Session::get('success') }}
-                    </div>
-                @endif
+                <div id="formSavedNotice"></div>
             </div>
         </div>
         

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import TemplateSetUp from './Class/template_setup.jsx';
 import CourseEditor from './Class/template_course_editor.jsx';
 import TagsEditor from './Class/template_tags_editor.jsx';
-import SectionsEditor from './Class/template_sections_editor.jsx';
+import SectionsEditor from './Class/template_sections_editor_new.jsx';
 import RubricEditor from './Class/template_rubric_editor.jsx';
 
 var TemplateForm = React.createClass({
