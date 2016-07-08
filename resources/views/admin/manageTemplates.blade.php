@@ -44,7 +44,7 @@
                             @if ($template->status == "active")
                                 <td colspan="2"><a class="btn btn-default disabled" href="/admin/templates/{{ $template->id }}" role="button">Edit</a></td>
                             @else
-                            <td colspan="2"><a class="btn btn-default\" href="/admin/templates/{{ $template->id }}" role="button">Edit</a></td>
+                            <td colspan="2"><a class="btn btn-default\" href="/admin/template/{{ $template->id }}" role="button">Edit</a></td>
                             @endif <!-- do this cleanr -->
                         </tr>
                     @endforeach 

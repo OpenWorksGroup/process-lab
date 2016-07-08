@@ -15,7 +15,7 @@ class TemplateSectionFieldController extends Controller
 public function store(Request $request)
     {
 
-    	Log::info($request);
+    	//Log::info($request);
 
     	$user = Auth::user();
 
@@ -26,12 +26,11 @@ public function store(Request $request)
 			if ($request['field_title']) {
 				if ($request['field_title'] != $templateSectionField->field_title) {
 					$this->validate($request, [
-                	'field_title' => 'filled' //add unique per template validation
+                	'field_title' => 'unique:template_section_fields,field_title,NULL,id,template_section_id,'.$request['template_section_id'].''
             		]); 
 					$templateSectionField->field_title = $request['field_title'];
 				}
 			}
-			//if ($request['field_description']) $templateSectionField->description = $request['field_description'];
 
 			if ($request['field_required']) {
 				if ($request['field_required'] == "true") {
@@ -44,16 +43,14 @@ public function store(Request $request)
 				$templateSectionField->required = $request['field_required'];
 			}
 
-			//if ($request['field_required']) {
-
 			$templateSectionField->save();
     	}
     	else {
 
-    		Log::info($request['field_title']);
+    		//Log::info($request['field_title']);
 
     		$this->validate($request, [
-                'field_title' => 'required' //add unique per template validation
+                'field_title' => 'unique:template_section_fields,field_title,NULL,id,template_section_id,'.$request['template_section_id'].''
             ]); 
 
             $templateSectionField = TemplateSectionField::create([

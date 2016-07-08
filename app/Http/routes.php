@@ -66,7 +66,6 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/templates/create', 'Admin\TemplateController@create');
     Route::post('/admin/templates', 'Admin\TemplateController@store');
     Route::get('/admin/template/{templateId}', 'Admin\TemplateController@edit');
-    Route::patch('/admin/templates/{templateId}', 'Admin\TemplateController@update');
 
     Route::get('/admin/tags', 'Admin\TagController@index');
     Route::get('/admin/tags/create', 'Admin\TagController@create');
@@ -75,7 +74,8 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
     Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
 
-    Route::post('/admin/templates/course', 'Admin\TemplateCourseController@store');
+    Route::post('api/admin/templates/course', 'Admin\API\TemplateCourseController@store');
+    Route::get('api/admin/templates/course/{templateId}', 'Admin\API\TemplateCourseController@edit');
 
     Route::get('/admin/competency-frameworks', 'Admin\CompetencyFrameworkController@index');
     Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve');
@@ -92,5 +92,4 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::delete('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@destroy');
     Route::post('/api/admin/templates/section', 'Admin\API\TemplateSectionController@store');
     Route::post('/api/admin/admin/templates/section-field', 'Admin\API\TemplateSectionFieldController@store');
-
 });

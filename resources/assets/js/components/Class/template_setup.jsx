@@ -12,6 +12,7 @@ To dos:
 
 var classNames = require('classnames');
 var moment = require('moment');
+var templateId, savedTemplate = {};
 
 var TemplateSetUp = React.createClass({
     propTypes: {
@@ -23,6 +24,27 @@ var TemplateSetUp = React.createClass({
         error: React.PropTypes.object,
         success: React.PropTypes.string,
     },
+    componentDidMount: function(){ 
+        ReactDOM.findDOMNode(this.refs.title).focus(); 
+        if (templateId) {
+           this.setState({id:templateId});
+        }
+
+        if (savedTemplate['title']) {
+           this.setState({title:savedTemplate['title']});
+           this.setState({description:savedTemplate['description']});
+           this.setState({required_num_reviews:savedTemplate['required_num_reviews']});
+           var review_period_days = savedTemplate['required_period_time']/86400;
+           this.setState({required_period_time:review_period_days});
+
+           if (savedTemplate['include_collaborative_feedback'] == 1) {
+            this.setState({include_collaborative_feedback:true});
+           }
+           else {
+            this.setState({include_collaborative_feedback:false});
+           }
+        }
+    },
     getInitialState: function() {
         return {
             id: undefined,
@@ -32,7 +54,7 @@ var TemplateSetUp = React.createClass({
             required_num_reviews: 3,
             required_period_time: 1, // 1 day/86400 seconds
             error: {},
-            success: undefined,
+            success: "",
         };
     },
     handleChange: function(e) {
@@ -51,7 +73,7 @@ var TemplateSetUp = React.createClass({
             data['required_period_time'] = 0;
         }
 
-        if (name == "required_num_reviews" && value > 0) {
+        if (name == "required_num_reviews" && value < 1) {
             this.setState({ required_period_time:1});
             data['required_period_time'] = 1;
         }
@@ -59,11 +81,6 @@ var TemplateSetUp = React.createClass({
         if (name == "required_period_time" && value == 0) {
             this.setState({ required_num_reviews:0});
             data['required_num_reviews'] = 0;
-        }
-
-        if (name == "required_period_time" && value > 0) {
-            this.setState({ required_num_reviews:3});
-            data['required_num_reviews'] = 3;
         }
 
         if (name == "include_collaborative_feedback") {
@@ -75,9 +92,7 @@ var TemplateSetUp = React.createClass({
         }
 
         data[name] = value;
-        this.setState({ success: undefined});
-        this.setState({ error: {}});
-        this.setState({name:value});
+
         $.ajax({
             type: 'POST',
             url: '/admin/templates',
@@ -85,7 +100,9 @@ var TemplateSetUp = React.createClass({
             dataType: 'json',
         })
         .success(function(result) {
-            this.setState({ id: result['id'] });
+            if (result['id']) {
+                this.setState({ id: result['id'] });
+            }
             this.props.addId(this.state.id); 
             this.setState({success:name});
         }.bind(this))
@@ -96,9 +113,14 @@ var TemplateSetUp = React.createClass({
     },
     render: function() {
         var fields = ["title","description","include_collaborative_feedback","required_num_reviews","required_period_time"];
-        var groupClass = [], successClass = [], helpBlock = [], errValue = "";
+        var groupClass = [], successClass = [], helpBlock = [], errValue = "",focusField = [];
         var errKey = _.keys(this.state.error)[0];
         var successKey = this.state.success;
+
+        if (this.props.templateInfo) {
+            savedTemplate = JSON.parse(this.props.templateInfo);
+            templateId = savedTemplate['id'];
+        }
 
         if (_.values(this.state.error)[0]) {
             errValue = _.values(this.state.error)[0][0];
@@ -115,7 +137,7 @@ var TemplateSetUp = React.createClass({
             groupClass[field] = classNames({
                 'form-group': true,
                 'col-md-10': true,
-            'has-error': errKey == field
+                'has-error': errKey == field
             });
 
             if (errKey == field) {
@@ -138,10 +160,11 @@ var TemplateSetUp = React.createClass({
                     &nbsp;  <span className={successClass['title']}><i className="fa fa-check"></i></span>
                     <input 
                     name="title" 
+                    ref="title"
                     className="form-control" 
                     type="text" 
-                    required={true} 
                     value={this.props.title} 
+                    defaultValue={savedTemplate['title']}
                     onChange={this.handleChange} 
                     onBlur={this.saveChange}
                     />
@@ -156,6 +179,7 @@ var TemplateSetUp = React.createClass({
                     name="description"
                     className="form-control" 
                     value={this.props.description} 
+                    defaultValue={savedTemplate['description']}
                     onChange={this.handleChange} 
                     onBlur={this.saveChange}
                     disabled ={!this.state.id}

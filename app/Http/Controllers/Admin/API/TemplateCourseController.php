@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\API;
 
 use Illuminate\Http\Request;
 
@@ -24,7 +24,7 @@ class TemplateCourseController extends Controller
             $this->validate($request, [
                 'course_id' => 'required',
                 'course_title' => 'required',
-                'course_url' => 'required'
+                'course_url' => 'required|url'
             ]);
 
             $templateCourse = TemplateCourse::find($request['template_course_id']);
@@ -39,8 +39,8 @@ class TemplateCourseController extends Controller
             $this->validate($request, [
                 'template_id' => 'required',
                 'course_id' => 'required',
-                'course_title' => 'unique:template_courses,course_title|required',
-                'course_url' => 'required'
+                'course_title' => 'required',
+                'course_url' => 'required|url'
             ]);
 
             $templateCourse = TemplateCourse::create([

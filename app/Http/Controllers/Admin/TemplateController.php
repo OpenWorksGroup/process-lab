@@ -8,8 +8,16 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Template;
+use App\TemplateCourse;
+use App\Tag;
+use App\TagRelationship;
 use App\User;
+use App\TemplateSection;
+use App\TemplateSectionField;
+use App\TemplateRubric;
+use App\CompetencyFrameworkCategories;
 use Log;
+use DB;
 
 
 /**
@@ -52,7 +60,7 @@ class TemplateController extends Controller
 		if ($request['id']) {
 
 			$this->validate($request, [
-				'title' => 'bail|sometimes|filled|unique:templates,title',
+				'title' => 'bail|sometimes|filled|unique:templates,title,'.$request['id'],
 				'description' => 'bail|sometimes|filled',
                 'required_num_reviews' => 'bail|sometimes|filled|integer|min:0',
                 'required_period_time' => 'bail|sometimes|filled|integer|min:0'
@@ -110,5 +118,51 @@ class TemplateController extends Controller
 
             return $template;
         }
+    }
+
+    public function edit($templateId)
+    {
+        $template = Template::find($templateId);
+        $templateCourse = TemplateCourse::where('template_id', '=', $templateId)->first();
+        $tagRelSearch = TagRelationship::where('template_id', '=', $templateId)->get();
+
+        $tags = [];
+        if ($tagRelSearch) {
+            foreach ($tagRelSearch as $tagRel){
+                $tagSearch = Tag::find($tagRel['tag_id']);
+                array_push($tags,$tagSearch['tag']);
+            }
+        }
+
+        $templateSection = TemplateSection::where('template_id', '=', $templateId)->get();
+        $sectionFields = [];
+        if ($templateSection) {
+            foreach ($templateSection as $section){
+                $templateSectionField = TemplateSectionField::where('template_section_id', '=', $section['id'])->get();
+                array_push($sectionFields,$templateSectionField);
+            }
+        }
+        $frameworkId = '';
+        $templateRubric = TemplateRubric::where('template_id', '=', $templateId)->get();
+        if (count($templateRubric) > 0) {
+            $frameworkId = $templateRubric[0]['competency_framework_id'];
+        }
+        $rubricCompetencies = CompetencyFrameworkCategories::where('framework_id', '=', $frameworkId)->get();
+
+
+        //dd($rubricCompetencies);
+       // Log::info($tagRelSearch);
+       // Log::info($tags);
+        return view('admin.editTemplate')->with([
+            'pageTitle'=>'Edit Template',
+            'template' => $template,
+            'course' => $templateCourse,
+            'tags' => json_encode($tags),
+            'sections' => $templateSection,
+            'sectionsFields' => json_encode($sectionFields),
+            'rubric' => $templateRubric,
+            'rubricCompetencies' => $rubricCompetencies,
+            'id' => $templateId
+        ]);     
     }
 }

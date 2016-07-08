@@ -25,7 +25,7 @@ class TemplateSectionController extends Controller
 			if ($request['section_title']) {
 				if ($request['section_title'] != $templateSection->section_title) {
 					$this->validate($request, [
-                	'section_title' => 'filled' //add unique per template validation
+                	'section_title' => 'filled|unique:template_sections,section_title,NULL,id,template_id,'.$request['template_id'].'' 
             		]); 
 					$templateSection->section_title = $request['section_title'];
 				}
@@ -37,7 +37,7 @@ class TemplateSectionController extends Controller
     	else {
 
     		$this->validate($request, [
-                'section_title' => 'required|filled' //add unique per template validation
+                'section_title' => 'required|unique:template_sections,section_title,NULL,id,template_id,'.$request['template_id'].''
             ]); 
 
             $templateSection = TemplateSection::create([

@@ -24,7 +24,6 @@ var CreateCompetencyFramework = React.createClass({
         .success(function(frameworks) {
             _.each(frameworks, function(framework){
                 if (framework['id'] == frameworkId) {
-                    console.log("hel "+framework['framework']);
                     frameworkName = framework['framework'];
                 }
             });
@@ -96,8 +95,6 @@ var CreateCompetencyFramework = React.createClass({
         var framework = this.state.framework;
         var cf_id = this.state.cf_id;
         cfId = this.props.frameworkId;
-
-        console.log('cf_id '+framework);
 
         successClass['submit_result'] = classNames({
             'text-success': true,

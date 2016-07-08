@@ -10,23 +10,34 @@ var classNames = require('classnames');
 var TagsEditor = React.createClass({
 
   getInitialState: function() {
-	 $.ajax({
-	   type: 'GET',
-	   url: '/api/content-tags'
-	 })
-	 .success(function(dataTags) {
-		  _.each(dataTags, function(dataTag){
+    $.ajax({
+       type: 'GET',
+       url: '/api/content-tags'
+     })
+     .success(function(dataTags) {
+         _.each(dataTags, function(dataTag){
             if (dataTag['type'] == "content") {
                 contentTags.push(dataTag['tag']);
             }
-		  });
-	 });
+        });
+     });
 
-	 return {
-		  tags: [],
-		  suggestions: contentTags,
-      error: undefined,
-      success: undefined
+    var savedTags = [];
+    if (this.props.tags) {
+        var tags = JSON.parse(this.props.tags);
+        _.each(tags, function(tag) {
+            savedTags.push({
+                id: tags.length + 1,
+                text: tag
+            });
+        });
+    }
+
+    return {
+        tags: savedTags,
+        suggestions: contentTags,
+        error: undefined,
+        success: undefined
     }
   },
   handleDelete: function(i) {
@@ -114,9 +125,13 @@ var TagsEditor = React.createClass({
     this.setState({ tags: tags });
     },
     render: function() {
-      var tags = this.state.tags,groupClass = [];
+      var tags = this.state.tags,groupClass = [], idOk = false;
       var suggestions = this.state.suggestions;
       var errValue = "";
+
+      if (this.props.id || this.props.editId) {
+           idOk = true
+        }
 
       if (this.state.error) {
           errValue = this.state.error;
@@ -128,25 +143,52 @@ var TagsEditor = React.createClass({
         'has-error': this.state.error
       });
 
-      return (
-        <div className={groupClass['tags']} id="tags-editor">
+     // console.log(this.props.editId);
 
-        {this.state.success ?
-              <FormSavedNotice/>
-              : null}
-        <label htmlFor='tags' className="control-label">Template Tags</label>
-        <ReactTags tags={tags}
-        suggestions={contentTags}
-        handleDelete={this.handleDelete}
-        handleAddition={this.handleAddition}
-        handleDrag={this.handleDrag}
-        autofocus={false}
-        minQueryLength={2}
-        />
+      if (idOk == false){
 
-        <span className="help-block text-danger">{errValue}</span>
-      </div>
-    )
+        return (
+          <div className={groupClass['tags']} id="tags-editor">
+            <label htmlFor='tags' className="control-label">Template Tags</label>
+            <div className="ReactTags__tags">
+              <div className="ReactTags__selected">
+                <div className="ReactTags__tagInput">
+                  <input 
+                  name="tags" 
+                  className="form-control" 
+                  type="text" 
+                  disabled ={!this.props.id}
+                  placeholder="Add new tag" 
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+        );
+      }
+      else {
+
+        return (
+          <div className={groupClass['tags']} id="tags-editor">
+
+          {this.state.success ?
+                <FormSavedNotice/>
+                : null}
+          <label htmlFor='tags' className="control-label">Template Tags</label>
+          <ReactTags tags={tags}
+          suggestions={contentTags}
+          handleDelete={this.handleDelete}
+          handleAddition={this.handleAddition}
+          handleDrag={this.handleDrag}
+          autofocus={false}
+          minQueryLength={2}
+          />
+
+          <span className="help-block text-danger">{errValue}</span>
+        </div>
+      )
+    }
   }
 });
 

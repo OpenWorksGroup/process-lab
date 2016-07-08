@@ -8,9 +8,28 @@ import SubjectTags from './components/mockups/subject_tags.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');
+  var templateInfo = $('#template').attr('data-templateInfo');
+  var courseInfo = $('#template').attr('data-courseInfo');
+  var tags = $('#template').attr('data-tags');
+  var sections = $('#template').attr('data-sections');
+  var sectionsFields = $('#template').attr('data-sectionsFields');
+  var rubric = $('#template').attr('data-rubric');
+  var rubricCompetencies = $('#template').attr('data-rubricCompetencies');
 
   if (templateForm) {
-    ReactDOM.render(<TemplateForm />,templateForm);
+    if (templateInfo) {
+      ReactDOM.render(<TemplateForm 
+        rubric={rubric}
+        rubricCompetencies={rubricCompetencies}
+        sections={sections}
+        sectionsFields={sectionsFields}
+        tags={tags} 
+        courseInfo={courseInfo} 
+        templateInfo={templateInfo}/>,templateForm);      
+    }
+    else {
+      ReactDOM.render(<TemplateForm />,templateForm);
+    }
   }
 
   var competencyFrameworkForm  = document.querySelector('#competency-framework-editor');
