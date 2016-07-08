@@ -1,25 +1,8 @@
 ## VIF Process Lab
-This project recommends the use of Laravel Homestead 5.2 for development, which includes the following software:
-* Ubuntu 14.04
-* Git			- version control system
-* PHP 7.0
-* HHVM			- virtual machine designed for executing programs written in Hack and PHP
-* Nginx			- web server
-* MySQL			- relational database management system
-* MariaDB			- database server
-* Sqlite3			- relational database management system contained in a C programming library. embedded in end programs, NOT CLIENT-SERVER
-* Postgres		- object-relational database management system
-* Composer		- Dependency Management for PHP
-* Node (With PM2, Bower, Grunt, and Gulp)	-
- *	Bower		- package manager
- *	Grunt		- javascript task runner
- *	Gulp		- build system
-* Redis			- in-memory data structure store
-* Memcached		- distributed memory caching system
-* Beanstalkd		- fast work queue
+This project recommends the use of Laravel Homestead 5.2 for development.
 
 ### Installation Instructions
-1. Install Laravel Homestead 5.2 by following the [official instructions](https://laravel.com/docs/5.2/homestead).  
+1. Install Laravel Homestead 5.2, official instructions can be found [here](https://laravel.com/docs/5.2/homestead).  
    * You will need to install [Vagrant](https://www.vagrantup.com/downloads.html) and a hypervisor, either [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMWare](http://www.vmware.com/), to run the virtual machine.
 
    * Setup up the homestead vagrant box: 
@@ -32,13 +15,13 @@ This project recommends the use of Laravel Homestead 5.2 for development, which 
    ```
    $    git clone https://github.com/laravel/homestead.git Homestead
    ```  
-   * Initialize Homestead by running: 
+   * To initialize Homestead, navigate to the Homestead folder and run: 
    ```
    $    bash init.sh
    ```  
    This will create the homestead.yaml file into ~/.homestead 
 
-2. Cloning the process labs repository 
+2. Clone the process labs repository 
    * In your home directory, create a folder to house your homestead projects.
    * Clone the process labs into its own folder within this 'projects' folder.
 
@@ -48,24 +31,34 @@ This project recommends the use of Laravel Homestead 5.2 for development, which 
    ```
    $    ssh-keygen -t rsa -C "youremail@here.com"
    ```
+   This will create a `.ssh` folder in your home directory.
    * Set up your homestead projects folder to sync with the virtual machine by adding it under `folders`:
    ```
    folders:
-       - map: ~/sites
-         to: /home/vagrant/sites
+       - map: ~/projects
+         to: /home/vagrant/projects
    ```
    * Add the process labs as one of your `sites`:
    ```
    sites:
        - ...
          ...
-       - map: dml.app
-         to: /home/vagrant/<homestead-projects>/<process-labs>/public
+       - map: processlabs.app
+         to: /home/vagrant/projects/process_labs/public
    ```
+   * To map this site to your localhost, append the following line to your systems hosts file:
+   ```
+   127.0.0.1	processlabs.app
+   ```
+   This will allow us to view the process labs locally by going to this domain.
 4. Set up the process labs repository.  
-   * Clone the repo into your projects folder.
-   * SSH into vagrant.
-   
+   * We will need to start running our commands in the virtual machine. To do this we must start up the vagrant box and then ssh into it
+   , which is done by running the following from our Homestead directory:
+   ```
+   $    vagrant up
+   $    vagrant ssh
+   ```
+   * Navigate to your process labs directory within the virtual machine.
    * Install the composer dependencies:
    ```
    $    composer install
@@ -79,10 +72,9 @@ This project recommends the use of Laravel Homestead 5.2 for development, which 
    This command may result in error `npm ERR! Maximum call stack size exceeded`.
    If this happens, run `npm install --no-bin-links` again and it should finish installing the dependencies.
 
-   * Install bower packages:
+   * Install bower dependencies:
    ```
-   $    bower install bootstrap-sass-official --save
-   $    bower install jquery --save
+   $    bower install
    ```
 
    * Generate MySQL DB tables and roles:
@@ -100,16 +92,4 @@ This project recommends the use of Laravel Homestead 5.2 for development, which 
    (For error `Error: ENOENT: no such file or directory, scandir '/home/vagrant/sites/DMLmh/node_modules/node-sass/vendor'`
    run `npm install node-sass`)
 
-.yaml file ~/.homestead
-
-start vm: 
-homestead up
-homestead ssh
-
-php artisan migrate - generates MySQL DB tables
-php artisan bouncer:seed - adds roles to DB. For roles see: App\Providers\BouncerServiceProvider.php
-
-start server: 
-serve processlab.dev /home/vagrant/Projects/processlab/public
-
-localhost: http://processlab.dev:8000
+5. You're done, open `http://processlabs.app:8000` in your browser to view your local process labs site!
