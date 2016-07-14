@@ -53,11 +53,13 @@ $(() => {
   var feedbackSwitchForm = document.querySelector('#feedback-switch');
   var contentId = $('#feedback-switch').attr('data-contentId');
   var sectionId = $('#feedback-switch').attr('data-sectionId');
+  var sectionComments = $('#feedback-switch').attr('data-sectionComments');
 
   if (feedbackSwitchForm) {
     ReactDOM.render(<FeedbackSwitchForm 
     contentId={contentId} 
     sectionId={sectionId} 
+    sectionComments={sectionComments}
     loadInfo={loadInfo}/>,feedbackSwitchForm);
   }
 

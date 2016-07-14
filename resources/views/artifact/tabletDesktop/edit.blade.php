@@ -17,7 +17,8 @@
             <div class="text-right">
                 <div id="feedback-switch"
                 data-contentId="{{ $contentId }}" 
-                data-sectionId="{{ $sectionId }}">
+                data-sectionId="{{ $sectionId }}"
+                data-sectionComments="{{ $sectionsComments }}">
                 </div> 
             </div>
         </div>

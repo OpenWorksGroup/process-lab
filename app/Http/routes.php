@@ -60,6 +60,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/artifact-notes/{contentId}', 'Artifact\NotesController@edit');
     Route::post('/artifact-notes', 'Artifact\NotesController@store');
     Route::get('/artifact-tags/{contentId}', 'Artifact\TagsController@edit');
+    Route::post('/artifact-feedback-switch', 'Artifact\ContentSectionCommentController@store');
 });
 
 /* Admin Routes */

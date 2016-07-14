@@ -11,6 +11,7 @@ use App\TemplateSectionField;
 use App\ContentFieldContent;
 use App\Content;
 use App\ContentStatus;
+use App\ContentSectionComment;
 Use Mobile_Detect;
 Use Log;
 
@@ -52,6 +53,18 @@ class SectionController extends Controller
             array_push($loadInfo['fields'],$loadField);
         }
 
+        $feedbackSetting = [];
+        $feedbackSetting['feedbackOn'] = false;
+        $contentSectionComment = ContentSectionComment::where('content_id', '=', $contentId)
+                                                        ->where('template_section_id', '=', $templateSection->id)
+                                                        ->first();
+        if (!empty($contentSectionComment)) {
+            if ($contentSectionComment->feedback_on == 1) {
+                $feedbackSetting['feedbackOn'] = true;
+                $feedbackSetting['id'] = $contentSectionComment->id;
+            }
+        }
+
 
        // dd($loadInfo);
        
@@ -73,6 +86,7 @@ class SectionController extends Controller
             'contentId' => $contentId,
             'contentTitle' => $contentTitle,
             'sectionId' => $sectionId,
+            'sectionsComment' => json_encode($feedbackSetting),
             'otherSections' => $templateSections,
             'buildLink' => "/artifact-builder/".$templateId,
             'tagsLink' => "/artifact-tags/".$contentId,
@@ -90,7 +104,8 @@ class SectionController extends Controller
             'contentId' => $contentId,
             'contentTitle' => $contentTitle,
             'sectionId' => $sectionId,
-            'templateId' => $templateId
+            'templateId' => $templateId,
+            'sectionsComments' => json_encode($feedbackSetting)
             ]); 
         }
 
