@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TagsEditor from '../Class/template_tags_editor.jsx';
+import TagsEditor from '../Class/tags_editor.jsx';
 
 var SubjectTags = React.createClass({
 
