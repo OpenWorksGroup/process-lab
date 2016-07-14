@@ -42,6 +42,10 @@
         $.ajaxSetup({
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
         });
+
+        $(document).ready(function () {
+            $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+        });
     </script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <script src="{{ asset('/js/components.js') }}"></script>

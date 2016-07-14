@@ -200,9 +200,12 @@ div.ReactTags__suggestions ul li.active {
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:active
- { 
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > ul > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover, 
+.navbar-inverse .navbar-nav > .active > a:focus {
   text-decoration: underline;
+  background-color: $aqua !important;
 }
 
 .navbar-inverse .navbar-nav > ul > li {
