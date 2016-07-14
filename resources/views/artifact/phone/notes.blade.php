@@ -3,6 +3,13 @@
 @section('content')
 
 <div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="phoneLinks"><a href="{{ $buildLink }}">Build</a></div>
+        </div>
+    </div>
+    
     <div class="row">
         <div class="col-md-10">
             <div class="text-center">
@@ -17,24 +24,6 @@
     </div>
 
     <div class="vertical-spacer-40">&nbsp;</div>
-    
-    <div class="row">
-        <div class="col-md-12">
-            <div class="phoneLinks"><a href="{{ $buildLink }}">Build</a></div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="phoneLinks"><a href="{{ $tagsLink }}">Tag</a></div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="phoneLinks"><a href="{{ $collaborateLink }}">Collaborate</a></div>
-        </div>
-    </div>
 
     @if($otherSections)
         @foreach($otherSections as $section)
@@ -45,6 +34,18 @@
             </div>
         @endforeach
     @endif
+
+       <div class="row">
+        <div class="col-md-12">
+            <div class="phoneLinks"><a href="{{ $tagsLink }}">Tag</a></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="phoneLinks"><a href="{{ $collaborateLink }}">Collaborate</a></div>
+        </div>
+    </div>
 
 </div>
 

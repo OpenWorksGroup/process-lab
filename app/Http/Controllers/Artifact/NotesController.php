@@ -49,7 +49,7 @@ class NotesController extends Controller
                 'note' => $note,
                 'otherSections' => $templateSections,
                 'buildLink' => "/artifact-builder/".$content->template_id,
-                'tagsLink' => "/artifact-tags/".$content->template_id,
+                'tagsLink' => "/artifact-tags/".$contentId,
                 'collaborateLink' => "",
                 'notesLink' => "/artifact-notes/".$contentId,
             ]);
