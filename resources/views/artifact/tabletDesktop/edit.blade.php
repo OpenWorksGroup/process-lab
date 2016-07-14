@@ -12,6 +12,18 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-10">
+            <div class="text-right">
+                <div id="feedback-switch"
+                data-contentId="{{ $contentId }}" 
+                data-sectionId="{{ $sectionId }}">
+                </div> 
+            </div>
+        </div>
+    </div>
+
+
     <div id="section-fields" 
     data-contentId="{{ $contentId }}" 
     data-sectionId="{{ $sectionId }}" 

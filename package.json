@@ -33,6 +33,7 @@
     "react-modal-bootstrap": "^1.0.0",
     "react-select": "^0.9.1",
     "react-tag-input": "^3.0.0",
-    "react-tinymce": "^0.5.1"
+    "react-tinymce": "^0.5.1",
+    "react-toggle": "^2.1.1"
   }
 }

@@ -8,6 +8,7 @@ import SubjectTags from './components/mockups/subject_tags.jsx';
 import SectionFieldsForm from './components/section.jsx';
 import ContentNotesForm from './components/content_notes.jsx';
 import TagsForm from './components/tags.jsx';
+import FeedbackSwitchForm from './components/feedback_switch.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');
@@ -47,6 +48,17 @@ $(() => {
         else {
             ReactDOM.render(<CompetencyFrameworkForm />,competencyFrameworkForm);
         }
+  }
+
+  var feedbackSwitchForm = document.querySelector('#feedback-switch');
+  var contentId = $('#feedback-switch').attr('data-contentId');
+  var sectionId = $('#feedback-switch').attr('data-sectionId');
+
+  if (feedbackSwitchForm) {
+    ReactDOM.render(<FeedbackSwitchForm 
+    contentId={contentId} 
+    sectionId={sectionId} 
+    loadInfo={loadInfo}/>,feedbackSwitchForm);
   }
 
   var sectionForm = document.querySelector('#section-fields');
