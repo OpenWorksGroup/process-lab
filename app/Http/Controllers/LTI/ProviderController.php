@@ -17,6 +17,10 @@ use Bouncer;
 
 class ProviderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('lti');
+    }
 
     public function store(Request $request)
     {
@@ -70,7 +74,8 @@ class ProviderController extends Controller
                     return;
                 }
                 
-               // $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
+                //Update this to use htttp vars
+              //  $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
                 $string1 = 'POST&https%3A%2F%2Fdml.viflearn.com%2Flti%2Fauth&';
 
                 $keys = UtilitiesClass::urlencode_rfc3986(array_keys($input));
@@ -201,7 +206,7 @@ class ProviderController extends Controller
             }
             else
             {
-                return redirect('/dashboard/'.$user->id);  
+                return redirect('/dashboard);  
             }
     }
 }

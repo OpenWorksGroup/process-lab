@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\CompetencyFrameworkCategories;
+use App\CompetencyFrameworkCategory;
 
 class CompetencyFrameworkCategoryController extends Controller
 {
@@ -15,7 +15,7 @@ class CompetencyFrameworkCategoryController extends Controller
     {
     	if ($request['category_id'])
     	{
-    		$category = CompetencyFrameworkCategories::find($request['category_id']);
+    		$category = CompetencyFrameworkCategory::find($request['category_id']);
 
 			if ($request['category'] != $category->category) {
     			$this->validate($request, [

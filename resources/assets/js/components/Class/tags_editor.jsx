@@ -43,7 +43,15 @@ var TagsEditor = React.createClass({
   handleDelete: function(i) {
     this.setState({ error: undefined});
     var data = {};
-    data['template_id'] = this.props.id;
+
+    if (this.props.id) {
+        data['template_id'] = this.props.id;
+    }
+
+    if (this.props.contentId) {
+        data['content_id'] = this.props.contentId;
+    }
+
 
     var tags = this.state.tags;
     var tag = tags[i]['text'];
@@ -78,12 +86,23 @@ var TagsEditor = React.createClass({
     this.setState({ success: undefined});
 
     var data = {}; 
-    if (this.props.id) {      
+    if (this.props.id && !this.props.contentId) {      
       data['template_id'] = this.props.id;
     }
-    else {
+
+    if (this.props.contentId) {
+        data['content_id'] = this.props.contentId;
+    }
+
+    // not great logic: if tags_ditor is being used for template admin a title is required
+    // probably move this to controller
+    if (!this.props.id && !this.props.contentId) {
       this.setState({ error: "Please add a Title above." });
       return;
+    }
+
+    if (this.props.contentId) {
+        data['content_id'] = this.props.contentId;
     }
 
     data['tag'] = tag;
@@ -129,7 +148,7 @@ var TagsEditor = React.createClass({
       var suggestions = this.state.suggestions;
       var errValue = "";
 
-      if (this.props.id || this.props.editId) {
+      if (this.props.id || this.props.editId || this.props.contentId) {
            idOk = true
         }
 
@@ -157,7 +176,6 @@ var TagsEditor = React.createClass({
                   name="tags" 
                   className="form-control" 
                   type="text" 
-                  disabled ={!this.props.id}
                   placeholder="Add new tag" 
                   />
                 </div>
@@ -175,7 +193,8 @@ var TagsEditor = React.createClass({
           {this.state.success ?
                 <FormSavedNotice/>
                 : null}
-          <label htmlFor='tags' className="control-label">Template Tags</label>
+
+        <label htmlFor='tags' className="control-label">Tags</label>
           <ReactTags tags={tags}
           suggestions={contentTags}
           handleDelete={this.handleDelete}

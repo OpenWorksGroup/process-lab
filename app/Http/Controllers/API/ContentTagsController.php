@@ -26,12 +26,14 @@ class ContentTagsController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $template_id = $input['template_id'];
+        if (!empty($input['template_id'])) {
+            $template_id = $input['template_id'];
+        }
+        if (!empty($input['content_id'])) {
+            $content_id = $input['content_id'];
+        }
         $tag = trim($input['tag']);
         $user = Auth::user();
-
-        /** TO DO
-        * This assumes tags are being added for a template. May also be for artifact or elsewhere */
 
        // Log::info('Template Id: '.$templateId);
        // Log::info('TAG: '.$tag);
@@ -56,20 +58,37 @@ class ContentTagsController extends Controller
             $tagId = $tagNew->id;
         }
 
-        $tagRelSearch = TagRelationship::where('tag_id', '=', $tagId)
-                        ->where('template_id', '=', $template_id)
-                        ->first();
+        if (!empty($template_id)) {
+
+            $tagRelSearch = TagRelationship::where('tag_id', '=', $tagId)
+                                            ->where('template_id', '=', $template_id)
+                                            ->first();
+        }
+        else {
+            $tagRelSearch = TagRelationship::where('tag_id', '=', $tagId)
+                                            ->where('content_id', '=', $content_id)
+                                            ->first();
+        }
 
         if ($tagRelSearch) 
         {
             return response()->json(['tag' => $tag, 'message' => ' has already been added.'], 422); 
         }
         else {
-           $tagRel = TagRelationship::create([
-                'tag_id' => $tagId,
-                'template_id' => $template_id,
-                'user_id' => $user->id
-            ]); 
+            if (!empty($template_id)) {
+                $tagRel = TagRelationship::create([
+                    'tag_id' => $tagId,
+                    'template_id' => $template_id,
+                    'user_id' => $user->id
+                ]); 
+            }
+            else {
+                $tagRel = TagRelationship::create([
+                    'tag_id' => $tagId,
+                    'content_id' => $content_id,
+                    'user_id' => $user->id
+                ]); 
+            }
         }
         return response()->json(['success' => $tag + ' added.'], 200); 
     }
@@ -77,9 +96,16 @@ class ContentTagsController extends Controller
     public function destroy(Request $request)
     {
         $input = $request->all();
-        if ($input['template_id'])
-        {
+        if (!empty($input['template_id'])) {
             $template_id = $input['template_id'];
+        }
+        if (!empty($input['content_id'])) {
+            $content_id = $input['content_id'];
+        }
+
+        //Note: not sure why we're checking this
+        if ($template_id || $content_id)
+        {
             $tag = trim($input['tag']);
 
             $tagSearch = Tag::where('tag', '=', $tag)

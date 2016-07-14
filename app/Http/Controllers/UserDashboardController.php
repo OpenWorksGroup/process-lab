@@ -5,19 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\User;
+use Illuminate\Support\Facades\Auth;
+use Bouncer;
 
 class UserDashboardController extends Controller
 {
-    public function index($userId)
+    public function index()
     {
-        $user = User::find($userId);
-        if (empty($user)) abort(404);
-       
+        $user = Auth::user();
 
-        return view('userDashboard')->with([
-            'pageTitle'=>$user->name." Dashboard",
-            'userName' => $user->name
+        if (Bouncer::is($user)->an('admin')){
+            return view('admin.userDashboard')->with([
+				'pageTitle'=>$user->name." Dashboard",
+				'userName' => $user->name
+            ]);  
+		}
+		else {
+           return view('dashboard')->with([
+				'pageTitle'=>$user->name." Dashboard",
+				'userName' => $user->name
             ]);    
+		}
+          
     }
 }

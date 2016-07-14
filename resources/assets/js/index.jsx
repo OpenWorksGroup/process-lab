@@ -5,6 +5,9 @@ import CompetencyFrameworkForm from './components/competency_framework_form.jsx'
 /** mockups **/
 import GradeTags from './components/mockups/grade_tags.jsx';
 import SubjectTags from './components/mockups/subject_tags.jsx';
+import SectionFieldsForm from './components/section.jsx';
+import ContentNotesForm from './components/content_notes.jsx';
+import TagsForm from './components/tags.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');
@@ -15,6 +18,7 @@ $(() => {
   var sectionsFields = $('#template').attr('data-sectionsFields');
   var rubric = $('#template').attr('data-rubric');
   var rubricCompetencies = $('#template').attr('data-rubricCompetencies');
+
 
   if (templateForm) {
     if (templateInfo) {
@@ -45,6 +49,39 @@ $(() => {
         }
   }
 
+  var sectionForm = document.querySelector('#section-fields');
+  var contentId = $('#section-fields').attr('data-contentId');
+  var sectionId = $('#section-fields').attr('data-sectionId');
+  var loadInfo = $('#section-fields').attr('data-loadInfo');
+
+  if (sectionForm) {
+    ReactDOM.render(<SectionFieldsForm 
+    contentId={contentId} 
+    sectionId={sectionId} 
+    loadInfo={loadInfo}/>,sectionForm);
+  }
+
+  var notes = document.querySelector('#notes');
+  var contentId = $('#notes').attr('data-contentId');
+  var notesData = $('#notes').attr('data-notes');
+
+  if (notes) {
+    ReactDOM.render(<ContentNotesForm 
+    contentId={contentId} 
+    notes={notesData} 
+    />,notes);
+  }
+
+  var tags = document.querySelector('#tags');
+  var contentId = $('#tags').attr('data-contentId');
+  var tagsData = $('#tags').attr('data-tags');
+
+  if (tags) {
+    ReactDOM.render(<TagsForm 
+    contentId={contentId} 
+    tags={tagsData} 
+    />,tags);
+  }
 
   /** mockups  **/
   var gradeTags  = document.querySelector('#grade-tags');

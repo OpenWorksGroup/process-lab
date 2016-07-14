@@ -15,7 +15,7 @@ use App\User;
 use App\TemplateSection;
 use App\TemplateSectionField;
 use App\TemplateRubric;
-use App\CompetencyFrameworkCategories;
+use App\CompetencyFrameworkCategory;
 use Log;
 use DB;
 
@@ -147,7 +147,7 @@ class TemplateController extends Controller
         if (count($templateRubric) > 0) {
             $frameworkId = $templateRubric[0]['competency_framework_id'];
         }
-        $rubricCompetencies = CompetencyFrameworkCategories::where('framework_id', '=', $frameworkId)->get();
+        $rubricCompetencies = CompetencyFrameworkCategory::where('framework_id', '=', $frameworkId)->get();
 
 
         //dd($rubricCompetencies);

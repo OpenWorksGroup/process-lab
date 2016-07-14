@@ -20,26 +20,18 @@
 
 </head>
 <body id="app-layout">
- <div class="navbar navbar-inverse navbar-fixed-left">
-  <a class="navbar-brand" href="#">VIF Process Lab</a>
-  <ul class="nav navbar-nav">
-   <li><a href="artifact-builder">Build</a></li>
-    <ul role="menu">
-    <li><a href="/artifact-builder/ask">Ask</a></li>
-    <li><a href="#">Investigate</a></li>
-    <li><a href="#">Synthesize</a></li>
-    <li><a href="#">Share</a></li>
-    <li><a href="#">Reflect</a></li>
+    <div class="navbar navbar-inverse navbar-fixed-left">
+    <a class="navbar-brand" href="/dashboard">VIF Process Lab</a>
+
+
+  @if(! empty($contentId))
+    <ul class="nav navbar-nav">
+      @include('partials.sectionsNav')
+      <li><a href="/artifact-tags/{{ $contentId }}">Tag</a></li>
+      <li><a href="#">Collaborate</a></li>
+      <li><a href="/artifact-notes/{{ $contentId }}">Notes from the field</a></li>
     </ul>
-   <li><a href="/artifact-builder/tag">Tag</a></li>
-   <li><a href="#">Collaborate</a></li>
-   <li><a href="#">Notes from the field</a></li>
-  </ul>
-  <ul class="nav navbar-nav">
-    <li><button href="#" class="btn btn-default">Submit for Peer Review</a></button>
-    <li><br/></li>
-    <li><button href="#" class="btn btn-default">Submit for Expert Review</a></button>
-    </ul>
+    @endif
 </div>
 
     @yield('content')
@@ -51,6 +43,8 @@
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
         });
     </script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <script src="{{ asset('/js/components.js') }}"></script>
+
 </body>
 </html>

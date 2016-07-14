@@ -26,7 +26,13 @@
     "react": "^15.1.0",
     "react-crouton": "^0.2.7",
     "react-dom": "^15.1.0",
+    "react-dropzone": "^3.5.3",
+    "react-images": "^0.4.6",
+    "react-loader": "^2.4.0",
+    "react-modal": "^1.4.0",
+    "react-modal-bootstrap": "^1.0.0",
     "react-select": "^0.9.1",
-    "react-tag-input": "^3.0.0"
+    "react-tag-input": "^3.0.0",
+    "react-tinymce": "^0.5.1"
   }
 }

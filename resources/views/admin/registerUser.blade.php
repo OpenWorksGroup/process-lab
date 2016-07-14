@@ -14,7 +14,7 @@
                 @endif
 
                 <div class="panel-body">
-                    <div class="text-warning">Note: This form will be removed once LTI is enabled.</div>
+
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/users') }}">
                         {!! csrf_field() !!}
                         

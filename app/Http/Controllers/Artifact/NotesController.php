@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Controllers\Artifact;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\ContentNote;
+use App\Content;
+use App\ContentStatus;
+use Purifier;
+Use Mobile_Detect;
+
+class NotesController extends Controller
+{
+	public function edit($contentId) {
+        
+        if (!$contentId) {
+            return response()->view('errors.'.'404');
+        }
+
+        $user = Auth::user();
+        $note="";
+        $contentNote = ContentNote::where('content_id', '=', $contentId)->first();
+        if ($contentNote) {
+        	$note = $contentNote->note;
+        }
+        $content = Content::find($contentId);
+
+        $detect = new Mobile_Detect;
+
+        $content = Content::where('id', '=', $contentId)
+                            ->where('created_by_user_id', '=', $user->id)
+                            ->first();
+
+        return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.notes')->with([
+            'pageTitle'=>"Notes from the field",
+            'contentId' => $contentId,
+            'templateId' => $content->template_id,
+            'contentTitle' => $content->title,
+            'note' => $note
+        ]); 
+    }
+
+    public function store(Request $request) {
+
+    	$notes = Purifier::clean($request['note']);
+
+    	if ($request['id']) {
+
+			$contentNote = ContentNote::find($request['id']);
+			$contentNote->note = $notes;
+
+			$contentNote->save();
+
+			$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+            $contentStatus->touch();
+
+			return $contentNote;
+		}
+		else {
+
+			$contentNote = ContentNote::create([
+				'content_id' => $request['content_id'],
+				'note' => $notes
+			]);
+
+            $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+            $contentStatus->touch();
+
+			return $contentNote;
+		}
+
+    }
+}

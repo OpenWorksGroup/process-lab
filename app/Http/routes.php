@@ -32,21 +32,34 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/',  'HomeController@index');
     Route::get('/typography', 'TypographyController@index');
     Route::get('/lti/response', 'LTI\responseController@index');
-    Route::get('/dashboard/{userId}', 'UserDashboardController@index');
+    Route::get('/dashboard', 'UserDashboardController@index');
     Route::get('/api/content-tags', 'API\ContentTagsController@index');
     Route::post('/api/content-tags', 'API\ContentTagsController@store');
     Route::delete('/api/content-tags', 'API\ContentTagsController@destroy');
+    Route::get('/artifact-rubric/{templateId}',  'Artifact\ArtifactRubricController@index');
 });  
 
-/** Artifact Mockups **/
+/** Artifact Mockups - this is temporary **/
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/artifact-builder',  'Artifact\BuilderMockupController@index');
-    Route::get('/artifact-builder/ask',  'Artifact\BuilderMockupController@buildAsk');
+  //  Route::get('/artifact-builder',  'Artifact\BuilderMockupController@index');
+  //  Route::get('/artifact-builder/ask',  'Artifact\BuilderMockupController@buildAsk');
     /*Route::get('/artifact-builder/investigate',  'Artifact\BuilderMockupController@buildInvestigate');
     Route::get('/artifact-builder/synthesize',  'Artifact\BuilderMockupController@buildSynthesize');
     Route::get('/artifact-builder/share',  'Artifact\BuilderMockupController@buildShare');
     Route::get('/artifact-builder/reflect',  'Artifact\BuilderMockupController@buildReflect');*/
-    Route::get('/artifact-builder/tag',  'Artifact\BuilderMockupController@buildTag');
+  //  Route::get('/artifact-builder/tag',  'Artifact\BuilderMockupController@buildTag');
+});
+
+/** Artifact Pages  **/
+Route::group(['middleware' => ['web','auth']], function () {
+    Route::get('/artifact-builder/{templateId}',  'Artifact\BuilderController@index');
+    Route::post('/artifact-builder',  'Artifact\BuilderController@store');
+    Route::get('/artifact/{contentId}/{sectionId}', 'Artifact\SectionController@edit');
+    Route::post('/artifact/field', 'Artifact\FieldController@store');
+    Route::delete('/artifact/field/delete','Artifact\FieldController@destroy');
+    Route::get('/artifact-notes/{contentId}', 'Artifact\NotesController@edit');
+    Route::post('/artifact-notes', 'Artifact\NotesController@store');
+    Route::get('/artifact-tags/{contentId}', 'Artifact\TagsController@edit');
 });
 
 /* Admin Routes */
