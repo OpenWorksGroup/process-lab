@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Content;
 use App\Tag;
 use App\TagRelationship;
+use App\TemplateSection;
 Use Mobile_Detect;
 
 class TagsController extends Controller
@@ -32,12 +33,35 @@ class TagsController extends Controller
 
         $detect = new Mobile_Detect;
 
-        return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.tags')->with([
-            'pageTitle'=>"Tags",
-            'contentId' => $contentId,
-            'templateId' => $content->template_id,
-            'contentTitle' => $content->title,
-            'tags' => json_encode($tags)
-        ]); 
+        if ($detect->isMobile() && !$detect->isTablet())
+       {
+            
+            $templateSections = TemplateSection::where('template_id', '=', $content->template_id)->get();
+
+       // dd($templateSections);
+
+            return view('artifact.phone.tags')->with([
+                'pageTitle'=>"Tags",
+                'contentId' => $contentId,
+                'templateId' => $content->template_id,
+                'contentTitle' => $content->title,
+                'tags' => json_encode($tags),
+                'otherSections' => $templateSections,
+                'buildLink' => "/artifact-builder/".$content->template_id,
+                'tagsLink' => "/artifact-tags/".$content->template_id,
+                'collaborateLink' => "",
+                'notesLink' => "/artifact-notes/".$contentId,
+            ]); 
+        }
+        else {
+
+            return view('artifact.tabletDesktop.tags')->with([
+                'pageTitle'=>"Tags",
+                'contentId' => $contentId,
+                'templateId' => $content->template_id,
+                'contentTitle' => $content->title,
+                'tags' => json_encode($tags)
+            ]); 
+        }
     }
 }

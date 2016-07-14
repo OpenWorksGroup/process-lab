@@ -212,6 +212,25 @@ div.ReactTags__suggestions ul li.active {
   list-style-type: none;
 }
 
+/* Links for ARtifact Builder in MObile View */
+
+.phoneLinks {
+  background-color: $aqua;
+  font-size: $font-size-large;
+  padding: 20px;
+}
+
+.phoneLinks a {
+  color: $white;
+  font-size: $font-size-large;
+  padding: 20px;
+}
+
+.phoneLinks a:hover {
+  text-decoration: underline;
+}
+
+
 .crouton {
   color: #FFF;
   line-height: 140%;

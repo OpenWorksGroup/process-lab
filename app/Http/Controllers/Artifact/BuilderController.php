@@ -84,7 +84,7 @@ class BuilderController extends Controller
     	}
        // dd($contentId);
 
-    	return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone.mockups' : 'artifact.tabletDesktop') . '.build')->with([
+    	return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.build')->with([
             'pageTitle'=>'Start Building',
             'templateId' => $template->id,
             'content' => $content[0],

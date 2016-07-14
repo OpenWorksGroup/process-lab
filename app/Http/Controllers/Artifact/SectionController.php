@@ -12,6 +12,7 @@ use App\ContentFieldContent;
 use App\Content;
 use App\ContentStatus;
 Use Mobile_Detect;
+Use Log;
 
 
 class SectionController extends Controller
@@ -36,8 +37,8 @@ class SectionController extends Controller
         $contentStatus = ContentStatus::where('content_id', '=', $contentId)->first();
         $contentTitle = $content['title'];
         $loadInfo['content_status'] = $contentStatus->status;
-        $templateSections = TemplateSection::where('id', '=', $sectionId)->first();
-        $loadInfo['section_title'] = $templateSections->section_title;
+        $templateSection = TemplateSection::where('id', '=', $sectionId)->first();
+        $loadInfo['section_title'] = $templateSection->section_title;
         $fields = TemplateSectionField::where('template_section_id', '=', $sectionId)->get();
 
         $loadInfo['fields'] = [];
@@ -56,15 +57,42 @@ class SectionController extends Controller
        
        $detect = new Mobile_Detect;
 
-        return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.edit')->with([
-            'pageTitle'=>$templateSections->section_title,
-            'sectionDescription' => $templateSections->description,
+       if ($detect->isMobile() && !$detect->isTablet())
+       {
+
+        $templateSections = TemplateSection::where('template_id', '=', $templateId)
+                                                ->where('id', '!=', $sectionId)
+                                                ->get();
+
+       // dd($templateSections);
+
+        return view('artifact.phone.edit')->with([
+            'pageTitle'=>$templateSection->section_title,
+            'sectionDescription' => $templateSection->description,
+            'loadInfo' => json_encode($loadInfo),
+            'contentId' => $contentId,
+            'contentTitle' => $contentTitle,
+            'sectionId' => $sectionId,
+            'otherSections' => $templateSections,
+            'buildLink' => "/artifact-builder/".$templateId,
+            'tagsLink' => "/artifact-tags/".$contentId,
+            'collaborateLink' => "",
+            'notesLink' => "/artifact-notes/".$contentId,
+            'templateId' => $templateId
+            ]); 
+       }
+       else {
+
+        return view('artifact.tabletDesktop.edit')->with([
+            'pageTitle'=>$templateSection->section_title,
+            'sectionDescription' => $templateSection->description,
             'loadInfo' => json_encode($loadInfo),
             'contentId' => $contentId,
             'contentTitle' => $contentTitle,
             'sectionId' => $sectionId,
             'templateId' => $templateId
             ]); 
+        }
 
     }
 }

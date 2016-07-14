@@ -17,7 +17,6 @@
     <script src="https://use.typekit.net/rqb4xyg.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
     
-
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default">
@@ -38,7 +37,7 @@
                 </a>
             </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <div class="collapse navbar-collapse" style="display:none!important" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li></li>
@@ -170,5 +169,7 @@
 
         });
     </script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="{{ asset('/js/components.js') }}"></script>
 </body>
 </html>

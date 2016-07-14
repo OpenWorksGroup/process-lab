@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\ContentNote;
 use App\Content;
 use App\ContentStatus;
+use App\TemplateSection;
 use Purifier;
 Use Mobile_Detect;
 
@@ -35,13 +36,36 @@ class NotesController extends Controller
                             ->where('created_by_user_id', '=', $user->id)
                             ->first();
 
+        if ($detect->isMobile() && !$detect->isTablet())
+       {
+
+            $templateSections = TemplateSection::where('template_id', '=', $content->template_id)->get();
+
+            return view('artifact.phone.notes')->with([
+                'pageTitle'=>"Notes from the field",
+                'contentId' => $contentId,
+                'templateId' => $content->template_id,
+                'contentTitle' => $content->title,
+                'note' => $note,
+                'otherSections' => $templateSections,
+                'buildLink' => "/artifact-builder/".$content->template_id,
+                'tagsLink' => "/artifact-tags/".$content->template_id,
+                'collaborateLink' => "",
+                'notesLink' => "/artifact-notes/".$contentId,
+            ]);
+
+       }
+       else {
+
         return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.notes')->with([
             'pageTitle'=>"Notes from the field",
             'contentId' => $contentId,
             'templateId' => $content->template_id,
             'contentTitle' => $content->title,
             'note' => $note
-        ]); 
+        ]);
+
+       } 
     }
 
     public function store(Request $request) {
