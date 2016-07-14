@@ -111,8 +111,6 @@ class BuilderController extends Controller
             $content->save();
 
             $contentStatus = ContentStatus::where('content_id', '=', $content->id)->first();
-            //$contentStatus->status = "edit";
-            //$contentStatus->save();
             $contentStatus->touch();
 
 
