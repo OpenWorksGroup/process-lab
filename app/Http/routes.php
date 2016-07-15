@@ -23,13 +23,12 @@
 |
 */
 
-
 Route::post('/lti/auth', 'LTI\ProviderController@store');
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
-    Route::get('/start',  'Admin\StartController@index');
     Route::get('/',  'HomeController@index');
+    Route::get('/start',  'Admin\StartController@index');
     Route::get('/typography', 'TypographyController@index');
     Route::get('/lti/response', 'LTI\responseController@index');
     Route::get('/dashboard', 'UserDashboardController@index');
@@ -39,16 +38,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/artifact-rubric/{templateId}',  'Artifact\ArtifactRubricController@index');
 });  
 
-/** Artifact Mockups - this is temporary **/
-Route::group(['middleware' => ['web']], function () {
-  //  Route::get('/artifact-builder',  'Artifact\BuilderMockupController@index');
-  //  Route::get('/artifact-builder/ask',  'Artifact\BuilderMockupController@buildAsk');
-    /*Route::get('/artifact-builder/investigate',  'Artifact\BuilderMockupController@buildInvestigate');
-    Route::get('/artifact-builder/synthesize',  'Artifact\BuilderMockupController@buildSynthesize');
-    Route::get('/artifact-builder/share',  'Artifact\BuilderMockupController@buildShare');
-    Route::get('/artifact-builder/reflect',  'Artifact\BuilderMockupController@buildReflect');*/
-  //  Route::get('/artifact-builder/tag',  'Artifact\BuilderMockupController@buildTag');
-});
 
 /** Artifact Pages  **/
 Route::group(['middleware' => ['web','auth']], function () {
