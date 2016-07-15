@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class StartController extends Controller
 {
+
+    /**
+    * Display Start page
+    *
+    * @param  array  $request
+    * 
+    * @return \resources\views\start.blade.php
+    */
     public function index(Request $request)
     {
         if ($request->session()->get('newSite') == true)
