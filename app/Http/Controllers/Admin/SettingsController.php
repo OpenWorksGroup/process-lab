@@ -60,6 +60,8 @@ class SettingsController extends Controller
         $settings->competency_framework_description_4 = $request['competency_framework_description_4']; 
 
         $settings->save();
+
+        $request->session()->put('siteTitle', $settings->title); 
         
         return redirect('/admin/settings')->with('success', 'Settings have been updated.');
     }

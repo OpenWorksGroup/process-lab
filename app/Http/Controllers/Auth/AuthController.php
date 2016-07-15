@@ -98,6 +98,7 @@ class AuthController extends Controller
               ]);
 
               Bouncer::assign('admin')->to($user);
+              $request->session()->put('siteTitle', $data['title']); 
           }
           
           return $user;
