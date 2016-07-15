@@ -56,12 +56,11 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                @if(Session::has('admin'))
+                                 @if(Session::has('admin'))
                                     <li><a href="{{ url('/admin') }}">Admin Dashboard</a></li>
-                                @else
-                                    <li><a href="">Dashboard</a></li>
                                 @endif
-                                <li><a href="{{ url('/logout') }}">Logout</a></li>
+                                    <li><a href="/dashboard">Dashboard</a></li>
+                                    <li><a href="{{ url('/logout') }}">Logout</a></li>
                             </ul>
                         </li>
                     @endif

@@ -57,8 +57,11 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin') }}">Admin Dashboard</a></li>
-                                <li><a href="{{ url('/logout') }}">Logout</a></li>
+                                @if(Session::has('admin'))
+                                    <li><a href="{{ url('/admin') }}">Admin Dashboard</a></li>
+                                @endif
+                                    <li><a href="/dashboard">Dashboard</a></li>
+                                    <li><a href="{{ url('/logout') }}">Logout</a></li>
                             </ul>
                         </li>
                     @endif

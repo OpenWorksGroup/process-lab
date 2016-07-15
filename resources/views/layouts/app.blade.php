@@ -59,10 +59,9 @@
                             <ul class="dropdown-menu" role="menu">
                                 @if(Session::has('admin'))
                                     <li><a href="{{ url('/admin') }}">Admin Dashboard</a></li>
-                                @else
-                                    <li><a href="">Dashboard</a></li>
                                 @endif
-                                <li><a href="{{ url('/logout') }}">Logout</a></li>
+                                    <li><a href="/dashboard">Dashboard</a></li>
+                                    <li><a href="{{ url('/logout') }}">Logout</a></li>
                             </ul>
                         </li>
                     @endif
@@ -81,5 +80,12 @@
         });
     </script>
     <script src="{{ asset('/js/components.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('#dashboardTabs a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
+    </script>
 </body>
 </html>

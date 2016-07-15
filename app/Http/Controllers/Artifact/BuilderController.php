@@ -57,7 +57,6 @@ class BuilderController extends Controller
         $contentId = '';
         $contentTitle = '';
 
-        //dd($content);
         $contentVal = [];
     	if (! $content->isEmpty()) {            
     		if (count($content) > 1) {
@@ -70,9 +69,9 @@ class BuilderController extends Controller
                $contentId = $content[0]['id'];
                $contentTitle = $content[0]['title'];
                $contentVal = $content[0];
-               dd($contentId);
     		}
     	}
+
 
     	if ($templateCourse) {
     		$loadInfo['course_id'] = $templateCourse['course_id'];
@@ -84,10 +83,9 @@ class BuilderController extends Controller
     	
     	$templateRubric = TemplateRubric::where('template_id', '=', $templateId)->get();
 
-    	if ($templateRubric) {
+    	if (! $templateRubric->isEmpty()) {
     		$loadInfo['rubric_link'] = "/artifact-rubric/".$templateId;
     	}
-       // dd($contentId);
 
     	return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.build')->with([
             'pageTitle'=>'Start Building',

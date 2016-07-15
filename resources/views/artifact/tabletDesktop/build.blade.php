@@ -33,10 +33,10 @@
     </div>
     <div class="row">
 		<div class="col-md-10">
-            @if ($loadInfo['course_id'])
+            @if (! empty($loadInfo['course_id']))
         		<div><strong>Course: </strong><a href="{{ $loadInfo['course_url'] }}" target="blank">{{ $loadInfo['course_title'] }}</a></div>
             @endif
-            @if ($loadInfo['rubric_link'])
+            @if (! empty($loadInfo['rubric_link']))
         		<div><a href="{{ $loadInfo['rubric_link'] }}" target="blank">Comptency Rubric</a></div>
             @endif
         </div>

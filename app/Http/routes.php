@@ -53,6 +53,11 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/artifact-collab/{contentId}', 'Artifact\TagsController@index');
 });
 
+/** Dashboard Pages  **/
+Route::group(['middleware' => ['web','auth']], function () {
+    Route::get('/build-list', 'Dashboard\BuildListController@index');
+});
+
 /* Admin Routes */
 
 Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
