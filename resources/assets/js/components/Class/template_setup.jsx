@@ -188,6 +188,8 @@ var TemplateSetUp = React.createClass({
                     <span className="help-block text-danger">{helpBlock['description']}</span>
                 </div>
                 
+               {/* Not using yet. DB stores default values 
+
                 <div className={groupClass['include_collaborative_feedback']}>
                     <label>
                     <input type="checkbox"
@@ -199,7 +201,7 @@ var TemplateSetUp = React.createClass({
                     />
                       &nbsp; Include Collaborative Feedback
                     </label>  
-                </div>
+                </div> */}
 
                 <div className={groupClass['required_num_reviews']}>
                     <label htmlFor='required_num_reviews' className="control-label">Designate Number of Reviewers</label>
@@ -217,6 +219,8 @@ var TemplateSetUp = React.createClass({
                     />
                     <span className="help-block text-danger">{helpBlock['required_num_reviews']}</span> 
                 </div>
+
+                {/* Not using yet. DB stores default values 
                 <div className={groupClass['required_period_time']}>
                     <label htmlFor='required_period_time' className="control-label">Designate Number of Days Allowed Per Review</label> 
                     <span className="required"><i className="fa fa-asterisk"></i></span>
@@ -232,6 +236,7 @@ var TemplateSetUp = React.createClass({
                     />
                     <span className="help-block text-danger">{helpBlock['required_period_time']}</span>
                 </div>
+                */}
             </form>
         );
     }
