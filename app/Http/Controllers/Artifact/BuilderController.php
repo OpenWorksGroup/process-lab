@@ -56,7 +56,10 @@ class BuilderController extends Controller
                             ->get();
         $contentId = '';
         $contentTitle = '';
-    	if (! empty($content)) {
+
+        //dd($content);
+        $contentVal = [];
+    	if (! $content->isEmpty()) {            
     		if (count($content) > 1) {
                 // To Do: how to handle if user has created more than one artifact per template
                 // For now defaulting to first
@@ -66,6 +69,8 @@ class BuilderController extends Controller
     		else {
                $contentId = $content[0]['id'];
                $contentTitle = $content[0]['title'];
+               $contentVal = $content[0];
+               dd($contentId);
     		}
     	}
 
@@ -87,7 +92,7 @@ class BuilderController extends Controller
     	return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.build')->with([
             'pageTitle'=>'Start Building',
             'templateId' => $template->id,
-            'content' => $content[0],
+            'content' => $contentVal,
             'contentId' => $contentId,
             'contentTitle' => $contentTitle,
             'loadInfo' => $loadInfo
