@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\CompetencyFrameworkCategory;
+use Log;
 
 class CompetencyFrameworkCategoryController extends Controller
 {
@@ -48,7 +49,10 @@ class CompetencyFrameworkCategoryController extends Controller
 
     public function retrieve(Request $request)
     {
-        $categories = CompetencyFrameworkCategories::all()->sortBy('category');
+
+        $categories = CompetencyFrameworkCategory::all()->sortBy('category');
+
+       // Log::info($categories);
         return $categories;
     }
 }

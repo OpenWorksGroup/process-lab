@@ -66,9 +66,9 @@ var RubricEditor = React.createClass({
         });
 
         //still showing selected competencies - FIX
-       // console.log("savedFrameworkCategories"+ savedFrameworkCategories);
-       // console.log("frameworkCategories"+ JSON.stringify(frameworkCategories));
-
+        console.log("savedFrameworkCategories"+ savedFrameworkCategories);
+        console.log("frameworkCategories"+ JSON.stringify(frameworkCategories));
+        console.log('framework options '+JSON.stringify(frameworkOptions));
 
         return {
             frameworkOptions: frameworkOptions,
@@ -83,9 +83,13 @@ var RubricEditor = React.createClass({
 
         this.setState({framework_id: value});
 
+        console.log(this.state.frameworkOptions);
+
         var frameworkObj = _.find(this.state.frameworkOptions, function(obj) { return obj.value == value });
-        this.setState({framework_name: frameworkObj['label']});
-        this.setState({success: "true"});
+        if (frameworkObj) {
+            this.setState({framework_name: frameworkObj['label']});
+            this.setState({success: "true"});
+        }
   
         $.ajax({
             type: 'GET',
