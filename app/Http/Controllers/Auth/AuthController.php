@@ -33,6 +33,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    protected $redirectAfterLogout = '/login';
 
     /**
      * Create a new authentication controller instance.
@@ -95,10 +96,19 @@ class AuthController extends Controller
                   'lti_secret' => $data['lti_secret'],
 
               ]);
+
               Bouncer::assign('admin')->to($user);
           }
           
           return $user;
     }
-    
-}
+
+    protected function authenticated(Request $request, $user) {
+
+        if (Bouncer::is($user)->an('admin')) {
+          $request->session()->put('admin', true);
+        }
+
+        return $user;  
+    }
+  }

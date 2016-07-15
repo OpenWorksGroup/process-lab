@@ -1,5 +1,6 @@
 @import "_variables.scss";
 @import "../bower/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import 'navbar-fixed-side';
 
 /** General **/
  
@@ -163,56 +164,46 @@ div.ReactTags__suggestions ul li.active {
     cursor: pointer;
 }
 
-/** Artifact Navigation **/
-
-.navbar-fixed-left {
-  width: 200px;
-  position: fixed;
-  border-radius: 0;
-  height: 100%;
-}
-
-.navbar-fixed-left .navbar-nav > li {
-  float: none;  /* Cancel default li float: left */
-  width: 199px;
-}
-
-.navbar-fixed-left + .container {
-  padding-left: 160px;
-}
-
-/* On using dropdown menu (To right shift popuped) */
-.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
-  margin-top: -50px;
-  margin-left: 140px;
-}
+/** Artifact Builder Tablet Desktop Navigation **/
 
 .navbar-inverse {
   background-color: #01B5B6;
   border: none;
 }
 
+.navbar-fixed-side.navbar-inverse .navbar-collapse, .navbar-fixed-side.navbar-inverse .navbar-nav > li > a, .navbar-fixed-side.navbar-inverse .navbar-form, .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu {
+  border: none;
+}
+
 .navbar-inverse .navbar-brand, 
+.navbar-inverse .navbar-right, 
 .navbar-inverse .navbar-brand a, 
 .navbar-inverse .navbar-nav > li > a,
-.navbar-inverse .navbar-nav > ul > li > a  { 
-  color: $white;
+.navbar-inverse .navbar-nav > ul > li > a,
+.navbar-fixed-side.navbar-inverse .dropdown > .dropdown-toggle,
+.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li > a { 
+  color: $white !important;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > ul > li > a:hover,
 .navbar-inverse .navbar-nav > .active > a, 
 .navbar-inverse .navbar-nav > ul > .active > a,
+.navbar-inverse .navbar-nav > ul > li .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover, 
-.navbar-inverse .navbar-nav > .active > a:focus {
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:hover {
   text-decoration: underline;
+  /*background-color: $white !important;*/
   background-color: $aqua !important;
+  color: $white !important;
 }
 
 .navbar-inverse .navbar-nav > ul > li {
   list-style-type: none;
 }
 
-/* Links for ARtifact Builder in MObile View */
+/* Links for Artifact Builder in Mobile View */
 
 .phoneLinks {
   background-color: $aqua;
@@ -302,22 +293,22 @@ pre {
   height: 24px;
   padding: 0;
   border-radius: 30px;
-  background-color: #4D4D4D;
+  background-color: $gray;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
 .react-toggle:hover .react-toggle-track {
-  background-color: #000000;
+  background-color: $gray;
 }
 
 .react-toggle--checked .react-toggle-track {
-  background-color: #19AB27;
+  background-color: $aqua;
 }
 
 .react-toggle.react-toggle--checked:hover .react-toggle-track {
-  background-color: #128D15;
+  background-color: $aqua;
 }
 
 .react-toggle-track-check {
@@ -370,9 +361,9 @@ pre {
   left: 1px;
   width: 22px;
   height: 22px;
-  border: 1px solid #4D4D4D;
+  border: 1px solid $gray;
   border-radius: 50%;
-  background-color: #FAFAFA;
+  background-color: $white;
 
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -385,17 +376,17 @@ pre {
 
 .react-toggle--checked .react-toggle-thumb {
   left: 27px;
-  border-color: #19AB27;
+  border-color: $aqua;
 }
 
 .react-toggle--focus .react-toggle-thumb {
-  -webkit-box-shadow: 0px 0px 3px 2px #0099E0;
-  -moz-box-shadow: 0px 0px 3px 2px #0099E0;
-  box-shadow: 0px 0px 2px 3px #0099E0;
+  -webkit-box-shadow: 0px 0px 3px 2px $lt-aqua;
+  -moz-box-shadow: 0px 0px 3px 2px $lt-aqua;
+  box-shadow: 0px 0px 2px 3px $lt-aqua;
 }
 
 .react-toggle:active .react-toggle-thumb {
-  -webkit-box-shadow: 0px 0px 5px 5px #0099E0;
-  -moz-box-shadow: 0px 0px 5px 5px #0099E0;
-  box-shadow: 0px 0px 5px 5px #0099E0;
+  -webkit-box-shadow: 0px 0px 5px 5px $lt-aqua;
+  -moz-box-shadow: 0px 0px 5px 5px $lt-aqua;
+  box-shadow: 0px 0px 5px 5px $lt-aqua;
 }

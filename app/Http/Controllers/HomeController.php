@@ -68,12 +68,13 @@ class HomeController extends Controller
                 else
                 {
                     // Temp placeholder. Will change this to author dashboard once we get there.
-                    return redirect('/dashboard/'.$user->id);
+                    return redirect('/dashboard');
                 }
             }
             else
             {
-                return response('Unauthorized.', 401);
+                //return response('Unauthorized.', 401);
+                return redirect('/login');
             }
         }
     }

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Toggle from 'react-toggle';
-import FormSavedNotice from './form_saved_notice.jsx';
 
 var FeedbackSwitchForm = React.createClass({
 	getInitialState: function() {
@@ -47,11 +46,6 @@ var FeedbackSwitchForm = React.createClass({
 	render: function() {
   		return (
   			<div>
-  				<div>
-                    {this.state.success ?
-                        <FormSavedNotice/>
-                    : null}
-            	</div>
   				<label>
 					<span>Share </span>
   					<Toggle

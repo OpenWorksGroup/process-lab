@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_token" content="{!! csrf_token() !!}"/>
 
-    <title>{{ $siteTitle }} {{ isset($pageTitle) ? '| '.$pageTitle : '' }}</title>
+    <title>{{$siteTitle}} {{ isset($pageTitle) ? '| '.$pageTitle : '' }}</title>
     
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
     <link rel="stylesheet" href="https://npmcdn.com/react-select/dist/react-select.css">
@@ -34,7 +34,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ $siteTitle }}
+                    {{$siteTitle}}
                 </a>
             </div>
 
@@ -57,8 +57,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin') }}"><i class="fa fa-btn fa-sign-out"></i>Admin Dashboard</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('/admin') }}">Admin Dashboard</a></li>
+                                <li><a href="{{ url('/logout') }}">Logout</a></li>
                             </ul>
                         </li>
                     @endif
