@@ -20,12 +20,11 @@ use Log;
 class BuilderController extends Controller
 {
 	/**
-	 * Start page for artifact builder
-	 * @param numeric $templateId
-	 *
+	 * Display Start page for artifact builder.
+     *
+	 * @param  numeric  $templateId
 	 * @return view: artifact/phone||tabletDesktop/build.blade.php
 	 */
-
 	public function index($templateId) {
     	$detect = new Mobile_Detect;
 
@@ -73,6 +72,14 @@ class BuilderController extends Controller
   
 	}
 
+    /**
+	 * Store content.
+     *  - if new content, store new content and content status information.
+     *  - if already exists, update content and content status information.
+     *
+	 * @param  Request  $request
+	 * @return view: artifact/phone||tabletDesktop/edit.blade.php
+	 */
 	public function store(Request $request) {
 
         $user = Auth::user();
@@ -105,22 +112,22 @@ class BuilderController extends Controller
         }
         else {
 
-        $content = Content::create([
-          'title' => $request['title'],
-          'template_id' => $request['templateId'],
-          'created_by_user_id' => $user->id
-         ]);
+            $content = Content::create([
+            'title' => $request['title'],
+            'template_id' => $request['templateId'],
+            'created_by_user_id' => $user->id
+            ]);
 
-        $status = ContentStatus::create([
-            'content_id' => $content->id,
-            'status' => 'edit'
-        ]);
+            $status = ContentStatus::create([
+                'content_id' => $content->id,
+                'status' => 'edit'
+            ]);
 
-        $templateSection = TemplateSection::where('template_id', '=', $request['templateId'])
-                            ->where('order', '=', 1)
-                            ->first();
+            $templateSection = TemplateSection::where('template_id', '=', $request['templateId'])
+                                ->where('order', '=', 1)
+                                ->first();
 
-        return redirect('/artifact/'.$content->id.'/'.$templateSection->id);
+            return redirect('/artifact/'.$content->id.'/'.$templateSection->id);
 
         }
 	}

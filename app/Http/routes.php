@@ -27,7 +27,7 @@ Route::post('/lti/auth', 'LTI\ProviderController@store');
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
-    /** Routes to admin page, or start page if not logged in**/
+    /** Home, routes elsewhere **/
     Route::get('/',  'HomeController@index');
     /** Start page **/
     Route::get('/start',  'Admin\StartController@index');
@@ -35,7 +35,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/typography', 'TypographyController@index');
     /** ???? **/
     Route::get('/lti/response', 'LTI\responseController@index');
-    /** User Dashboard page**/
+    /** User Dashboard page **/
     Route::get('/dashboard', 'UserDashboardController@index');
     /** API READ Content Tags **/
     Route::get('/api/content-tags', 'API\ContentTagsController@index');
@@ -50,17 +50,27 @@ Route::group(['middleware' => ['web']], function () {
 
 /** Artifact Pages  **/
 Route::group(['middleware' => ['web','auth']], function () {
+    /** Artifact Builder page **/
     Route::get('/artifact-builder/{templateId}',  'Artifact\BuilderController@index');
+    /** CREATE/UPDATE Content **/
     Route::post('/artifact-builder',  'Artifact\BuilderController@store');
     Route::get('/artifact-edit/{contentId}',  'Artifact\BuilderController@edit');
     Route::post('/artifact-edit',  'Artifact\BuilderController@update');
+    /** Section page **/
     Route::get('/artifact/{contentId}/{sectionId}', 'Artifact\SectionController@edit');
+    /** CREATE/UPDATE Content Field Content **/
     Route::post('/artifact/field', 'Artifact\FieldController@store');
+    /** DELETE Content Field Content **/
     Route::delete('/artifact/field/delete','Artifact\FieldController@destroy');
+    /** Content Notes page **/
     Route::get('/artifact-notes/{contentId}', 'Artifact\NotesController@edit');
+    /** CREATE/UPDATE Content Note **/
     Route::post('/artifact-notes', 'Artifact\NotesController@store');
+    /** Tags page **/
     Route::get('/artifact-tags/{contentId}', 'Artifact\TagsController@edit');
+    /** ???? **/
     Route::post('/artifact-feedback-switch', 'Artifact\ContentSectionCommentController@store');
+    /** ???? **/
     Route::get('/artifact-collab/{contentId}', 'Artifact\TagsController@index');
     Route::get('/publish-content/{contentId}', 'Artifact\PublishController@store');
     Route::get('/artifact/{contentId}', 'Artifact\PublishController@index');
@@ -74,7 +84,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/build-list', 'Dashboard\BuildListController@index');
 });
 
-/* Admin Routes */
+/** Admin Routes **/
 Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
 
     /** Admin Dashboard page **/
@@ -95,9 +105,9 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     /** UPDATE User Roles **/
     Route::patch('/admin/users/{userId}', ['as' => 'users.update', 'uses' =>'Admin\UserController@update']);
 
-    /** Manage Templates page**/
+    /** Manage Templates page **/
     Route::get('/admin/templates', 'Admin\TemplateController@index');
-    /** Create New Template page**/
+    /** Create New Template page **/
     Route::get('/admin/templates/create', 'Admin\TemplateController@create');
     /** CREATE New Template **/
     Route::post('/admin/templates', 'Admin\TemplateController@store');
@@ -133,9 +143,9 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     /** Edit Competency Framework page **/
     Route::get('/admin/competency-framework/{cfId}', 'Admin\CompetencyFrameworkController@edit');
 
-    /** API READ Competency Frameworks  **/
+    /** READ Competency Frameworks **/
     Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve');
-    /** API READ Competency Frameworks Categories **/
+    /** READ Competency Frameworks Categories **/
     Route::get('/admin/competency-frameworks-categories/retrieve', 'Admin\CompetencyFrameworkCategoryController@retrieve');
 
     /** API READ Settings Table **/

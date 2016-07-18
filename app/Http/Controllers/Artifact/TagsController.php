@@ -14,6 +14,12 @@ Use Mobile_Detect;
 
 class TagsController extends Controller
 {
+    /**
+	 * Display content tags page.
+     *
+	 * @param  int  $contentId
+	 * @return view:  artifact/phone||tabletDesktop/tags.blade.php
+	 */
 	public function edit($contentId) {
         
         if (!$contentId) {
