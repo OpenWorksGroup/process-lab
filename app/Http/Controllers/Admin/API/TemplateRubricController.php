@@ -13,6 +13,12 @@ use SoftDeletes;
 
 class TemplateRubricController extends Controller
 {
+	/**
+    * Store a template rubric.
+    *
+    * @param  Request  $request
+    * @return TemplateRubric  $rubric
+    */
 	public function store(Request $request) {
 
     	$user = Auth::user();
@@ -49,6 +55,13 @@ class TemplateRubricController extends Controller
 
     }
 
+	/**
+    * Delete all template rubrics for a given competency framework (CF) and CF category if CF category id is specified.
+	* If category id not specified, delete all template rubrics for a given CF and template.
+    *
+    * @param  Request  $request
+    * @return Response
+    */
     public function destroy(Request $request) {
 
     	$input = $request->all();

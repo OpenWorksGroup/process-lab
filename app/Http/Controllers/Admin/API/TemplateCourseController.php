@@ -12,6 +12,12 @@ use Log;
 
 class TemplateCourseController extends Controller
 {
+    /**
+    * Store a template course.
+    *
+    * @param  Request  $request
+    * @return TemplateCourse $templateCourse
+    */
     public function store(Request $request)
     {
 

@@ -9,10 +9,9 @@ class StartController extends Controller
 {
 
     /**
-    * Display Start page
+    * Display Start page.
     *
-    * @param  array  $request
-    * 
+    * @param  Request  $request
     * @return \resources\views\start.blade.php
     */
     public function index(Request $request)

@@ -16,6 +16,12 @@ use Bouncer;
 
 class UserController extends Controller
 {
+    /**
+    * Display admin Manage Users page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\manageUsers.blade.php
+    */
     public function index(Request $request)
     {
         $users = User::all()->sortBy('name');
@@ -31,6 +37,12 @@ class UserController extends Controller
             ]);    
     }
 
+    /**
+    * Display Register New User page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\registerUser.blade.php
+    */
     public function create(Request $request)
     {
         $roles = Role::all()->sortBy('name');
@@ -46,6 +58,12 @@ class UserController extends Controller
         ]);    
     }  
 
+    /**
+    * Store a user and reload page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\registerUser.blade.php
+    */
     public function store(Request $request)
     {
         // should be global
@@ -104,6 +122,12 @@ class UserController extends Controller
         return redirect('/admin/users/create')->with('success', 'User Registered Successfully.');              
     }
 
+    /**
+    * Display Edit Roles page for a specified user.
+    *
+    * @param  int $userId
+    * @return \resources\views\admin\editUser.blade.php
+    */
     public function edit($userId)
     {
         $user = User::find($userId);
@@ -128,12 +152,12 @@ class UserController extends Controller
     }
 
     /**
-     * Update the the user roles.
-     *
-     * @param  Request  $request
-     * @param  $userId
-     * @return Response
-     */
+    * Update the roles for a specified user and reload page.
+    *
+    * @param  Request  $request
+    * @param  int $userId
+    * @return Response
+    */
     public function update(Request $request,$userId)
     {
         $this->validate($request, [

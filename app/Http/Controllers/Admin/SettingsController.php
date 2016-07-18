@@ -11,12 +11,10 @@ use App\Setting;
 class SettingsController extends Controller
 {
     /**
-     * Update the specified user.
+     * Display the Site Settings page.
      *
-     * @param  string  $id
-     * @return Response
-   */
-    
+     * @return \resources\views\admin\editSettings.blade.php
+    */
     public function edit()
     {
         $settings = Setting::all()->first();
@@ -36,6 +34,12 @@ class SettingsController extends Controller
             ]);    
     }
     
+    /**
+     * Update the Site Settings and then reload page.
+     *
+     * @param  Request  $request
+     * @return \resources\views\admin\editSettings.blade.php
+    */
     public function update(Request $request)
     {
         $this->validate($request, [

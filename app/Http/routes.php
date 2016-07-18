@@ -35,7 +35,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/typography', 'TypographyController@index');
     /** ???? **/
     Route::get('/lti/response', 'LTI\responseController@index');
-    /** Dashboard **/
+    /** User Dashboard page**/
     Route::get('/dashboard', 'UserDashboardController@index');
     /** API READ Content Tags **/
     Route::get('/api/content-tags', 'API\ContentTagsController@index');
@@ -75,63 +75,62 @@ Route::group(['middleware' => ['web','auth']], function () {
 });
 
 /* Admin Routes */
-
 Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
 
-    /** Admin Dashboard **/
+    /** Admin Dashboard page **/
     Route::get('/admin', 'Admin\AdminController@index');
-    /** Admin Settings **/
+    /** Admin Site Settings page **/
     Route::get('/admin/settings', 'Admin\SettingsController@edit');   
-    /** Admin Settings submit **/
+    /** UPDATE Site Settings **/
     Route::patch('/admin/settings', 'Admin\SettingsController@update');  
 
-    /** Manage Users **/
+    /** Manage Users page **/
     Route::get('/admin/users', 'Admin\UserController@index');
-    /** Register New User **/
+    /** Register New User page **/
     Route::get('/admin/users/create', 'Admin\UserController@create');
-    /** ???? **/
+    /** CREATE New User **/
     Route::post('/admin/users', 'Admin\UserController@store');
-    /** Edit Roles for user **/
+    /** Edit Roles for a given user page **/
     Route::get('/admin/users/{userId}', 'Admin\UserController@edit');
-    /** ???? **/
+    /** UPDATE User Roles **/
     Route::patch('/admin/users/{userId}', ['as' => 'users.update', 'uses' =>'Admin\UserController@update']);
 
-    /** Manage Templates**/
+    /** Manage Templates page**/
     Route::get('/admin/templates', 'Admin\TemplateController@index');
-    /** Create New Template Page**/
+    /** Create New Template page**/
     Route::get('/admin/templates/create', 'Admin\TemplateController@create');
-    /** ???CREATE New Template **/
+    /** CREATE New Template **/
     Route::post('/admin/templates', 'Admin\TemplateController@store');
-    /** Edit Template **/
+    /** Edit Template page **/
     Route::get('/admin/template/{templateId}', 'Admin\TemplateController@edit');
 
-    /** Manage Tags **/
+    /** Manage Tags page **/
     Route::get('/admin/tags', 'Admin\TagController@index');
-    /** Create New Tag Page **/
+    /** Create New Tag page **/
     Route::get('/admin/tags/create', 'Admin\TagController@create');
-    /** ????CREATE New Tag **/
+    /** CREATE New Tag **/
     Route::post('/admin/tags', 'Admin\TagController@store');
    // Route::delete('/admin/tags/{tagId}', 'Admin\TagController@delete');
-    /** Edit Tag **/
+    /** Edit Tag page **/
     Route::get('/admin/tags/{tagId}', 'Admin\TagController@edit');
-    /** ???? **/
+    /** UPDATE Tag **/
     Route::patch('/admin/tags/{tagId}', ['as' => 'tags.update', 'uses' =>'Admin\TagController@update']);
 
-    /** ??API CREATE Course **/
+    /** API CREATE Course **/
     Route::post('api/admin/templates/course', 'Admin\API\TemplateCourseController@store');
-    /** ??API READ Course **/
+    /** API READ Course **/   //@edit does not exist in TemplateCourseController yet
     Route::get('api/admin/templates/course/{templateId}', 'Admin\API\TemplateCourseController@edit');
 
-    /** Manage Competency Frameworks **/
+    /** Manage Competency Frameworks page **/
     Route::get('/admin/competency-frameworks', 'Admin\CompetencyFrameworkController@index');
-    // Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve'); DUPLICATE
-    /** Create Competency Framework Page **/
+    // Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve'); DUPLICATE, same entry found below
+    /** Create Competency Framework page **/
     Route::get('/admin/competency-framework/create', 'Admin\CompetencyFrameworkController@create');
-    /** ??CREATE Competency Framework **/
+    /** CREATE Competency Framework **/
     Route::post('/admin/competency-framework', 'Admin\CompetencyFrameworkController@store');
-    /** ??CREATE Competency Framework Category **/
+    /** CREATE Competency Framework Category **/
     Route::post('/admin/competency-framework-category', 'Admin\CompetencyFrameworkCategoryController@store');
-    /** Edit Competency Framework **/
+    /** Edit Competency Framework page **/
     Route::get('/admin/competency-framework/{cfId}', 'Admin\CompetencyFrameworkController@edit');
 
     /** API READ Competency Frameworks  **/
@@ -145,8 +144,8 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::post('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@store');
     /** API DELETE Template Rubric **/
     Route::delete('/api/admin/template-rubric', 'Admin\API\TemplateRubricController@destroy');
-    /** API CREATE ??? **/
+    /** API CREATE Template Section **/
     Route::post('/api/admin/templates/section', 'Admin\API\TemplateSectionController@store');
-    /** API CREATE ??? **/
+    /** API CREATE Template Section Field **/
     Route::post('/api/admin/admin/templates/section-field', 'Admin\API\TemplateSectionFieldController@store');
 });

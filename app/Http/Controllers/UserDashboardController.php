@@ -16,6 +16,12 @@ use App\User;
 
 class UserDashboardController extends Controller
 {
+    /**
+    * Display User Dashboard page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\dashboard.blade.php
+    */
     public function index(Request $request)
     {
 
