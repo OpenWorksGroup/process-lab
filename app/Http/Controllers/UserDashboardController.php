@@ -8,7 +8,9 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Bouncer;
 use Log;
-use App\Template;
+use App\Content;
+use App\ContentStatus;
+use App\TemplateSection;
 
 class UserDashboardController extends Controller
 {
@@ -16,10 +18,31 @@ class UserDashboardController extends Controller
     {
 
         $user = Auth::user();
+        $workInProgress = [];
+        $published = [];
+
+        $contents = Content::where('created_by_user_id', '=', $user->id)->get();
+        foreach($contents as $content) {
+            $contentStatus = ContentStatus::where('content_id', '=', $content->id)
+                                            ->orderBy('updated_at','desc')
+                                            ->first();
+            $content->status = $contentStatus->status;
+
+            if ($contentStatus->status == "edit" || 
+                $contentStatus->status == "peer review" ||
+                $contentStatus->status == "expert review") {
+                array_push($workInProgress,$content);
+            }
+            elseif ($contentStatus->status == "published") {
+                array_push($published,$content);
+            }
+        }
 
         return view('dashboard')->with([
 			'pageTitle'=>$user->name." Dashboard",
-			'userName' => $user->name
+            'userName'=>$user->name,
+			'workInProgress' => $workInProgress,
+            'published' => $published,
         ]);             
     }
 }
