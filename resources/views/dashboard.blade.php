@@ -20,10 +20,10 @@
             <div class="col-md-12">
                 <ul id="dashboardTabs" class="nav nav-tabs vertical-spacer-40" role="tablist">
                     <li class="active">
-                        <a href="#content" data-toggle="tab" aria-controls="content" aria-expanded="true">My Published Content</a>
+                        <a href="#content" data-toggle="tab" aria-controls="content" aria-expanded="true">My Published Content @if($pCount)({{ $pCount }})@endif</a>
                     </li>
                     <li>
-                        <a href="#progress" data-toggle="tab" aria-controls="progress" aria-expanded="true">Work in Progress</a>
+                        <a href="#progress" data-toggle="tab" aria-controls="progress" aria-expanded="true">Work in Progress @if($wipCount)({{ $wipCount }})@endif</a>
                     </li>
                     <li>
                         <a href="#feedback" data-toggle="tab" aria-controls="feedback" aria-expanded="true">Feedback Needed</a>

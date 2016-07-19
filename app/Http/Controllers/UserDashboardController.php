@@ -42,7 +42,9 @@ class UserDashboardController extends Controller
 			'pageTitle'=>$user->name." Dashboard",
             'userName'=>$user->name,
 			'workInProgress' => $workInProgress,
+            'wipCount' =>count($workInProgress),
             'published' => $published,
+            'pCount' =>count($published),
         ]);             
     }
 }
