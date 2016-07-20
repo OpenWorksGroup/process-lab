@@ -22,7 +22,7 @@ class UserRouter
         $rootAdmins = unserialize($settings[0]['attributes']['admins']);
         
         $user_id = Auth::id();
-       // dd($user_id);
+
         if (in_array($user_id,$rootAdmins))
         {
          $request->session()->put('roles', array("Admin"));  

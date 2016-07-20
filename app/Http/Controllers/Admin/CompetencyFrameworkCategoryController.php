@@ -52,7 +52,6 @@ class CompetencyFrameworkCategoryController extends Controller
 
         $categories = CompetencyFrameworkCategory::all()->sortBy('category');
 
-       // Log::info($categories);
         return $categories;
     }
 }

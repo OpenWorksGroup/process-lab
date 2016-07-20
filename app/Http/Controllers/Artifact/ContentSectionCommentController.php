@@ -13,8 +13,6 @@ class ContentSectionCommentController extends Controller
 {
 	public function store(Request $request) {
 
-		Log::info($request);
-
 		$feedbackSwitch = 0;
 
 		if ($request['feedback_on'] == "true") {

@@ -363,7 +363,7 @@ var File = React.createClass({
 	getInitialState: function() {
 		var savedFiles = [];
 		_.each(this.props.files, function(file) {
-			var name = file['uri'].substr(file['uri'].lastIndexOf('/') + 1); //
+			var name = file['uri'].substr(file['uri'].lastIndexOf('/') + 1); 
 			savedFiles.push({'field_content_id':file['id'],'caption':name, 'src':file['uri'],'saved_type':file['saved_type']});
 		});
         return {

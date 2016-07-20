@@ -9,6 +9,7 @@ import SectionFieldsForm from './components/section.jsx';
 import ContentNotesForm from './components/content_notes.jsx';
 import TagsForm from './components/tags.jsx';
 import FeedbackSwitchForm from './components/feedback_switch.jsx';
+import FilesDisplay from './components/files_display.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');
@@ -97,17 +98,13 @@ $(() => {
     />,tags);
   }
 
-  /** mockups  **/
-  var gradeTags  = document.querySelector('#grade-tags');
+  var files = document.querySelector('#content-files');
+  var filesData = $('#content-files').attr('data-files');
 
-  if (gradeTags) {
-    ReactDOM.render(<GradeTags />,gradeTags);
-  }
-
-  var subjectTags  = document.querySelector('#subject-tags');
-
-  if (subjectTags) {
-    ReactDOM.render(<SubjectTags />,subjectTags);
+  if (files) {
+    ReactDOM.render(<FilesDisplay
+    files={filesData} 
+    />,files);
   }
 
 });

@@ -35,8 +35,6 @@ class HomeController extends Controller
     {
         $settings = Setting::all();
 
-       // dd($settings);
-
         if ($settings->isEmpty()) 
         { 
             $request->session()->put('newSite', true); 
@@ -65,6 +63,7 @@ class HomeController extends Controller
                 
                 if (Bouncer::is($user)->an('admin'))
                 {
+                    $request->session()->put('admin', true);
                     return redirect('/admin');
                 }
                 else
@@ -75,7 +74,7 @@ class HomeController extends Controller
             }
             else
             {
-                //return response('Unauthorized.', 401);
+                return response('Unauthorized.', 401);
                 return redirect('/login');
             }
         }

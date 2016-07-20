@@ -46,9 +46,14 @@ class FieldController extends Controller
 
 			$fieldContent->save();
 
-			$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-            $contentStatus->touch();
+			//$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+            //$contentStatus->touch();
 
+			$status = ContentStatus::create([
+                'content_id' => $request['content_id'],
+                'status' => 'edit'
+            ]);
+            
 			return $fieldContent;
 		}
 		else {
@@ -61,8 +66,14 @@ class FieldController extends Controller
 				'uri' => $uri
 			]);
 
-            $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-            $contentStatus->touch();
+
+           // $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+           // $contentStatus->touch();
+
+			$status = ContentStatus::create([
+                'content_id' => $request['content_id'],
+                'status' => 'edit'
+            ]);
 
 			return $fieldContent;
 		}

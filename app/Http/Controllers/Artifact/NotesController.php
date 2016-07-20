@@ -79,10 +79,15 @@ class NotesController extends Controller
 
 			$contentNote->save();
 
-			$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-            $contentStatus->touch();
+			//$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+            //$contentStatus->touch();
 
-			return $contentNote;
+			$status = ContentStatus::create([
+                'content_id' => $contentNote->content_id,
+                'status' => 'edit'
+            ]);
+
+            return $contentNote;
 		}
 		else {
 
@@ -91,8 +96,13 @@ class NotesController extends Controller
 				'note' => $notes
 			]);
 
-            $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-            $contentStatus->touch();
+           // $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+           // $contentStatus->touch();
+
+            $status = ContentStatus::create([
+                'content_id' => $contentNote->content_id,
+                'status' => 'edit'
+            ]);
 
 			return $contentNote;
 		}

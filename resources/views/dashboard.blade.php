@@ -33,7 +33,7 @@
                     <div role="tabpanel" class="tab-pane active" id="content" aria-labelledby="content"> 
                         @if (! empty($published))
                             @foreach($published as $item)
-                                <a href="/artifact-builder/{{$item->template_id}}">{{ $item->title }}</a></p>
+                                <a href="/artifact/{{$item->id}}">{{ $item->title }}</a></p>
                             @endforeach
                         @else
                             <p>You have not published any content yet.</p>

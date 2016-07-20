@@ -77,6 +77,7 @@
                         <li><a href="/artifact-notes/{{ $contentId }}">Notes from the field</a></li>
                     @endif
                 </ul>
+                <div><a class="btn btn-default" href="/publish-content/{{ $contentId }}">Publish</a></div>
             </div>
         </div>
       </nav>

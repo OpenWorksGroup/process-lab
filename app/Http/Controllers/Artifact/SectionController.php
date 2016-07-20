@@ -35,7 +35,7 @@ class SectionController extends Controller
         }
 
         $templateId = $content->template_id;
-        $contentStatus = ContentStatus::where('content_id', '=', $contentId)->first();
+        $contentStatus = ContentStatus::where('content_id', '=', $contentId)->orderBy('updated_at', 'desc')->first();
         $contentTitle = $content['title'];
         $loadInfo['content_status'] = $contentStatus->status;
         $templateSection = TemplateSection::where('id', '=', $sectionId)->first();

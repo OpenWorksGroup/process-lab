@@ -103,7 +103,7 @@ class BuilderController extends Controller
         $user = Auth::user();
 
         $this->validate($request, [
-            'title' => 'required|unique:contents,title,NULL,null,created_by_user_id,'.$user->id.''
+            'title' => 'required|unique:contents,title,'.$user->id.',created_by_user_id'
         ]);
 
         if ($request['contentId']) {
@@ -113,8 +113,13 @@ class BuilderController extends Controller
 
             $content->save();
 
-            $contentStatus = ContentStatus::where('content_id', '=', $content->id)->first();
-            $contentStatus->touch();
+           // $contentStatus = ContentStatus::where('content_id', '=', $content->id)->first();
+           // $contentStatus->touch();
+           // 
+            $status = ContentStatus::create([
+                'content_id' => $content->id,
+                'status' => 'edit'
+            ]);
 
 
             $templateSection = TemplateSection::where('template_id', '=', $request['templateId'])

@@ -44,7 +44,7 @@
                     <li></li>
                 </ul>
 
-                <!-- Right Side Of Navbar -->
+               <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
@@ -80,6 +80,5 @@
         });
     </script>
     <script src="{{ asset('/js/components.js') }}"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>
