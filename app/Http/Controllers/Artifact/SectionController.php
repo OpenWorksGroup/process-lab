@@ -77,8 +77,6 @@ class SectionController extends Controller
                                                 ->where('id', '!=', $sectionId)
                                                 ->get();
 
-       // dd($templateSections);
-
         return view('artifact.phone.edit')->with([
             'pageTitle'=>$templateSection->section_title,
             'sectionDescription' => $templateSection->description,
@@ -88,9 +86,9 @@ class SectionController extends Controller
             'sectionId' => $sectionId,
             'sectionsComment' => json_encode($feedbackSetting),
             'otherSections' => $templateSections,
-            'buildLink' => "/artifact-builder/".$templateId,
+            'buildLink' => "/artifact-edit/".$contentId,
             'tagsLink' => "/artifact-tags/".$contentId,
-            'collaborateLink' => "",
+            'collaborateLink' => "/artifact-collaboration/".$contentId,
             'notesLink' => "/artifact-notes/".$contentId,
             'templateId' => $templateId
             ]); 

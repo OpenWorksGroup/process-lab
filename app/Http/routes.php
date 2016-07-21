@@ -55,6 +55,9 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/artifact-collab/{contentId}', 'Artifact\TagsController@index');
     Route::get('/publish-content/{contentId}', 'Artifact\PublishController@store');
     Route::get('/artifact/{contentId}', 'Artifact\PublishController@index');
+    Route::get('/artifact-collaboration/{contentId}/{sectionId}', 'Artifact\CollaborationController@edit');
+    Route::post('/artifact-collaboration', 'Artifact\CollaborationController@store');
+    Route::get('/artifact-collaboration/{contentId}', 'Artifact\CollaborationController@index');
 });
 
 /** Dashboard Pages  **/

@@ -11,6 +11,8 @@ use Log;
 use App\Content;
 use App\ContentStatus;
 use App\TemplateSection;
+use App\ContentSectionComment;
+use App\User;
 
 class UserDashboardController extends Controller
 {
@@ -20,6 +22,7 @@ class UserDashboardController extends Controller
         $user = Auth::user();
         $workInProgress = [];
         $published = [];
+        $feedbackNeeded = [];
 
         $contents = Content::where('created_by_user_id', '=', $user->id)->get();
         
@@ -33,9 +36,27 @@ class UserDashboardController extends Controller
                 $contentStatus->status == "peer review" ||
                 $contentStatus->status == "expert review") {
                 array_push($workInProgress,$content);
+
             }
             elseif ($contentStatus->status == "published") {
                 array_push($published,$content);
+            }
+
+        }
+
+        // Get Collaborative feedback
+        $feedback = ContentSectionComment::where('feedback_on', '=', 1)->get();
+
+        if ($feedback) {
+            foreach ($feedback as $item){
+                $content = Content::where('id', '=', $item->content_id)->orderBy('updated_at','desc')->first();
+                $content['section_id'] = $item->template_section_id;
+                $section = TemplateSection::find($item->template_section_id);
+                $content['section_title'] = $section->section_title;
+                $author = User::find($content->created_by_user_id);
+                $content['author'] = $author->name;
+
+                array_push($feedbackNeeded,$content);
             }
         }
 
@@ -46,6 +67,8 @@ class UserDashboardController extends Controller
             'wipCount' =>count($workInProgress),
             'published' => $published,
             'pCount' =>count($published),
+            'feedback' =>$feedbackNeeded,
+            'fCount' => count($feedbackNeeded)
         ]);             
     }
 }

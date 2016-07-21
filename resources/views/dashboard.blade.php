@@ -26,7 +26,7 @@
                         <a href="#progress" data-toggle="tab" aria-controls="progress" aria-expanded="true">Work in Progress @if($wipCount)({{ $wipCount }})@endif</a>
                     </li>
                     <li>
-                        <a href="#feedback" data-toggle="tab" aria-controls="feedback" aria-expanded="true">Feedback Needed</a>
+                        <a href="#feedback" data-toggle="tab" aria-controls="feedback" aria-expanded="true">Feedback Needed @if($fCount)({{ $fCount }})@endif</a>
                     </li>           
                 </ul> 
                 <div id="tabContent" class="tab-content">
@@ -63,7 +63,20 @@
                         @endif 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="feedback" aria-labelledby="feedback"> 
-                        <p>List of feedback needed</p> 
+                        @if (! empty($feedback))
+                            @foreach($feedback as $item)
+                                <div class="row vertical-spacer-20">
+                                    <div class="col-md-8">
+                                        {{ $item->title }} - {{ $item->section_title }} by {{ $item->author }}
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <a class="btn btn-default" href="/artifact-collaboration/{{$item->id}}/{{ $item->section_id }}">add feedback</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No feedback is needed at this time</p>
+                        @endif 
                 </div>
             </div>
         </div>

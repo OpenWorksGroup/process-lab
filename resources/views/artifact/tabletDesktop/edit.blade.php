@@ -31,5 +31,5 @@
     data-loadInfo="{{ $loadInfo }}">
     </div>
 
-
+</div>
 @endsection

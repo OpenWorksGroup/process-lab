@@ -73,7 +73,7 @@
                     @if(! empty($contentId))
                     @include('partials.sectionsNav')
                         <li><a href="/artifact-tags/{{ $contentId }}">Tag</a></li>
-                        <li><a href="#">Collaborate</a></li>
+                        <li><a href="/artifact-collaboration/{{ $contentId }}">Collaborate</a></li>
                         <li><a href="/artifact-notes/{{ $contentId }}">Notes from the field</a></li>
                     @endif
                 </ul>

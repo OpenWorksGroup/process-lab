@@ -175,9 +175,9 @@ class BuilderController extends Controller
             'courseUrl' => $courseUrl,
             'rubricLink' => $rubricLink,
             'sections' => $templateSections,
-            'buildLink' => "/artifact-builder/".$template->id,
+            'buildLink' => "/artifact-edit/".$contentId,
             'tagsLink' => "/artifact-tags/".$contentId,
-            'collaborateLink' => "",
+            'collaborateLink' => "/artifact-collaboration/".$contentId,
             'notesLink' => "/artifact-notes/".$contentId,
             ]);  
   

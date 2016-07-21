@@ -49,7 +49,7 @@
         <div class="col-md-10">
             <br/>
             <button type="submit" class="btn btn-primary">
-                Update</i>
+                Update
             </button>
         </div>
     </div>

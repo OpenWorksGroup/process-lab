@@ -16,6 +16,8 @@ class CreateComments extends Migration
             $table->increments('id');
             $table->integer('content_id')->unsigned();
             $table->foreign('content_id')->references('id')->on('contents');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('template_section_id')->unsigned();
             $table->foreign('template_section_id')->references('id')->on('template_sections');
             $table->text('comment');
