@@ -143,7 +143,7 @@
       .navbar-nav > li > a,
       .navbar-form,
       .navbar-nav .dropdown-menu {
-        border-color: $navbar-inverse-border;
+        border-color: $aqua;
       }
 
       .divider {
@@ -152,19 +152,19 @@
 
       .navbar-nav {
         .dropdown-menu > li > a {
-          color: $navbar-inverse-link-color;
+          color: $white;
         }
 
         .dropdown-menu > .active > a {
           background-color: $navbar-inverse-link-active-bg;
-          color: $navbar-inverse-link-active-color;
+          color: $white;
         }
 
         > li:not(.active) > a,
         .dropdown-menu > li:not(.active) > a {
           &:hover, &:focus {
-            background-color: $navbar-inverse-link-hover-bg;
-            color: $navbar-inverse-link-hover-color;
+            background-color: $aqua;
+            color: $white;
           }
         }
       }

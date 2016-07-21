@@ -191,7 +191,9 @@ div.ReactTags__suggestions ul li.active {
 .navbar-inverse .navbar-nav > li > a,
 .navbar-inverse .navbar-nav > ul > li > a,
 .navbar-fixed-side.navbar-inverse .dropdown > .dropdown-toggle,
-.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li > a { 
+.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li > a,
+.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > .active > a,
+.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:hover  { 
   color: $white !important;
 }
 
@@ -202,7 +204,8 @@ div.ReactTags__suggestions ul li.active {
 .navbar-inverse .navbar-nav > ul > li .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover, 
 .navbar-inverse .navbar-nav > .active > a:focus,
-.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:hover {
+.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > .active > a,
+.navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:hover  {
   text-decoration: underline;
   /*background-color: $white !important;*/
   background-color: $aqua !important;
