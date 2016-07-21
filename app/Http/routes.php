@@ -43,6 +43,8 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/artifact-builder/{templateId}',  'Artifact\BuilderController@index');
     Route::post('/artifact-builder',  'Artifact\BuilderController@store');
+    Route::get('/artifact-edit/{contentId}',  'Artifact\BuilderController@edit');
+    Route::post('/artifact-edit',  'Artifact\BuilderController@update');
     Route::get('/artifact/{contentId}/{sectionId}', 'Artifact\SectionController@edit');
     Route::post('/artifact/field', 'Artifact\FieldController@store');
     Route::delete('/artifact/field/delete','Artifact\FieldController@destroy');

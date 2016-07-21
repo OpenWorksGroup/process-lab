@@ -63,7 +63,10 @@ class HomeController extends Controller
                 
                 if (Bouncer::is($user)->an('admin'))
                 {
-                    $request->session()->put('admin', true);
+                   // Add admin role to user session array
+                    $user['administrator'] = true;
+                    $request->session()->put('user', $user);
+
                     return redirect('/admin');
                 }
                 else

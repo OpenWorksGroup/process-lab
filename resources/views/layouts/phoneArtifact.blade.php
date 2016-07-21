@@ -56,7 +56,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                 @if(Session::has('admin'))
+                                @if(Session::has('user.administrator'))
                                     <li><a href="{{ url('/admin') }}">Admin Dashboard</a></li>
                                 @endif
                                     <li><a href="/dashboard">Dashboard</a></li>

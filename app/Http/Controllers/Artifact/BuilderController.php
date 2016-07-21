@@ -50,29 +50,6 @@ class BuilderController extends Controller
     
     	$templateCourse = TemplateCourse::where('template_id', '=', $templateId)->first();
 
-    	//Checking to see if the user already has content where this template is used
-    	$content = Content::where('template_id', '=', $templateId)
-    						->where('created_by_user_id', '=', $user->id)
-                            ->get();
-        $contentId = '';
-        $contentTitle = '';
-
-        $contentVal = [];
-    	if (! $content->isEmpty()) {            
-    		if (count($content) > 1) {
-                // To Do: how to handle if user has created more than one artifact per template
-                // For now defaulting to first
-    			$contentId = $content[0]['id'];
-                $contentTitle = $content[0]['title'];
-    		}
-    		else {
-               $contentId = $content[0]['id'];
-               $contentTitle = $content[0]['title'];
-               $contentVal = $content[0];
-    		}
-    	}
-
-
     	if ($templateCourse) {
     		$loadInfo['course_id'] = $templateCourse['course_id'];
     		$loadInfo['course_title'] = $templateCourse['course_title'];
@@ -90,9 +67,7 @@ class BuilderController extends Controller
     	return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.build')->with([
             'pageTitle'=>'Start Building',
             'templateId' => $template->id,
-            'content' => $contentVal,
-            'contentId' => $contentId,
-            'contentTitle' => $contentTitle,
+            'contentId' => null,
             'loadInfo' => $loadInfo
             ]);  
   
@@ -149,4 +124,89 @@ class BuilderController extends Controller
 
         }
 	}
+
+    public function edit($contentId){
+        $detect = new Mobile_Detect;
+
+        $user = Auth::user();
+
+        /** retrieve information set in template:
+        *
+        * Course info - one course per template. Add multiple courses logic and display here.
+        * Sections & fields
+        * Rubric
+        */
+
+        $content = Content::find($contentId);
+        $template = Template::find($content->template_id);
+
+        //Get course info. Course info is not required.   
+        $templateCourse = TemplateCourse::where('template_id', '=', $content->template_id)->first();
+
+        $courseId = "";
+        $courseTitle = "";
+        $courseUrl = "";
+        if ($templateCourse) {
+            $courseId = $templateCourse['course_id'];
+            $courseTitle = $templateCourse['course_title'];
+            $courseUrl = $templateCourse['course_url'];
+        }
+
+        //Check if Rubric. If so, add link to retrieve rubric. Rubric not required.    
+        $templateRubric = TemplateRubric::where('template_id', '=', $content->template_id)->get();
+
+        $rubricLink = "";
+        if (! $templateRubric->isEmpty()) {
+            $rubricLink = "/artifact-rubric/".$content->template_id;
+        }
+
+        // Get Template Sections for phone
+        $templateSections = TemplateSection::where('template_id', '=', $content->template_id)
+                                                ->get();
+
+        return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.buildEdit')->with([
+            'pageTitle'=>'Edit '.$content->title,
+            'templateId' => $template->id,
+            'contentId' => $contentId,
+            'contentTitle' => $content->title,
+            'content' => $content,
+            'courseId' => $courseId,
+            'courseTitle' => $courseTitle,
+            'courseUrl' => $courseUrl,
+            'rubricLink' => $rubricLink,
+            'sections' => $templateSections,
+            'buildLink' => "/artifact-builder/".$template->id,
+            'tagsLink' => "/artifact-tags/".$contentId,
+            'collaborateLink' => "",
+            'notesLink' => "/artifact-notes/".$contentId,
+            ]);  
+  
+    }
+
+    public function update(Request $request) {
+        
+        $user = Auth::user();
+
+        $this->validate($request, [
+            'title' => 'required|unique:contents,title,'.$user->id.',created_by_user_id'
+        ]);
+
+        $content = Content::find($request['contentId']);
+        $content->title = $request['title'];
+
+        $content->save();
+
+        $status = ContentStatus::create([
+                                'content_id' => $content->id,
+                                'status' => 'edit'
+        ]);
+
+
+        $templateSection = TemplateSection::where('template_id', '=', $request['templateId'])
+                                                ->where('order', '=', 1)
+                                                ->first();
+
+        return redirect('/artifact-edit/'.$content->id)->with('success', 'Title has been updated.');
+    }
+
 }

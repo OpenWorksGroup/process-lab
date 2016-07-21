@@ -11,8 +11,15 @@
         </div>
     </div>
 
-    {{ Form::open(array('action' => 'Artifact\BuilderController@store')) }}
-    {!! Form::hidden('templateId', $templateId ) !!}
+     @if(Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+    @endif
+
+
+    {!! Form::model($content, ['action' => 'Artifact\BuilderController@update']) !!}
+    {!! Form::hidden('contentId', $contentId ) !!}
     {!! csrf_field() !!}
     <div class="row">
 		<div class="col-md-10">
@@ -29,11 +36,11 @@
     </div>
     <div class="row">
 		<div class="col-md-10">
-            @if (! empty($loadInfo['course_id']))
-        		<div><strong>Course: </strong><a href="{{ $loadInfo['course_url'] }}" target="blank">{{ $loadInfo['course_title'] }}</a></div>
+            @if ($courseId)
+        		<div><strong>Course: </strong><a href="{{ $courseUrl}}" target="blank">{{ $courseTitle }}</a></div>
             @endif
-            @if (! empty($loadInfo['rubric_link']))
-        		<div><a href="{{ $loadInfo['rubric_link'] }}" target="blank">Comptency Rubric</a></div>
+            @if ($rubricLink)
+        		<div><a href="{{ $rubricLink }}" target="blank">Comptency Rubric</a></div>
             @endif
         </div>
     </div>
@@ -42,7 +49,7 @@
         <div class="col-md-10">
             <br/>
             <button type="submit" class="btn btn-primary">
-                Next <i class="fa fa-btn fa-arrow-right"></i>
+                Update</i>
             </button>
         </div>
     </div>

@@ -33,7 +33,14 @@
                     <div role="tabpanel" class="tab-pane active" id="content" aria-labelledby="content"> 
                         @if (! empty($published))
                             @foreach($published as $item)
-                                <a href="/artifact/{{$item->id}}">{{ $item->title }}</a></p>
+                                <div class="row vertical-spacer-20">
+                                    <div class="col-md-8">
+                                        <a href="/artifact/{{$item->id}}">{{ $item->title }}</a>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <a class="btn btn-default" href="/artifact-edit/{{$item->id}}">edit</a>
+                                    </div>
+                                </div>
                             @endforeach
                         @else
                             <p>You have not published any content yet.</p>
@@ -42,7 +49,14 @@
                 <div role="tabpanel" class="tab-pane" id="progress" aria-labelledby="progress"> 
                         @if (! empty($workInProgress))
                             @foreach($workInProgress as $item)
-                                <a href="/artifact-builder/{{$item->template_id}}">{{ $item->title }}</a></p>
+                                <div class="row vertical-spacer-20">
+                                    <div class="col-md-8">
+                                        {{ $item->title }}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a class="btn btn-default" href="/artifact-edit/{{$item->id}}">edit</a>
+                                    </div>
+                                </div>
                             @endforeach
                         @else
                             <h4>You do not have any work in progress.</h4>

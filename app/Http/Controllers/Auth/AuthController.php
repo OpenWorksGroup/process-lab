@@ -103,13 +103,4 @@ class AuthController extends Controller
           
           return $user;
     }
-
-  /*  protected function authenticated(Request $request, $user) {
-
-        if (Bouncer::is($user)->an('admin')) {
-          $request->session()->put('admin', true);
-        }
-
-        return $user;  
-    }*/
   }

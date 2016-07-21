@@ -11,6 +11,11 @@
         </div>
     </div>
 
+    @if(Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+    @endif
 
     {{ Form::open(array('action' => 'Artifact\BuilderController@store')) }}
     {!! Form::hidden('templateId', $templateId ) !!}
@@ -30,24 +35,52 @@
     </div>
     <div class="row">
 		<div class="col-md-10">
-            @if ($loadInfo['course_id'])
-        		<div><strong>Course: </strong><a href="{{ $loadInfo['course_url'] }}" target="blank">{{ $loadInfo['course_title'] }}</a></div>
+            @if ($courseId)
+                <div><strong>Course: </strong><a href="{{ $courseUrl}}" target="blank">{{ $courseTitle }}</a></div>
             @endif
-            @if ($loadInfo['rubric_link'])
-        		<div><a href="{{ $loadInfo['rubric_link'] }}" target="blank">Comptency Rubric</a></div>
+            @if ($rubricLink)
+                <div><a href="{{ $rubricLink }}" target="blank">Comptency Rubric</a></div>
             @endif
         </div>
     </div>
 
-    <div class="row">
+    <div class="row vertical-spacer-40">
         <div class="col-md-10">
             <br/>
             <button type="submit" class="btn btn-primary">
-                Next <i class="fa fa-btn fa-arrow-right"></i>
+                Update</i>
             </button>
         </div>
     </div>
     {!! Form::close(); !!}
+
+
+    @foreach($sections as $section)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="phoneLinks"><a href="/artifact/{{ $contentId }}/{{ $section->id }}">{{ $section->section_title }}</a></div>
+            </div>
+        </div>
+    @endforeach
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="phoneLinks"><a href="{{ $tagsLink }}">Tag</a></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="phoneLinks"><a href="{{ $collaborateLink }}">Collaborate</a></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="phoneLinks"><a href="{{ $notesLink }}">Notes from the field</a></div>
+        </div>
+    </div>
 
 </div>
 @endsection

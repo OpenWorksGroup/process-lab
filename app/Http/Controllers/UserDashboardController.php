@@ -22,6 +22,7 @@ class UserDashboardController extends Controller
         $published = [];
 
         $contents = Content::where('created_by_user_id', '=', $user->id)->get();
+        
         foreach($contents as $content) {
             $contentStatus = ContentStatus::where('content_id', '=', $content->id)
                                             ->orderBy('updated_at','desc')
