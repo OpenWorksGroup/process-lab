@@ -38,7 +38,8 @@ class CollaborationController extends Controller
 
         			array_push($comments,Array(
         				'userName' => $user->name,
-        				'comment'=>$comment->comment
+        				'comment'=>$comment->comment,
+        				'comment_date' => date('F, j, Y', $comment->created_at->getTimestamp())
         			));
        	 		}
 
@@ -122,7 +123,8 @@ class CollaborationController extends Controller
 
         	array_push($comments,Array(
         		'userName' => $user->name,
-        		'comment'=>$comment->comment
+        		'comment'=>$comment->comment,
+        		'comment_date' => date('F, j, Y', $comment->created_at->getTimestamp())
         	));
         }
 

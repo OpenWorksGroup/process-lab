@@ -47,7 +47,8 @@
           	@foreach($section['comments'] as $comment) 
 				<div class="row">
                     <div class="col-md-10">
-                        <div><strong>{{  $comment['userName'] }}</strong></div>
+                    	<div>{{ $comment['comment_date'] }}</div>
+                        <div  class="vertical-spacer-20"><strong>{{  $comment['userName'] }}</strong></div>
                         <div>{{  $comment['comment'] }}</div>
                     </div>
                 </div>
