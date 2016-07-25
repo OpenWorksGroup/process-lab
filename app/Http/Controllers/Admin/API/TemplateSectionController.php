@@ -11,6 +11,12 @@ use Log;
 
 class TemplateSectionController extends Controller
 {
+	/**
+    * Store a template section.
+    *
+    * @param  Request  $request
+    * @return TemplateSection  $templateSection
+    */
 	public function store(Request $request)
     {
 

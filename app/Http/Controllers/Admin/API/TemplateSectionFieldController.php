@@ -12,7 +12,13 @@ use Log;
 
 class TemplateSectionFieldController extends Controller
 {
-public function store(Request $request)
+	/**
+    * Store a template section field.
+    *
+    * @param  Request  $request
+    * @return TemplateSectionField  $templateSectionField
+    */
+	public function store(Request $request)
     {
 
     	//Log::info($request);

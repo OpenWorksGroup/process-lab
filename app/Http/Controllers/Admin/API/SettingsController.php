@@ -10,6 +10,12 @@ use App\Setting;
 
 class SettingsController extends Controller
 {
+	/**
+    * Read all settings.
+    *
+    * @param  Request  $request
+    * @return array  $settings
+    */
 	public function index(Request $request)
     {
    		$settings = Setting::all()->first();

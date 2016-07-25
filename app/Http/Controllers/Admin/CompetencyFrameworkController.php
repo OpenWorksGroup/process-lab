@@ -14,6 +14,11 @@ use Log;
 class CompetencyFrameworkController extends Controller
 {
 
+    /**
+    * Display admin Manage Competency Frameworks page.
+    *
+    * @return \resources\views\admin\manageCompetencyFrameworks.blade.php
+    */
 	public function index()
     {
         $frameworks = CompetencyFramework::all()->sortByDesc('updated_at');
@@ -32,11 +37,22 @@ class CompetencyFrameworkController extends Controller
         ]);         
     }
 
+    /**
+    * Display Create Competency Framework page.
+    *
+    * @return \resources\views\admin\createCompetencyFramework.blade.php
+    */
     public function create()
     {
         return view('admin.createCompetencyFramework')->with('pageTitle','Create Competency Framework');        
     }
 
+    /**
+    * Store a competency framework.
+    *
+    * @param  Request  $request
+    * @return CompetencyFramework  $cf
+    */
     public function store(Request $request)
     {
     	if ($request['cf_id'])
@@ -70,6 +86,12 @@ class CompetencyFrameworkController extends Controller
         return $cf;
     }
 
+    /**
+    * Display Edit Competency Framwork page for a specified competency framework.
+    *
+    * @param  int $cfId
+    * @return \resources\views\admin\editCompetencyFramework.blade.php
+    */
     public function edit($cfId)
     {
        // Log::info('CFID '.$cfId);
@@ -80,6 +102,12 @@ class CompetencyFrameworkController extends Controller
         ]);       
     }
 
+    /**
+    * Read all competency frameworks.
+    *
+    * @param  Request  $request
+    * @return array  $frameworks
+    */
     public function retrieve(Request $request)
     {
         $frameworks = CompetencyFramework::all()->sortBy('framework');

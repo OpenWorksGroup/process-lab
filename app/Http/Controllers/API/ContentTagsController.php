@@ -17,12 +17,24 @@ class ContentTagsController extends Controller
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    /**
+    * Read all content tags.
+    *
+    * @param  Request  $request
+    * @return array  $tags
+    */
     public function index(Request $request)
     {
         $tags = Tag::all()->sortBy('tag');
         return $tags;
     }
 
+    /**
+    * Store a content tag.
+    *
+    * @param  Request  $request
+    * @return Response
+    */
     public function store(Request $request)
     {
         $input = $request->all();
@@ -93,6 +105,12 @@ class ContentTagsController extends Controller
         return response()->json(['success' => $tag + ' added.'], 200); 
     }
 
+    /**
+    * Delete a content tag.
+    *
+    * @param  Request  $request
+    * @return Response
+    */
     public function destroy(Request $request)
     {
         $input = $request->all();

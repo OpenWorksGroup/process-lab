@@ -29,6 +29,12 @@ To dos:
 
 class TemplateController extends Controller
 {
+    /**
+    * Display admin Manage Templates page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\manageTemplates.blade.php
+    */
     public function index(Request $request)
     {
         $templates = Template::all()->sortByDesc('updated_at');
@@ -49,11 +55,23 @@ class TemplateController extends Controller
             ]);    
     }
 
+    /**
+    * Display Create New Template page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\createTemplate.blade.php
+    */
     public function create(Request $request)
     {
         return view('admin.createTemplate')->with('pageTitle','Create New Template');        
     }
     
+    /**
+    * Store a template.
+    *
+    * @param  Request  $request
+    * @return Template $template //DOCUMENTATION NEEDED
+    */
     public function store(Request $request)
     {
 
@@ -120,6 +138,12 @@ class TemplateController extends Controller
         }
     }
 
+    /**
+    * Display Edit Template page for a specified template.
+    *
+    * @param  int $templateId
+    * @return \resources\views\admin\editTemplate.blade.php
+    */
     public function edit($templateId)
     {
         $template = Template::find($templateId);

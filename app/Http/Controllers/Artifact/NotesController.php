@@ -16,6 +16,12 @@ Use Mobile_Detect;
 
 class NotesController extends Controller
 {
+    /**
+	 * Display content note page.
+     *
+	 * @param  int  $contentId
+	 * @return view:  artifact/phone||tabletDesktop/notes.blade.php
+	 */
 	public function edit($contentId) {
         
         if (!$contentId) {
@@ -68,6 +74,14 @@ class NotesController extends Controller
        } 
     }
 
+    /**
+	 * Store a ContentNote.
+     *  - if new note, store new note and content status information.
+     *  - if already exists, update note and content status information.
+     *
+	 * @param  Request  $request
+	 * @return ContentNote  $contentNote
+	 */
     public function store(Request $request) {
 
     	$notes = Purifier::clean($request['note']);
