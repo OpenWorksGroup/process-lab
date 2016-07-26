@@ -15,6 +15,7 @@ use App\TemplateCourse;
 use App\TemplateRubric;
 use App\Content;
 use App\ContentStatus;
+use App\Comment;
 use Log;
 
 class BuilderController extends Controller
@@ -164,6 +165,12 @@ class BuilderController extends Controller
         $templateSections = TemplateSection::where('template_id', '=', $content->template_id)
                                                 ->get();
 
+        // Count comments if any yet
+        
+        $comments = Comment::where('content_id', '=', $contentId)->get();
+
+        $commentsCount = count($comments);
+
         return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.buildEdit')->with([
             'pageTitle'=>'Edit '.$content->title,
             'templateId' => $template->id,
@@ -178,6 +185,7 @@ class BuilderController extends Controller
             'buildLink' => "/artifact-edit/".$contentId,
             'tagsLink' => "/artifact-tags/".$contentId,
             'collaborateLink' => "/artifact-collaboration/".$contentId,
+            'commentsCount' => $commentsCount,
             'notesLink' => "/artifact-notes/".$contentId,
             ]);  
   

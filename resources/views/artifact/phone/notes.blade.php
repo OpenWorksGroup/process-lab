@@ -43,7 +43,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="phoneLinks"><a href="{{ $collaborateLink }}">Collaborate</a></div>
+            <div class="phoneLinks"><a href="{{ $collaborateLink }}">Collaborate @if($commentsCount > 0)({{ $commentsCount }})@endif</a></div>
         </div>
     </div>
 

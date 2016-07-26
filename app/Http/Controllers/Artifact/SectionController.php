@@ -12,6 +12,7 @@ use App\ContentFieldContent;
 use App\Content;
 use App\ContentStatus;
 use App\ContentSectionComment;
+use App\Comment;
 Use Mobile_Detect;
 Use Log;
 
@@ -23,6 +24,9 @@ class SectionController extends Controller
         if (!$contentId && !$sectionId) {
             return response()->view('errors.'.'404');
         }
+
+        $allComments = Comment::where('content_id', '=', $contentId)->get();
+        $commentsCount = count($allComments);
 
         $user = Auth::user();
 
@@ -89,6 +93,7 @@ class SectionController extends Controller
             'buildLink' => "/artifact-edit/".$contentId,
             'tagsLink' => "/artifact-tags/".$contentId,
             'collaborateLink' => "/artifact-collaboration/".$contentId,
+            'commentsCount' => $commentsCount,
             'notesLink' => "/artifact-notes/".$contentId,
             'templateId' => $templateId
             ]); 
@@ -103,7 +108,8 @@ class SectionController extends Controller
             'contentTitle' => $contentTitle,
             'sectionId' => $sectionId,
             'templateId' => $templateId,
-            'sectionsComments' => json_encode($feedbackSetting)
+            'sectionsComments' => json_encode($feedbackSetting),
+            'commentsCount' => $commentsCount,
             ]); 
         }
 

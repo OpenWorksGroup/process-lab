@@ -11,6 +11,7 @@ use App\ContentNote;
 use App\Content;
 use App\ContentStatus;
 use App\TemplateSection;
+use App\Comment;
 use Purifier;
 Use Mobile_Detect;
 
@@ -21,6 +22,9 @@ class NotesController extends Controller
         if (!$contentId) {
             return response()->view('errors.'.'404');
         }
+
+        $allComments = Comment::where('content_id', '=', $contentId)->get();
+        $commentsCount = count($allComments);
 
         $user = Auth::user();
         $note="";
@@ -50,7 +54,8 @@ class NotesController extends Controller
                 'otherSections' => $templateSections,
                 'buildLink' => "/artifact-builder/".$content->template_id,
                 'tagsLink' => "/artifact-tags/".$contentId,
-                'collaborateLink' => "",
+                'collaborateLink' => "/artifact-collaboration/".$contentId,
+                'commentsCount' => $commentsCount,
                 'notesLink' => "/artifact-notes/".$contentId,
             ]);
 
@@ -62,6 +67,7 @@ class NotesController extends Controller
             'contentId' => $contentId,
             'templateId' => $content->template_id,
             'contentTitle' => $content->title,
+            'commentsCount' => $commentsCount,
             'note' => $note
         ]);
 

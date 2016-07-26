@@ -22,6 +22,9 @@ class CollaborationController extends Controller
 		$content = Content::find($contentId);
 		$sections = TemplateSection::where('template_id', '=', $content->template_id)->get();
 
+        $allComments = Comment::where('content_id', '=', $contentId)->get();
+        $commentsCount = count($allComments);
+
 		$sectionsFeedback = [];
 		foreach($sections as $section) {
 
@@ -30,6 +33,7 @@ class CollaborationController extends Controller
         								->where('template_section_id', '=', $section->id)
         								->orderBy('updated_at','desc')
         								->get();
+            
 
         	if (count($retrieveComments) > 0) {
         		foreach ($retrieveComments as $comment) {
@@ -62,6 +66,7 @@ class CollaborationController extends Controller
             'buildLink' => "/artifact-edit/".$contentId,
             'tagsLink' => "/artifact-tags/".$contentId,
             'collaborateLink' => "/artifact-collaboration/".$contentId,
+            'commentsCount' => $commentsCount,
             'notesLink' => "/artifact-notes/".$contentId,
             ]);  
 	}

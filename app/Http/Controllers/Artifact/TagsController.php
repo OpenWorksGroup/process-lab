@@ -10,6 +10,7 @@ use App\Content;
 use App\Tag;
 use App\TagRelationship;
 use App\TemplateSection;
+use App\Comment;
 Use Mobile_Detect;
 
 class TagsController extends Controller
@@ -19,6 +20,9 @@ class TagsController extends Controller
         if (!$contentId) {
             return response()->view('errors.'.'404');
         }
+
+        $allComments = Comment::where('content_id', '=', $contentId)->get();
+        $commentsCount = count($allComments);
 
         $content = Content::find($contentId);
         $tagRelSearch = TagRelationship::where('content_id', '=', $contentId)->get();
@@ -49,7 +53,8 @@ class TagsController extends Controller
                 'otherSections' => $templateSections,
                 'buildLink' => "/artifact-builder/".$content->template_id,
                 'tagsLink' => "/artifact-tags/".$content->template_id,
-                'collaborateLink' => "",
+                'collaborateLink' => "/artifact-collaboration/".$contentId,
+                'commentsCount' => $commentsCount,
                 'notesLink' => "/artifact-notes/".$contentId,
             ]); 
         }
@@ -60,6 +65,7 @@ class TagsController extends Controller
                 'contentId' => $contentId,
                 'templateId' => $content->template_id,
                 'contentTitle' => $content->title,
+                'commentsCount' => $commentsCount,
                 'tags' => json_encode($tags)
             ]); 
         }

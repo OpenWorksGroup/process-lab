@@ -12,6 +12,7 @@ use App\ContentStatus;
 use App\TemplateSection;
 use App\TemplateSectionField;
 use App\ContentFieldContent;
+use App\Comment;
 Use Mobile_Detect;
 
 class PublishController extends Controller
@@ -19,6 +20,9 @@ class PublishController extends Controller
 	public function index($contentId) {
 
 		$content = Content::find($contentId);
+
+		$allComments = Comment::where('content_id', '=', $contentId)->get();
+        $commentsCount = count($allComments);
 
 		//Check to see if content has been published at least once
 		$publishedStatus = false;
@@ -92,7 +96,8 @@ class PublishController extends Controller
             		'contentId' => $contentId,
             		'templateId' => $templateId,
             		'contentTitle' => $contentTitle,
-            		'contents'=>$displayedContent
+            		'contents'=>$displayedContent,
+            		'commentsCount' => $commentsCount,
 			]); 
 
 	}

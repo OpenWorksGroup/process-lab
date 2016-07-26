@@ -35,10 +35,6 @@ class ArtifactRubricController extends Controller
 			array_push($rubricResult,array('rubric'=>$rubric,'category'=>$categoryName));
 		}
 
-		//dd($rubricResult);
-
-		//$isPhone = ($detect->isMobile() && !$detect->isTablet()) ? true:false;
-
 		return view('artifact.Rubric')->with([
             'pageTitle'=>'Competency Rubric',
             'framework' => $framework->framework,
