@@ -51,7 +51,7 @@ class TagsController extends Controller
                 'contentTitle' => $content->title,
                 'tags' => json_encode($tags),
                 'otherSections' => $templateSections,
-                'buildLink' => "/artifact-builder/".$content->template_id,
+                'buildLink' => "/artifact-edit/".$contentId,
                 'tagsLink' => "/artifact-tags/".$content->template_id,
                 'collaborateLink' => "/artifact-collaboration/".$contentId,
                 'commentsCount' => $commentsCount,

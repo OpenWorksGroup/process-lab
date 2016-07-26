@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TemplateForm from './components/template.jsx';
 import CompetencyFrameworkForm from './components/competency_framework_editor_form.jsx';
+import ContentNotesForm from './components/content_notes.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');

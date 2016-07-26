@@ -52,7 +52,7 @@ class NotesController extends Controller
                 'contentTitle' => $content->title,
                 'note' => $note,
                 'otherSections' => $templateSections,
-                'buildLink' => "/artifact-builder/".$content->template_id,
+                'buildLink' => "/artifact-edit/".$contentId,
                 'tagsLink' => "/artifact-tags/".$contentId,
                 'collaborateLink' => "/artifact-collaboration/".$contentId,
                 'commentsCount' => $commentsCount,

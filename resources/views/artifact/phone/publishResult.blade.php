@@ -33,5 +33,8 @@
             </div>
         </div>
     @endif  
+
+    @include('partials.artifactButtonsNav')
+    
 </div>
 @endsection

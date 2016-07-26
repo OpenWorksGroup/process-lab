@@ -52,6 +52,9 @@
             <div class="phoneLinks"><a href="{{ $notesLink }}">Notes from the field</a></div>
         </div>
     </div>
+
+    @include('partials.artifactButtonsNav')
+    
 </div>
 
 @endsection
