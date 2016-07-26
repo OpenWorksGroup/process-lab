@@ -203,7 +203,7 @@ var TemplateSetUp = React.createClass({
                     </label>  
                 </div> */}
 
-                <div className={groupClass['required_num_reviews']}>
+               {/* <div className={groupClass['required_num_reviews']}>
                     <label htmlFor='required_num_reviews' className="control-label">Designate Number of Reviewers</label>
                     <span className="required"><i className="fa fa-asterisk"></i></span> 
                     &nbsp;  <span className={successClass['required_num_reviews']}><i className="fa fa-check"></i></span>
@@ -218,7 +218,7 @@ var TemplateSetUp = React.createClass({
                     disabled ={!this.state.id}
                     />
                     <span className="help-block text-danger">{helpBlock['required_num_reviews']}</span> 
-                </div>
+                </div> */}
 
                 {/* Not using yet. DB stores default values 
                 <div className={groupClass['required_period_time']}>
