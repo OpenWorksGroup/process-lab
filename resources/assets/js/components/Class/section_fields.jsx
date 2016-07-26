@@ -402,7 +402,6 @@ var File = React.createClass({
 		this.gotoNext();
 	},
 	removeFile (i,e) {
-		event.preventDefault();
 		var field_content_id = this.state.files[i]['field_content_id'];
 
 		var data = {};
@@ -476,9 +475,7 @@ var File = React.createClass({
     },
     renderGallery () {
 		if (!this.state.files) return;
-		//console.log("FILES "+JSON.stringify(this.state.files));
 		const gallery = this.state.files.map((file, i) => {
-			//console.log("preview "+file.src)
 			 if(file.saved_type == "image") {
 			 	var tooltip = "View "+file.caption;
 				return (

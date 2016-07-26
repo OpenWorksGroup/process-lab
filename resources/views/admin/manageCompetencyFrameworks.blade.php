@@ -24,9 +24,7 @@
                         <tr>
                             <th>Framework</th>
                             <th>Created By</th>
-                        <!--   <th>Updated By</th> -->
                             <th>Created</th>
-                        <!--  <th>Updated</th> -->
                             <th colspan="2"></th>
                         </tr>
                     </thead>
@@ -35,10 +33,8 @@
                             <tr>
                                 <td>{{ $framework->framework }}</td>
                                 <td>{{ $framework->creator }}</td>
-                            <!--  <td>{{ $framework->updator }}</td> -->
                                 <td>{{ $framework->created_at }}</td>
-                            <!--  <td>{{ $framework->updated_at }}</td>-->
-                                <td colspan="2"><a class="btn btn-default disabled" href="/admin/competency-framework/{{ $framework->id }}" role="button">Edit</a></td>
+                                <td colspan="2"><a class="btn btn-default" href="/admin/competency-framework/{{ $framework->id }}" role="button">Edit</a></td>
                             </tr>
                         @endforeach 
                     </tbody>                                  

@@ -36,9 +36,9 @@ class CompetencyFrameworkCategoryController extends Controller
             
         	$user = auth()->user(); 
             
-        	$category = CompetencyFrameworkCategories::create([
+        	$category = CompetencyFrameworkCategory::create([
             	'category' => $request['category'],
-            	'framework_id' => $request['cf_id'],
+            	'framework_id' => $request['framework_id'],
             	'created_by_user_id' => $user->id,
             	'updated_by_user_id' => $user->id
         	]);   
@@ -53,5 +53,12 @@ class CompetencyFrameworkCategoryController extends Controller
         $categories = CompetencyFrameworkCategory::all()->sortBy('category');
 
         return $categories;
+    }
+
+    public function destroy(Request $request) {
+        $category = CompetencyFrameworkCategory::find($request['category_id']);
+        $category -> delete(); //should be soft delete 
+
+        return response()->json(['success' => 'category deleted.'], 200); 
     }
 }

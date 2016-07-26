@@ -98,6 +98,7 @@ Route::group(['middleware' => ['web','auth', 'checkAdmin']], function () {
     Route::get('/admin/competency-framework/create', 'Admin\CompetencyFrameworkController@create');
     Route::post('/admin/competency-framework', 'Admin\CompetencyFrameworkController@store');
     Route::post('/admin/competency-framework-category', 'Admin\CompetencyFrameworkCategoryController@store');
+    Route::delete('/admin/competency-framework-category', 'Admin\CompetencyFrameworkCategoryController@destroy');
     Route::get('/admin/competency-framework/{cfId}', 'Admin\CompetencyFrameworkController@edit');
 
     Route::get('/admin/competency-frameworks/retrieve', 'Admin\CompetencyFrameworkController@retrieve');

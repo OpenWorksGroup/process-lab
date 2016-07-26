@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\CompetencyFramework;
+use App\CompetencyFrameworkCategory;
 use App\User;
 use Log;
 
@@ -39,15 +40,17 @@ class CompetencyFrameworkController extends Controller
 
     public function store(Request $request)
     {
-    	if ($request['cf_id'])
+    	if ($request['framework_id'])
     	{
-            $cf = CompetencyFramework::find($request['cf_id']);
+            $cf = CompetencyFramework::find($request['framework_id']);
 
             if ($request['framework'] != $cf->framework) {
     		  $this->validate($request, [
                 'framework' => 'required|filled|unique:competency_frameworks,framework'
                 ]);
             }
+            
+            $cf->framework = $request['framework'];
 
             $cf->save();
 
@@ -72,10 +75,16 @@ class CompetencyFrameworkController extends Controller
 
     public function edit($cfId)
     {
-       // Log::info('CFID '.$cfId);
+
+        $framework = CompetencyFramework::find($cfId);
+        $frameworkName = $framework->framework;
+
+        $categories = CompetencyFrameworkCategory::where('framework_id', '=', $cfId)->get();
 
         return view('admin.editCompetencyFramework')->with([
-            'pageTitle'=>'Edit Competency Framework',
+            'pageTitle' => 'Edit Competency Framework',
+            'frameworkName' => $frameworkName,
+            'categories' => $categories,
             'cfId' => $cfId
         ]);       
     }

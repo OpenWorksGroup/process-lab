@@ -59,16 +59,15 @@ var RubricEditor = React.createClass({
 
         _.each(rubricCategories, function(category){
             _.each(savedFrameworkCategories, function(saved){
+              //  console.log("category['id'] "+category['id']);
+              //  console.log(JSON.stringify(saved));
                 if (category['id'] != saved) {
                     frameworkCategories.push(category);
                 }
+
+                //console.log("CATEGORIES 1 "+JSON.stringify(frameworkCategories));
             });
         });
-
-        //still showing selected competencies - FIX
-        console.log("savedFrameworkCategories"+ savedFrameworkCategories);
-        console.log("frameworkCategories"+ JSON.stringify(frameworkCategories));
-        console.log('framework options '+JSON.stringify(frameworkOptions));
 
         return {
             frameworkOptions: frameworkOptions,
@@ -83,8 +82,6 @@ var RubricEditor = React.createClass({
 
         this.setState({framework_id: value});
 
-        console.log(this.state.frameworkOptions);
-
         var frameworkObj = _.find(this.state.frameworkOptions, function(obj) { return obj.value == value });
         if (frameworkObj) {
             this.setState({framework_name: frameworkObj['label']});
@@ -97,22 +94,28 @@ var RubricEditor = React.createClass({
         })
         .success(function(categoryResults) {
             
+            //get categories for the framework selected
             _.each(categoryResults, function(category){
                 if (category['framework_id'] == value) {
-                    frameworkCategories.push({value: category['id'], label: category['category']});
+                    // Get categories that haven't been selected yet
+                    _.each(savedFrameworkCategories, function(saved){
+                        if (category['id'] != saved) {
+                            frameworkCategories.push({value: category['id'], label: category['category']});
+                        }
+                    });
                 }
             });
+
             this.setState({frameworkCategories: frameworkCategories});
 
         }.bind(this)); 
+
     },
     removeFramework: function(){
         var data = {};
         data['template_id'] = template_id;
         data['framework_id'] = this.state.framework_id;
         data['category_id'] = null;
-
-        this.setState({success: ""});
 
         $.ajax({
             type: 'DELETE',
@@ -128,8 +131,7 @@ var RubricEditor = React.createClass({
                 this.setState({framework_name: ""});
                 this.setState({frameworkCategories: null});
                 this.setState({success: "true"});
-              //  console.log(result['success']);
-              //  console.log(this.state.frameworkOptions);
+
             }      
         }.bind(this))
         .error(function(result) {
@@ -148,17 +150,9 @@ var RubricEditor = React.createClass({
                 var frameworkId = this.state.framework_id;
                 var rubrics = this.state.rubrics;
                 var scrubbedFrameworkCategories = this.state.frameworkCategories;
-                //console.log("RUBRICS render "+JSON.stringify(rubrics));
-               // console.log("frameworkCategories"+ JSON.stringify(this.state.frameworkCategories));
-               // 
 
                 return (
                     <div className="col-md-10">
-                        <div>
-                            {this.state.success ?
-                                <FormSavedNotice/>
-                                : null}
-                        </div>
                         <div className="panel panel-default">
                             <div className="panel-heading">
                                 <h3 className="panel-title">Add Rubric Scores and Values</h3>
@@ -195,15 +189,9 @@ var RubricEditor = React.createClass({
                 );
             }
             else {
-                template_id = this.props.id;  
 
                 return (
                     <div className="col-md-10">
-                        <div>
-                            {this.state.success ?
-                                <FormSavedNotice/>
-                                : null}
-                        </div>
                         <div className="panel panel-default">
                             <div className="panel-heading">
                                 <h3 className="panel-title">Add Rubric Scores and Values</h3>
@@ -236,11 +224,6 @@ var RubricEditor = React.createClass({
         else {
             return (
                 <div className="col-md-10">
-                    <div>
-                        {this.state.success ?
-                            <FormSavedNotice/>
-                            : null}
-                    </div>
                     <div className="panel panel-default">
                         <div className="panel-heading">
                             <h3 className="panel-title">Add Rubric Scores and Values</h3>
@@ -319,11 +302,6 @@ var SavedCompetencyCategory = React.createClass({
 
                 return(
                     <div className="row">
-                        <div>
-                            {this.state.success ?
-                            <FormSavedNotice/>
-                            : null}
-                        </div>
                         <div className="col-md-12">
                             <div><h5>Competency: {categoryName}</h5> <div className="removeClick" onClick={this.removeCompetency}><i className="remove fa fa-times" aria-hidden="true"></i> Remove competency</div></div>
                             <CategoryDescriptions 
@@ -400,16 +378,10 @@ var CompetencyCategory = React.createClass({
     render: function() {
 
         if (this.props.frameworkCategories) {
-            //console.log("frameworkCategories load"+ JSON.stringify(this.props.frameworkCategories));
             
             if (this.state.category_name) {
                 return(
                         <div className="row">
-                            <div>
-                                {this.state.success ?
-                                    <FormSavedNotice/>
-                                : null}
-                            </div>
                             <div className="col-md-12">
                                 <div><h5>Competency: {this.state.category_name}</h5> <div className="removeClick" onClick={this.removeCompetency}><i className="remove fa fa-times" aria-hidden="true"></i> Remove competency</div></div>
                                 <CategoryDescriptions category_id={this.state.category_id} framework_id={this.props.framework_id} frameworkCategories={this.state.frameworkCategories}/>
@@ -421,11 +393,6 @@ var CompetencyCategory = React.createClass({
             else {
                 return (
                         <div className="row">
-                            <div>
-                                {this.state.success ?
-                                    <FormSavedNotice/>
-                                : null}
-                            </div>
                             <div className="col-md-12">
                                 <Select
                                 name="category_id"
@@ -490,8 +457,6 @@ var CategoryDescriptions = React.createClass({
         data['template_id'] = template_id;
         data['framework_id'] = this.props.framework_id;
         data['category_id'] = this.props.category_id;
-
-       // console.log("DATA "+JSON.stringify(data));
 
         if (this.state.rubric_id) { // don't show checkmark if description is empty
             data['rubric_id'] = this.state.rubric_id;

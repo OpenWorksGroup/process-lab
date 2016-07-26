@@ -1,15 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TemplateForm from './components/template.jsx';
-import CompetencyFrameworkForm from './components/competency_framework_form.jsx';
-/** mockups **/
-import GradeTags from './components/mockups/grade_tags.jsx';
-import SubjectTags from './components/mockups/subject_tags.jsx';
-import SectionFieldsForm from './components/section.jsx';
-import ContentNotesForm from './components/content_notes.jsx';
-import TagsForm from './components/tags.jsx';
-import FeedbackSwitchForm from './components/feedback_switch.jsx';
-import FilesDisplay from './components/files_display.jsx';
+import CompetencyFrameworkForm from './components/competency_framework_editor_form.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');
@@ -40,11 +32,17 @@ $(() => {
 
   var competencyFrameworkForm  = document.querySelector('#competency-framework-editor');
   var frameworkId = $('#competency-framework-editor').attr('data-frameworkId');
+  var frameworkName = $('#competency-framework-editor').attr('data-frameworkName');
+  var frameworkCategories = $('#competency-framework-editor').attr('data-categories');
 
 
   if (competencyFrameworkForm) {
         if (frameworkId) {
-            ReactDOM.render(<CompetencyFrameworkForm frameworkId={frameworkId}/>,competencyFrameworkForm);
+            ReactDOM.render(<CompetencyFrameworkForm 
+            frameworkId={frameworkId}
+            frameworkName={frameworkName}
+            frameworkCategories={frameworkCategories}
+            />,competencyFrameworkForm);
         }
         else {
             ReactDOM.render(<CompetencyFrameworkForm />,competencyFrameworkForm);

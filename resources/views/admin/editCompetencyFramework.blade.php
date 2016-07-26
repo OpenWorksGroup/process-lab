@@ -23,7 +23,9 @@
         <div class="row">
             <div class="col-md-12">               
                 <div id="competency-framework-editor" 
-                data-frameworkId="{{ $cfId }}"></div> 
+                data-frameworkId="{{ $cfId }}"
+                data-frameworkName="{{ $frameworkName }}"
+                data-categories="{{ $categories }}"></div> 
             </div>
         </div>
     </div>    
