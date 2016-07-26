@@ -165,7 +165,7 @@ class BuilderController extends Controller
         $templateSections = TemplateSection::where('template_id', '=', $content->template_id)
                                                 ->get();
 
-        // Count comments if any yet
+        // Count comments if any yet - only used for phone view - check other artifact controllers when cleaning up
         
         $comments = Comment::where('content_id', '=', $contentId)->get();
 

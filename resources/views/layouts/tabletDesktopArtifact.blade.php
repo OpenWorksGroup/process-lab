@@ -71,14 +71,11 @@
                     @endif
 
                     @if(! empty($contentId))
-                    @include('partials.sectionsNav')
-                        <li><a href="/artifact-tags/{{ $contentId }}">Tag</a></li>
-                        <li><a href="/artifact-collaboration/{{ $contentId }}">Collaborate 
-                        @if($commentsCount > 0)({{ $commentsCount }})@endif</a></li>
-                        <li><a href="/artifact-notes/{{ $contentId }}">Notes from the field</a></li>
+                        @include('partials.artifactLinksNav')
                     @endif
                 </ul>
-                <div><a class="btn btn-default" href="/publish-content/{{ $contentId }}">Publish</a></div>
+                    @include('partials.artifactButtonsNav')
+                
             </div>
         </div>
       </nav>

@@ -13,7 +13,8 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      view()->composer('partials.sectionsNav','App\Http\ViewComposers\SectionsNavComposer');
+      view()->composer('partials.artifactLinksNav','App\Http\ViewComposers\ArtifactLinksNavComposer');
+      view()->composer('partials.artifactButtonsNav','App\Http\ViewComposers\ArtifactButtonsNavComposer');
     }
 
     /**
