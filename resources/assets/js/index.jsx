@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import TemplateForm from './components/template.jsx';
 import CompetencyFrameworkForm from './components/competency_framework_editor_form.jsx';
 import ContentNotesForm from './components/content_notes.jsx';
+import FeedbackSwitchForm from './components/feedback_switch.jsx';
+import SectionFieldsForm  from './components/section.jsx';
+import FilesDisplay from './components/files_display.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');

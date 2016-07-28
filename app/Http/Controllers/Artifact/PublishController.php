@@ -12,17 +12,16 @@ use App\ContentStatus;
 use App\TemplateSection;
 use App\TemplateSectionField;
 use App\ContentFieldContent;
-use App\Comment;
 Use Mobile_Detect;
+use Log;
+use App\Classes\CheckRequiredFieldsClass;
+use App\Classes\RetrieveArtifactContentClass;
 
 class PublishController extends Controller
 {
 	public function index($contentId) {
 
 		$content = Content::find($contentId);
-
-		$allComments = Comment::where('content_id', '=', $contentId)->get();
-        $commentsCount = count($allComments);
 
 		//Check to see if content has been published at least once
 		$publishedStatus = false;
@@ -42,52 +41,7 @@ class PublishController extends Controller
 		$templateId = $content->template_id;
 		$contentTitle = $content->title;
 
-		$displayedContent = [];
-
-		$sections = TemplateSection::where('template_id', '=', $content->template_id)->get();
-
-		foreach($sections as $section) {
-			$fields = TemplateSectionField::where('template_section_id', '=', $section->id)
-											->get();
-			$fieldInfo = [];
-			foreach($fields as $field) {
-				$contentFields = ContentFieldContent::where('template_section_field_id', '=', $field->id)
-													 ->where('content_id', '=', $contentId)
-													 ->get();
-				$text = [];
-				$links = [];
-				$files = [];
-				foreach($contentFields as $contentField) {
-
-					if ($contentField->type == "text") {
-						array_push($text,$contentField);
-					}
-					else if ($contentField->type == "link") {
-						array_push($links,$contentField);
-					}
-					else {
-						array_push($files,$contentField);
-					}	
-				}
-
-				if (count($contentFields) > 0 ) {
-					array_push($fieldInfo,Array(
-						'field_title' => $field->field_title,
-						'text' => $text,
-						'links' => $links,
-						'files' => json_encode($files)
-					));
-				}
-			}
-
-			// Display sections with content
-			if (count($fieldInfo) > 0) {
-				array_push($displayedContent,Array(
-					'section_title' => $section->section_title,
-					'fields' => $fieldInfo
-				));
-			}
-		}	
+		$displayedContent = RetrieveArtifactContentClass::retrieve($content);
 
 		$detect = new Mobile_Detect;
 
@@ -96,8 +50,7 @@ class PublishController extends Controller
             		'contentId' => $contentId,
             		'templateId' => $templateId,
             		'contentTitle' => $contentTitle,
-            		'contents'=>$displayedContent,
-            		'commentsCount' => $commentsCount,
+            		'contents'=>$displayedContent
 			]); 
 
 	}
@@ -105,7 +58,8 @@ class PublishController extends Controller
     public function store($contentId) {
 
     	$detect = new Mobile_Detect;
-    	$sectionsFieldsRequired = [];
+
+    	$content = Content::find($contentId);
 	
 		$user = Auth::user();
 
@@ -130,57 +84,29 @@ class PublishController extends Controller
 			]); 
 		}
 
-		$sections = TemplateSection::where('template_id', '=', $content->template_id)->get();
-
-
-		foreach($sections as $section){
-			$fields = TemplateSectionField::where('template_section_id', '=', $section->id)
-											->where('required', '=', 1)
-											->get();
-		
-
-			foreach($fields as $field) {
-				$contentFields = ContentFieldContent::where('template_section_field_id', '=', $field->id)
-													 ->where('content_id', '=', $contentId)
-													 ->get();
-
-				if (count($contentFields) == 0) {
-					array_push($sectionsFieldsRequired,Array(
-						'section_id'=>$section->id,
-						'section_title'=>$section->section_title,
-						'field_title' => $field->field_title)
-					);
-				}
-			}
-		}
-
-				//	dd($sectionsFieldsRequired);		
+		$sectionsFieldsRequired = CheckRequiredFieldsClass::check($content);
+		$title = "Not Yet Published";	
+		$status = "edit";
 
 		if (empty($sectionsFieldsRequired)) {
-		
-			$status = ContentStatus::create([
+			$title = "Published";
+			$status = "published";
+
+			$update_status = ContentStatus::create([
 					'content_id' => $contentId,
                 	'status' => 'published'
 			]);
-		
-			return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.publishResult')->with([
-            					'pageTitle'=>'Published',
-            					'contentId' => $contentId,
-            					'templateId' => $content->template_id,
-            					'contentTitle' => $content->title,
-            					'status'=>'published'
-			]); 
-		}
-		else {
-			return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.publishResult')->with([
-            					'pageTitle'=>'Not Yet Published',
-            					'contentId' => $contentId,
-            					'templateId' => $content->template_id,
-            					'contentTitle' => $content->title,
-            					'fieldsMissing' => $sectionsFieldsRequired,
-            					'status'=>'edit'
-			]); 
 
 		}
+		
+		return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.publishResult')->with([
+            			'pageTitle'=> $title,
+            			'contentId' => $contentId,
+            			'templateId' => $content->template_id,
+            			'contentTitle' => $content->title,
+            			'fieldsMissing' => $sectionsFieldsRequired,
+            			'status'=>$status
+		]); 
+
 	}
 }

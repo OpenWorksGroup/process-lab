@@ -34,7 +34,7 @@
         		<div><strong>Course: </strong><a href="{{ $loadInfo['course_url'] }}" target="blank">{{ $loadInfo['course_title'] }}</a></div>
             @endif
             @if ($loadInfo['rubric_link'])
-        		<div><a href="{{ $loadInfo['rubric_link'] }}" target="blank">Comptency Rubric</a></div>
+        		<div><a href="{{ $loadInfo['rubric_link'] }}" target="blank">Competency Rubric</a></div>
             @endif
         </div>
     </div>

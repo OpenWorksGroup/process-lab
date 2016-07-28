@@ -61,7 +61,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                 @if(Session::has('user.administrator'))
+                                 @if(Session::has('user.admin'))
                                     <li><a href="{{ url('/admin') }}">Admin Dashboard</a></li>
                                 @endif
                                     <li><a href="/dashboard">Dashboard</a></li>
@@ -74,7 +74,9 @@
                         @include('partials.artifactLinksNav')
                     @endif
                 </ul>
-                    @include('partials.artifactButtonsNav')
+                    @if(! empty($contentId))
+                        @include('partials.artifactButtonsNav')
+                    @endif
                 
             </div>
         </div>

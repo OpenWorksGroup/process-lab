@@ -1,4 +1,4 @@
-@extends('layouts.phoneArtifact')
+@extends('layouts.tabletDesktopArtifact')
 
 @section('content')
 
@@ -10,12 +10,12 @@
             </div>
         </div>
     </div>
-    @if($status=="edit")
+    @if(count($fieldsMissing) > 0)
         <div class="row">
             <div class="col-md-10">
                 <div>
-                    <p>To publish, please check the required fields:</p>
-                        @include('partials.checkFieldsRequired')
+                    <p>To submit for review, please check the required fields:</p>
+                    @include('partials.checkFieldsRequired')
                 </div>
             </div>
         </div>
@@ -23,13 +23,10 @@
         <div class="row">
             <div class="col-md-10">
                 <div class="text-center">
-                    <h4>View your published content <a href="/artifact/{{ $contentId }}"><strong>here</strong></a></h4>
+                    <h4>Your content has been submitted for review. Please check your dashboard for updates.</h4>
                 </div>
             </div>
         </div>
     @endif  
-
-    @include('partials.artifactButtonsNav')
-    
 </div>
 @endsection

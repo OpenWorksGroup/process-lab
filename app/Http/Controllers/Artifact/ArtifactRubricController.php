@@ -16,6 +16,7 @@ class ArtifactRubricController extends Controller
 	public function index($templateId) {
 
 		$templateRubric = TemplateRubric::where('template_id', '=', $templateId)->get();
+
 		$framework = CompetencyFramework::find($templateRubric[0]->competency_framework_id);
 		$settings = Setting::all()->first();
 		$competencyHeaders = array(
@@ -40,7 +41,6 @@ class ArtifactRubricController extends Controller
             'framework' => $framework->framework,
             'competencyHeaders' => $competencyHeaders,
             'rubrics' => $rubricResult
-           // 'is_phone => $isPhone
         ]);  
 	}
 }

@@ -13,6 +13,7 @@ use App\ContentStatus;
 use App\TemplateSection;
 use App\ContentSectionComment;
 use App\User;
+use App\ReviewRequest;
 
 class UserDashboardController extends Controller
 {
@@ -23,6 +24,7 @@ class UserDashboardController extends Controller
         $workInProgress = [];
         $published = [];
         $feedbackNeeded = [];
+        $reviewsNeeded = [];
 
         $contents = Content::where('created_by_user_id', '=', $user->id)->get();
         
@@ -60,6 +62,21 @@ class UserDashboardController extends Controller
             }
         }
 
+        // Get Reviews Needed
+        $reviews = ReviewRequest::where('reviewed_count', '<', 3)
+                                ->where('user_id', '!=', $user->id)
+                                ->get();
+
+        if ($reviews) {
+            foreach ($reviews as $review){
+                $content = Content::where('id', '=', $review->content_id)->orderBy('updated_at','desc')->first();
+                $author = User::find($content->created_by_user_id);
+                $content['author'] = $author->name;
+
+                array_push($reviewsNeeded,$content);
+            }
+        }
+
         return view('dashboard')->with([
 			'pageTitle'=>$user->name." Dashboard",
             'userName'=>$user->name,
@@ -68,7 +85,9 @@ class UserDashboardController extends Controller
             'published' => $published,
             'pCount' =>count($published),
             'feedback' =>$feedbackNeeded,
-            'fCount' => count($feedbackNeeded)
+            'fCount' => count($feedbackNeeded),
+            'reviews' => $reviewsNeeded,
+            'rCount' => count($reviewsNeeded)
         ]);             
     }
 }

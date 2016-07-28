@@ -46,9 +46,6 @@ class FieldController extends Controller
 
 			$fieldContent->save();
 
-			//$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-            //$contentStatus->touch();
-
 			$status = ContentStatus::create([
                 'content_id' => $request['content_id'],
                 'status' => 'edit'
@@ -81,7 +78,7 @@ class FieldController extends Controller
 
 	public function destroy(Request $request) {
 
-		//Log::info($request);
+		Log::info($request);
 		$fieldContent = ContentFieldContent::find($request['id']);
 		//Log::info($fieldContent->type);
 		$type = $fieldContent->type;
@@ -94,7 +91,7 @@ class FieldController extends Controller
 
 		$fieldContent -> delete();
 
-		return $request['id'];
+		return response()->json(['success' => 'field content deleted.'], 200); 
 
 	}
 }

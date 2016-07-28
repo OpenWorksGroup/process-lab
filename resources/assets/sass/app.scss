@@ -117,6 +117,13 @@
   z-index: 9999;
 }
 
+.scrollable {
+  /*position:fixed;*/
+  height: 400px;
+  overflow-y: scroll;
+  border: 1px solid $gray-light;
+}
+
 /* Example Styles for React Tags Module*/
 div.ReactTags__tags {
     position: relative;

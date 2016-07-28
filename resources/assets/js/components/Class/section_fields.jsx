@@ -129,18 +129,38 @@ var Field = React.createClass({
         }.bind(this));
 
     },
-    removeLink: function(field_content_id){
-    	console.log("field_content_id "+field_content_id);
-    	console.log("this.state.links "+JSON.stringify(this.state.links));
-    	var links = this.state.links.filter(function(l){
-      		return field_content_id !== l.id;
-    	});
+    removeLink: function(e){
+       
+        var item = e.target.id;
 
-    	console.log("links "+JSON.stringify(links));
+        console.log("ITEM "+e.target.id);
 
-    	this.setState({
-      		links: links
-    	});
+        var data = {};
+        data['id'] = this.state.links[item]['id'];
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/artifact/field/delete',
+            data: data,
+            dataType: 'json',
+        })
+        .success(function(result) {
+            if (result['success']) {
+                this.state.links.splice(item, 1);
+                this.setState({
+                    links: this.state.links
+                });
+                this.setState({success: "true"});
+            }
+        }.bind(this))
+        .error(function(result) {
+            var error = result.responseJSON;
+            if (error) {
+                var error = result.responseJSON;
+                this.setState({ error: error });
+            }
+        }.bind(this)); 
+
   	},
 	render: function() {
 		var fieldId = this.props.field_id;
@@ -181,12 +201,13 @@ var Field = React.createClass({
                     				return (<div className="vertical-spacer-10">
                     						<Link
                     						key={i}
+                                            id={i}
                 							field_id={fieldId}
                 							field_content_id = {link['id']}
                 							field_uri = {link['uri']}
                 							content_id={contentId}
                 							section_id={sectionId}
-                							onRemove={removeLink}
+                							removeLink={removeLink}
                 							/>
                 						</div>
                     				);
@@ -198,11 +219,9 @@ var Field = React.createClass({
                 							field_id={fieldId}
                 							content_id={contentId}
                 							section_id={sectionId}
-                							onRemove={removeLink}/>
+                							removeLink={removeLink}/>
                 						</div>
 						}
-								
-
                 	
                 	<AddLink field_id={fieldId} content_id={contentId} section_id={sectionId} />
                 </div>
@@ -247,8 +266,6 @@ var Link = React.createClass({
     	data['content_id'] = this.props.content_id;
     	data['template_section_field_id'] = this.props.field_id;
 
-    	//console.log("DATA "+JSON.stringify(data));
-
     	$.ajax({
             type: 'POST',
             url: '/artifact/field',
@@ -266,34 +283,6 @@ var Link = React.createClass({
             this.setState({ error: error });
         }.bind(this));
     },
-    removeLink: function() {
-    	event.preventDefault();
-		var field_content_id = this.state.field_content_id;
-		console.log("1 field_content_id "+field_content_id);
-
-		var data = {};
-        data['id'] = field_content_id;
-
-        $.ajax({
-            type: 'DELETE',
-            url: '/artifact/field/delete',
-            data: data,
-            dataType: 'json',
-        })
-        .success(function(result) {
-        	this.setState({
-    			success:"true"
-  			});  
-  			return this.props.onRemove(field_content_id);
-        }.bind(this))
-        .error(function(result) {
-            var error = result.responseJSON;
-            if (error) {
-               	var error = result.responseJSON;
-            	this.setState({ error: error });
-            }
-        }.bind(this)); 
-    },
     render: function() {
 		return(
 			<div>
@@ -302,20 +291,29 @@ var Link = React.createClass({
                     	<FormSavedNotice/>
                 	: null}
             	</div>
-				<input 
-                className="form-control" 
-                name="uri"
-                value={this.state.uri} 
-                defaultValue={this.props.uri} 
-                type="text" 
-                placeholder="ex: http://www.domain.com"
-                onChange={this.handleChange}
-                onBlur={this.saveChange}
-                />{this.state.field_content_id ?
-                	<div className="removeClick" onClick={this.removeLink}>
-						<i className="fa fa-times" aria-hidden="true"></i>
-					</div>
-					: null }
+                <div className="row">
+                    <div className="col-sm-10 text-left">
+                        {this.state.field_content_id ?
+                            <div className="removeClick" id={this.props.id} onClick={this.props.removeLink}>
+                                <i className="fa fa-times" aria-hidden="true"></i> remove
+                            </div>
+                        : null }
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-sm-10">
+				        <input 
+                        className="form-control" 
+                        name="uri"
+                        value={this.state.uri} 
+                        defaultValue={this.props.uri} 
+                        type="text" 
+                        placeholder="ex: http://www.domain.com"
+                        onChange={this.handleChange}
+                        onBlur={this.saveChange}
+                        />
+                    </div>
+                </div>
             </div>
         );
 	}		

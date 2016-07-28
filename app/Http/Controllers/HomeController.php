@@ -64,13 +64,26 @@ class HomeController extends Controller
                 if (Bouncer::is($user)->an('admin'))
                 {
                    // Add admin role to user session array
-                    $user['administrator'] = true;
+                    $user['admin'] = true;
+
+                    if (Bouncer::is($user)->an('peer reviewer') || Bouncer::is($user)->an('expert reviewer'))
+                    {
+                        $user['reviewer'] = true;
+                        $request->session()->put('user', $user);
+                    }
+                    
                     $request->session()->put('user', $user);
 
                     return redirect('/admin');
                 }
                 else
                 {
+                    if (Bouncer::is($user)->an('peer reviewer') || Bouncer::is($user)->an('expert reviewer'))
+                    {
+                        $user['reviewer'] = true;
+                        $request->session()->put('user', $user);
+                    }
+
                     // Temp placeholder. Will change this to author dashboard once we get there.
                     return redirect('/dashboard');
                 }

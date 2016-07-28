@@ -15,12 +15,7 @@
             <div class="col-md-10">
                 <div>
                     <p>To publish, please check the required fields:</p>
-                    <ul>
-                    @foreach($fieldsMissing as $field)
-                    <li><a href="/artifact/{{ $contentId }}/{{ $field['section_id'] }}">
-                    {{ $field['section_title'] }} - {{ $field['field_title'] }}</a></li>
-                    @endforeach
-                    </ul>
+                    @include('partials.checkFieldsRequired')
                 </div>
             </div>
         </div>

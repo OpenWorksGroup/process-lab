@@ -27,7 +27,12 @@
                     </li>
                     <li>
                         <a href="#feedback" data-toggle="tab" aria-controls="feedback" aria-expanded="true">Feedback Needed @if($fCount)({{ $fCount }})@endif</a>
-                    </li>           
+                    </li>  
+                    @if(Session::has('user.reviewer'))    
+                        <li>
+                        <a href="#reviews" data-toggle="tab" aria-controls="reviews" aria-expanded="true">Reviews Requested @if($rCount)({{ $rCount }})@endif</a>
+                        </li> 
+                    @endif     
                 </ul> 
                 <div id="tabContent" class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="content" aria-labelledby="content"> 
@@ -59,7 +64,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <h4>You do not have any work in progress.</h4>
+                            <p>You do not have any work in progress.</p>
                         @endif 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="feedback" aria-labelledby="feedback"> 
@@ -76,6 +81,22 @@
                             @endforeach
                         @else
                             <p>No feedback is needed at this time</p>
+                        @endif 
+                </div>
+                <div role="tabpanel" class="tab-pane" id="reviews" aria-labelledby="reviews"> 
+                        @if (! empty($reviews))
+                            @foreach($reviews as $review)
+                                <div class="row vertical-spacer-20">
+                                    <div class="col-md-8">
+                                        {{ $review->title }} by {{ $review->author }}
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <a class="btn btn-default" href="/submit-review/{{$review->id}}">review</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No reviews requested at this time.</p>
                         @endif 
                 </div>
             </div>
