@@ -36,7 +36,7 @@ class ArtifactRubricController extends Controller
 			array_push($rubricResult,array('rubric'=>$rubric,'category'=>$categoryName));
 		}
 
-		return view('artifact.Rubric')->with([
+		return view('artifact.rubric')->with([
             'pageTitle'=>'Competency Rubric',
             'framework' => $framework->framework,
             'competencyHeaders' => $competencyHeaders,
