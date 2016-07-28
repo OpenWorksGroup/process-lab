@@ -16,6 +16,7 @@ use App\Review;
 use App\ReviewResult;
 use App\ReviewRequest;
 use Validator;
+use Purifier;
 Use Mobile_Detect;
 
 class ReviewerController extends Controller
@@ -67,13 +68,7 @@ class ReviewerController extends Controller
         ]);
     }
 
-    public function attributes() {
-        return [
-        'category_'.$x => 'Nice Name',
-        ];
-    }
-
-   public function store(Request $request) {
+    public function store(Request $request) {
         $user = Auth::user();
         $contentId = $request['contentId'];
         $content = Content::find($contentId);
@@ -108,6 +103,7 @@ class ReviewerController extends Controller
 
             //gather results
             
+            $result['category_id'] = $category->id;
             $result['competency'] = $category->category;
             $result['score'] = $request['category_'.$category->id];
             $totalScore += $result['score'];
@@ -116,12 +112,14 @@ class ReviewerController extends Controller
             
         }
 
-        $results['total_score'] = $totalScore;
+       // $results['total_score'] = $totalScore;
+
+        $comment = Purifier::clean($request['comment']);
 
         $review = Review::create([
             'content_id' => $contentId,
             'user_id' => $user->id,
-            'comment' => $request['comment']
+            'comment' => $comment
         ]);
 
         $reviewResult = ReviewResult::create([

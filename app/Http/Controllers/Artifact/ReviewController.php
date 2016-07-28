@@ -12,6 +12,9 @@ use App\ContentStatus;
 Use Mobile_Detect;
 use App\Classes\CheckRequiredFieldsClass;
 use App\ReviewRequest;
+use App\ReviewResult;
+use App\TemplateRubric;
+use App\Review;
 
 class ReviewController extends Controller
 {
@@ -65,5 +68,59 @@ class ReviewController extends Controller
             		'status'=>'edit'
 		]);
 
+    }
+
+    public function index($contentId) {
+
+		$content = Content::find($contentId);
+
+		$reviewsDisplay = [];
+		$reviews = Review::where('content_id','=',$contentId)->get();
+
+		if (count($reviews) > 0) {
+			foreach ($reviews as $review) {
+				$resultsData = [];
+				$reviewResults = ReviewResult::where('review_id','=',$review->id)->get();
+
+				foreach ($reviewResults as $result) {
+					foreach(json_decode($result->results) as $item) {
+						$rubric = TemplateRubric::where('competency_framework_category_id','=',$item->category_id)->first();
+						$descriptionField = 'description_'.$item->score;
+						array_push($resultsData,Array(
+							'competency' => $item->competency,
+							'description' => $rubric[$descriptionField]
+							));
+					}
+
+					array_push($reviewsDisplay,Array(
+							'comment' => $review->comment,
+							'data' => $resultsData
+						));
+				}
+			}
+
+			//dd($reviewsDisplay);
+		}
+
+		/*
+		
+		for each review display:
+		competency result description
+		 */
+
+
+		$detect = new Mobile_Detect;
+
+		return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.viewReviews')->with([
+            'pageTitle'=>$content->title.' Reviews',
+            'templateId' => $content->template_id,
+            'contentId' => $contentId,
+            'contentTitle' => $content->title,
+            'reviewContent' => $reviewsDisplay,
+            'buildLink' => "/artifact-edit/".$contentId,
+            'tagsLink' => "/artifact-tags/".$contentId,
+            'collaborateLink' => "/artifact-collaboration/".$contentId,
+            'notesLink' => "/artifact-notes/".$contentId,
+            ]);  
     }
 }

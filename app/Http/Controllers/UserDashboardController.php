@@ -14,6 +14,7 @@ use App\TemplateSection;
 use App\ContentSectionComment;
 use App\User;
 use App\ReviewRequest;
+use App\Review;
 
 class UserDashboardController extends Controller
 {
@@ -33,6 +34,12 @@ class UserDashboardController extends Controller
                                             ->orderBy('updated_at','desc')
                                             ->first();
             $content->status = $contentStatus->status;
+
+            $reviewCheck = Review::where('content_id','=', $content->id)->get();
+
+            if (count($reviewCheck) > 0) {
+                $content['reviewsLink'] = "/artifact-reviews/".$content->id;
+            }
 
             if ($contentStatus->status == "edit" || 
                 $contentStatus->status == "peer review" ||
@@ -58,7 +65,10 @@ class UserDashboardController extends Controller
                 $author = User::find($content->created_by_user_id);
                 $content['author'] = $author->name;
 
-                array_push($feedbackNeeded,$content);
+                //Don't include content for this user
+                if ($content->created_by_user_id != $user->id) {
+                    array_push($feedbackNeeded,$content);
+                }
             }
         }
 
@@ -69,11 +79,18 @@ class UserDashboardController extends Controller
 
         if ($reviews) {
             foreach ($reviews as $review){
-                $content = Content::where('id', '=', $review->content_id)->orderBy('updated_at','desc')->first();
-                $author = User::find($content->created_by_user_id);
-                $content['author'] = $author->name;
 
-                array_push($reviewsNeeded,$content);
+                // Don't show if this user already submitted a review
+                $reviewSubmittedCheck = Review::where('content_id','=', $review->content_id)
+                                        ->where('user_id','=', $user->id)
+                                        ->first();
+                if (! $reviewSubmittedCheck) {
+                    $content = Content::where('id', '=', $review->content_id)->orderBy('updated_at','desc')->first();
+                    $author = User::find($content->created_by_user_id);
+                    $content['author'] = $author->name;
+
+                    array_push($reviewsNeeded,$content);
+                }
             }
         }
 

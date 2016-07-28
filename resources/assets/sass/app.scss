@@ -16,6 +16,10 @@
    display: inline-block;
  }
 
+ hr {
+  border-top: 1px solid $gray;
+ }
+
    /** added this for an inline display. .show is block level **/
    .not-hidden { 
       display: inline !important;

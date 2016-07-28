@@ -14,6 +14,7 @@ use App\TemplateSectionField;
 use App\ContentFieldContent;
 use App\Comment;
 use App\User;
+use Purifier;
 Use Mobile_Detect;
 
 class CollaborationController extends Controller
@@ -155,13 +156,14 @@ class CollaborationController extends Controller
 
         $contentId = $request['contentId'];
         $sectionId = $request['sectionId'];
+        $comment = Purifier::clean($request['comment']);
 
         //add purifier here - maybe react wysiwig
         $comment = Comment::create([
 			'content_id' => $contentId,
 			'user_id' => $user->id,
 			'template_section_id' => $request['sectionId'],
-			'comment' => $request['comment']
+			'comment' => $comment
 		]);
 
 		return redirect('/artifact-collaboration/'.$contentId.'/'.$sectionId)->with('success', 'Your feedback has been added.');

@@ -43,6 +43,9 @@
                                         <a href="/artifact/{{$item->id}}">{{ $item->title }}</a>
                                     </div>
                                     <div class="col-md-4 ">
+                                        @if($item->reviewsLink)
+                                            <a class="btn btn-default" href="{{$item->reviewsLink}}">reviews</a>
+                                        @endif
                                         <a class="btn btn-default" href="/artifact-edit/{{$item->id}}">edit</a>
                                     </div>
                                 </div>
@@ -59,6 +62,9 @@
                                         {{ $item->title }}
                                     </div>
                                     <div class="col-md-4">
+                                    @if($item->reviewsLink)
+                                        <a class="btn btn-default" href="{{$item->reviewsLink}}">reviews</a>
+                                    @endif
                                         <a class="btn btn-default" href="/artifact-edit/{{$item->id}}">edit</a>
                                     </div>
                                 </div>

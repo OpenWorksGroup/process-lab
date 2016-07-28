@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.phoneArtifact')
 
 @section('content')
 
