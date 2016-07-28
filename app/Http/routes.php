@@ -29,7 +29,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('/',  'HomeController@index');
     Route::get('/start',  'Admin\StartController@index');
-    Route::get('/typography', 'TypographyController@index');
     Route::get('/lti/response', 'LTI\responseController@index');
     Route::get('/dashboard', 'UserDashboardController@index');
     Route::get('/api/content-tags', 'API\ContentTagsController@index');

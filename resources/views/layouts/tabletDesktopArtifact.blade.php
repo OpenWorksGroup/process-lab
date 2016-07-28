@@ -13,11 +13,6 @@
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-     
-    <script src="https://use.typekit.net/rqb4xyg.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
-    
-
 </head>
 <body id="app-layout">
 
