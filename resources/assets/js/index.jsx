@@ -6,6 +6,7 @@ import ContentNotesForm from './components/content_notes.jsx';
 import FeedbackSwitchForm from './components/feedback_switch.jsx';
 import SectionFieldsForm  from './components/section.jsx';
 import FilesDisplay from './components/files_display.jsx';
+import TagsForm from './components/tags.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');
