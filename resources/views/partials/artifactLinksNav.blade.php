@@ -1,5 +1,5 @@
 
-@if($rubricLink)<li><a href="{{ $rubricLink }}" target="_link">Competency Rubric</a></li>@endif
+@if($rubricLink)<li><a href="{{ $rubricLink }}" target="_blank">Competency Rubric</a></li>@endif
 <li><a href="/artifact-edit/{{ $contentId }}">Build</a></li>
 <ul role="menu">
 	<li class="vertical-spacer-10"><a href="/artifact-edit/{{$contentId }}">{{ $contentTitle }}</a></li>
