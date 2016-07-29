@@ -35,9 +35,9 @@ class FieldController extends Controller
 
 		}
 
-		if ($request['id']) {
+		if ($request['content_id']) {
 
-			$fieldContent = ContentFieldContent::find($request['id']);
+			$fieldContent = ContentFieldContent::find($request['content_id']);
 			$fieldContent->content_id = $request['content_id'];
 			$fieldContent->template_section_field_id = $request['template_section_field_id'];
 			$fieldContent->type = $request['type'];
@@ -46,10 +46,8 @@ class FieldController extends Controller
 
 			$fieldContent->save();
 
-			$status = ContentStatus::create([
-                'content_id' => $request['content_id'],
-                'status' => 'edit'
-            ]);
+			$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+        	$contentStatus->touch();
             
 			return $fieldContent;
 		}

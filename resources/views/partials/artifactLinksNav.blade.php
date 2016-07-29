@@ -1,12 +1,15 @@
 
 @if($rubricLink)<li><a href="{{ $rubricLink }}" target="_blank">Competency Rubric</a></li>@endif
-<li><a href="/artifact-edit/{{ $contentId }}">Build</a></li>
-<ul role="menu">
-	<li class="vertical-spacer-10"><a href="/artifact-edit/{{$contentId }}">{{ $contentTitle }}</a></li>
-	@foreach($sections as $key => $value)
-    	<li><a href="/artifact/{{ $contentId }}/{{$value['id'] }}">{{ $value['section_title'] }}</a></li>       
-	@endforeach
-</ul>
+
+@if($status == "edit")
+	<li><a href="/artifact-edit/{{ $contentId }}">Build</a></li>
+	<ul role="menu">
+		<li class="vertical-spacer-10"><a href="/artifact-edit/{{$contentId }}">{{ $contentTitle }}</a></li>
+		@foreach($sections as $key => $value)
+    		<li><a href="/artifact/{{ $contentId }}/{{$value['id'] }}">{{ $value['section_title'] }}</a></li>       
+		@endforeach
+	</ul>
+@endif
 
 
 	<li><a href="/artifact-tags/{{ $contentId }}">Tag</a></li>

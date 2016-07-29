@@ -201,11 +201,8 @@ class BuilderController extends Controller
 
         $content->save();
 
-        $status = ContentStatus::create([
-                                'content_id' => $content->id,
-                                'status' => 'edit'
-        ]);
-
+        $contentStatus = ContentStatus::where('content_id', '=', $content->id)->first();
+        $contentStatus->touch();
 
         $templateSection = TemplateSection::where('template_id', '=', $request['templateId'])
                                                 ->where('order', '=', 1)

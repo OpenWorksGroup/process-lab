@@ -9,6 +9,7 @@ use App\TemplateRubric;
 use App\TemplateSection;
 use App\Comment;
 use App\Review;
+use App\ContentStatus;
 
 class ArtifactLinksNavComposer
 {
@@ -33,6 +34,7 @@ class ArtifactLinksNavComposer
         $commentsCount = count($comments);
         $reviews = Review::where('content_id','=', $contentId)->get();
         $reviewsCount = count($reviews);
+        $checkStatus = ContentStatus::where('content_id', '=', $contentId)->first();
 
         $view->with([
             'sections' => $templateSections,
@@ -40,7 +42,8 @@ class ArtifactLinksNavComposer
             'templateId' => $templateId,
             'commentsCount' => $commentsCount,
             'reviewsCount' => $reviewsCount,
-            'rubricLink' => $rubricLink
+            'rubricLink' => $rubricLink,
+            'status' => $checkStatus->status
             ]);
     }
             

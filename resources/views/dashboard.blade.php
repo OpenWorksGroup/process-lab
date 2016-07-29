@@ -46,7 +46,6 @@
                                         @if($item->reviewsLink)
                                             <a class="btn btn-default" href="{{$item->reviewsLink}}">reviews</a>
                                         @endif
-                                        <a class="btn btn-default" href="/artifact-edit/{{$item->id}}">edit</a>
                                     </div>
                                 </div>
                             @endforeach

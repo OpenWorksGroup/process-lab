@@ -78,20 +78,15 @@ class NotesController extends Controller
 
     	$notes = Purifier::clean($request['note']);
 
-    	if ($request['id']) {
+    	if ($request['content_id']) {
 
-			$contentNote = ContentNote::find($request['id']);
+			$contentNote = ContentNote::find($request['content_id']);
 			$contentNote->note = $notes;
 
 			$contentNote->save();
 
-			//$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-            //$contentStatus->touch();
-
-			$status = ContentStatus::create([
-                'content_id' => $contentNote->content_id,
-                'status' => 'edit'
-            ]);
+			$contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+            $contentStatus->touch();
 
             return $contentNote;
 		}
@@ -102,13 +97,8 @@ class NotesController extends Controller
 				'note' => $notes
 			]);
 
-           // $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-           // $contentStatus->touch();
-
-            $status = ContentStatus::create([
-                'content_id' => $contentNote->content_id,
-                'status' => 'edit'
-            ]);
+            $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
+            $contentStatus->touch();
 
 			return $contentNote;
 		}

@@ -42,8 +42,6 @@ class TagsController extends Controller
             
             $templateSections = TemplateSection::where('template_id', '=', $content->template_id)->get();
 
-       // dd($templateSections);
-
             return view('artifact.phone.tags')->with([
                 'pageTitle'=>"Tags",
                 'contentId' => $contentId,

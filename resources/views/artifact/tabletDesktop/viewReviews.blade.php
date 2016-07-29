@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('partials.artifactPublishConfirmModal')
+
 <div class="container">
     <div class="row vertical-spacer-40">
         <div class="col-md-10">

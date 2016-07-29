@@ -280,8 +280,6 @@ var FieldItem = React.createClass({
             data['field_id'] = this.state.field_id;
         }       
 
-       // console.log("DATA "+JSON.stringify(data));
-
         this.setState({ error: {}});
         this.setState({ success: ""});
 

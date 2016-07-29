@@ -72,7 +72,7 @@ class PublishController extends Controller
 		}
 
 		//First check to see if the last status on this content is published already
-		$checkStatus = ContentStatus::where('content_id', '=', $contentId)->orderBy('updated_at', 'desc')->first();
+		$checkStatus = ContentStatus::where('content_id', '=', $contentId)->first();
 
 		if ($checkStatus->status == "published") {
 			return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.publishResult')->with([
@@ -85,18 +85,17 @@ class PublishController extends Controller
 		}
 
 		$sectionsFieldsRequired = CheckRequiredFieldsClass::check($content);
+
 		$title = "Not Yet Published";	
 		$status = "edit";
 
 		if (empty($sectionsFieldsRequired)) {
+
 			$title = "Published";
 			$status = "published";
 
-			$update_status = ContentStatus::create([
-					'content_id' => $contentId,
-                	'status' => 'published'
-			]);
-
+ 			$checkStatus->status = $status;
+ 			$checkStatus->save();
 		}
 		
 		return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.publishResult')->with([

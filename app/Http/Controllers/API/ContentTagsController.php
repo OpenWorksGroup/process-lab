@@ -35,9 +35,6 @@ class ContentTagsController extends Controller
         $tag = trim($input['tag']);
         $user = Auth::user();
 
-       // Log::info('Template Id: '.$templateId);
-       // Log::info('TAG: '.$tag);
-
         /** Look up to see if content tag exists **/
 
         $tagSearch = Tag::where('tag', '=', $tag)
@@ -46,7 +43,6 @@ class ContentTagsController extends Controller
         if ($tagSearch) 
         {
            $tagId = $tagSearch->id;
-           // Log::info('TAG SEARCH: '.$tagId);
         }
         else {
             $tagNew = Tag::create([

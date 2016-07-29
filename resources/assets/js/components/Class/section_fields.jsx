@@ -109,7 +109,7 @@ var Field = React.createClass({
     	data['content_id'] = this.props.content_id;
     	data['template_section_field_id'] = this.props.field_id;
 
-    	//console.log("DATA "+JSON.stringify(data));
+    	console.log("DATA "+JSON.stringify(data));
 
     	$.ajax({
             type: 'POST',

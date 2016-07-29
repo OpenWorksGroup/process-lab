@@ -26,6 +26,8 @@ var ContentNote = React.createClass({
         data['note'] = this.state.note;
         data['content_id'] = this.props.contentId;
 
+        console.log("DATA "+JSON.stringify(data));
+
         $.ajax({
             type: 'POST',
             url: '/artifact-notes',

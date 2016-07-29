@@ -22,6 +22,7 @@ class CheckRequiredFieldsClass {
                 $contentFields = ContentFieldContent::where('template_section_field_id', '=', $field->id)
                                                     ->where('content_id', '=', $contentId)
                                                     ->get();
+
                 
                 // If there are no fields, requirement hasn't been met
                 if (count($contentFields) == 0) {
@@ -34,8 +35,8 @@ class CheckRequiredFieldsClass {
 
                 foreach($contentFields as $content) {
                     // if the content field is null, also requirement hasn't been met
-                    if (($content->type == "text" && empty($content->content)) && 
-                        ($content->type != "text" && empty($content->uri))) {
+                    if (($content->type == "text" && $content->content == '') || 
+                        ($content->type != "text" && $content->uri == '' )) {
                         if (! array_search($field->field_title, array_column($sectionsFieldsRequired, 'field_title'))) {
                             array_push($sectionsFieldsRequired,Array(
                                 'section_id'=>$section->id,
