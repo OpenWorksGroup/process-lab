@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Content;
 use App\Classes\RetrieveArtifactContentClass;
 use App\TemplateRubric;
+use App\TemplateSection;
+use App\Comment;
+use App\User;
 use App\CompetencyFrameworkCategory;
 use App\Setting;
 use App\Review;
@@ -56,11 +59,49 @@ class ReviewerController extends Controller
             $alreadySubmitted = "You've already submitted this review.";
         }
 
+        //Get Feedback - To Do: consolidate this into a view composer with collaborationController
+
+        $sections = TemplateSection::where('template_id', '=', $content->template_id)->get();
+
+        $allComments = Comment::where('content_id', '=', $contentId)->get();
+        $commentsCount = count($allComments);
+
+        $sectionsFeedback = [];
+        foreach($sections as $section) {
+
+            $comments = [];
+            $retrieveComments = Comment::where('content_id', '=', $contentId)
+                                        ->where('template_section_id', '=', $section->id)
+                                        ->orderBy('updated_at','desc')
+                                        ->get();
+            
+
+            if (count($retrieveComments) > 0) {
+                foreach ($retrieveComments as $comment) {
+                    // add tags/profile url here
+                    $user = User::find($comment->user_id);
+
+                    array_push($comments,Array(
+                        'userName' => $user->name,
+                        'comment'=>$comment->comment,
+                        'comment_date' => date('F, j, Y', $comment->created_at->getTimestamp())
+                    ));
+                }
+
+                array_push($sectionsFeedback,Array(
+                    'sectionTitle' => $section->section_title,
+                    'comments' => $comments
+                ));
+            }
+        }
+
+
         return view(($detect->isMobile() && !$detect->isTablet() ? 'artifact.phone' : 'artifact.tabletDesktop') . '.reviewForm')->with([
             'pageTitle'=> "Review ".$contentTitle,
             'contentId' => $contentId,
             'contentTitle' => $contentTitle,
             'contents'=> $displayedContent,
+            'sectionsFeedback' => $sectionsFeedback,
             'rubricLink'=>$rubricLink,
             'competencyHeaders' => $competencyHeaders,
             'rubrics' => $rubricResult,

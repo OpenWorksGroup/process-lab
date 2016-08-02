@@ -29,6 +29,38 @@
 		</div>
 	</div>
 
+    @if(count($sectionsFeedback) > 0)
+        <div class="row">
+            <div class="col-md-10">
+                <h4>Collaborative Feedback</h4>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+            @foreach($sectionsFeedback as $section)
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="vertical-tb-spacer-20"><h5>{{ $section['sectionTitle'] }}</h5></div>
+                    </div>
+                </div>
+
+                @foreach($section['comments'] as $comment) 
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div>{{ $comment['comment_date'] }}</div>
+                            <div  class="vertical-spacer-20"><strong>{{  $comment['userName'] }}</strong></div>
+                            <div>{!! $comment['comment'] !!}</div>
+                        </div>
+                    </div>
+                @endforeach
+            @endforeach
+
+            </div>
+        </div>
+    @endif
+
 	@if(Session::has('success'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('success') }}
