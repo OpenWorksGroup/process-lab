@@ -77,7 +77,7 @@
         </div>
       </nav>
     </div>
-    <div class="col-sm-9 col-lg-10">
+    <div class="col-sm-9 col-lg-10 artifact-content">
       @yield('content')
     </div>
   </div>

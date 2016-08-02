@@ -59,6 +59,14 @@
       color: $brand-danger;
    }
 
+   .removeLink {
+      cursor: pointer;
+   }
+
+   .removeLink:hover {
+      color: $brand-danger;
+   }
+
    /* General formatting */
 
    .padding-left-20 {
@@ -230,6 +238,10 @@ div.ReactTags__suggestions ul li.active {
 
 .navbar-inverse .navbar-nav > ul > li {
   list-style-type: none;
+}
+
+.artifact-content {
+  overflow: hidden;
 }
 
 /* Links for Artifact Builder in Mobile View */

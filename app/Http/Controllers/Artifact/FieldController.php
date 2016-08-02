@@ -35,9 +35,9 @@ class FieldController extends Controller
 
 		}
 
-		if ($request['content_id']) {
+		if ($request['id']) {
 
-			$fieldContent = ContentFieldContent::find($request['content_id']);
+			$fieldContent = ContentFieldContent::find($request['id']);
 			$fieldContent->content_id = $request['content_id'];
 			$fieldContent->template_section_field_id = $request['template_section_field_id'];
 			$fieldContent->type = $request['type'];

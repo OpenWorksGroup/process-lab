@@ -14,14 +14,11 @@ var SectionFields = React.createClass({
 	getInitialState: function() { 
 		var loadedInfo = JSON.parse(this.props.loadInfo);
 		var fields = [];
-		//console.log("LOADED INFO "+JSON.stringify(loadedInfo));
 
 		_.each(loadedInfo['fields'], function(fieldObj) {
-			//console.log("FIELD "+JSON.stringify(fieldObj));
 			_.each(fieldObj, function(field) {
 				var fieldContent = "",fieldContentId,fieldLinks = [], fieldFiles = [];
 
-				//console.log("FIELD CONTENT "+JSON.stringify(field['savedContent']));
 				if (field['savedContent'].length) {
 					_.each(field['savedContent'], function(content) {
 						if (content['type'] == "text") {
@@ -46,8 +43,6 @@ var SectionFields = React.createClass({
 				});
 			});
 		});
-
-		//console.log("FIELDS "+JSON.stringify(fields));
 
 		return {
             fields: fields
@@ -86,7 +81,6 @@ var SectionFields = React.createClass({
 
 var Field = React.createClass({
 	getInitialState() {
-		//console.log("LINKS "+JSON.stringify(this.props.links));
     	return {
     		field_content_id: this.props.field_content_id,
     		links: this.props.links,
@@ -109,8 +103,6 @@ var Field = React.createClass({
     	data['content_id'] = this.props.content_id;
     	data['template_section_field_id'] = this.props.field_id;
 
-    	console.log("DATA "+JSON.stringify(data));
-
     	$.ajax({
             type: 'POST',
             url: '/artifact/field',
@@ -132,8 +124,6 @@ var Field = React.createClass({
     removeLink: function(e){
        
         var item = e.target.id;
-
-        console.log("ITEM "+e.target.id);
 
         var data = {};
         data['id'] = this.state.links[item]['id'];
@@ -162,20 +152,56 @@ var Field = React.createClass({
         }.bind(this)); 
 
   	},
+    saveChange: function(e) {
+        var data = {};
+        var field_content_id = e.target.id;
+
+        if (field_content_id) { 
+            data['id'] = field_content_id;
+        }
+        data['type'] = "link";
+        data['uri'] = $.trim(e.target.value);
+        data['content_id'] = this.props.content_id;
+        data['template_section_field_id'] = this.props.field_id;
+
+        $.ajax({
+            type: 'POST',
+            url: '/artifact/field',
+            data: data,
+            dataType: 'json',
+        })
+        .success(function(result) {
+
+            if (result['id']) {
+                this.setState({ field_content_id: result['id'] });
+
+                this.state.links.push({'id':result['id'],'uri':result['uri']});
+            }
+
+            this.setState({success:true});
+        }.bind(this))
+        .error(function(result) {
+            var error = result.responseJSON;
+            this.setState({ error: error });
+        }.bind(this));
+    },
 	render: function() {
 		var fieldId = this.props.field_id;
 		var contentId = this.props.content_id;
 		var sectionId = this.props.section_id;
 		var removeLink = this.removeLink;
+        var saveChange = this.saveChange;
 
 		return(
+
 			<div className="vertical-spacer-40">
 				<div>
                     {this.state.success ?
                         <FormSavedNotice/>
                     : null}
             	</div>
-				<div className="vertical-spacer-40">
+				<div className="row vertical-spacer-40">
+                <div className="col-sm-10">
 					<h3 className="inline-block">{this.props.title}</h3> { this.props.required ? 
 						<span className="required"><i className="fa fa-asterisk"></i></span> : null
 					}
@@ -190,6 +216,7 @@ var Field = React.createClass({
         			}}
         			onChange={this.handleChange}
       				/>
+                    </div>
       			</div>
 
       			<div className="vertical-spacer-40">
@@ -208,6 +235,7 @@ var Field = React.createClass({
                 							content_id={contentId}
                 							section_id={sectionId}
                 							removeLink={removeLink}
+                                            saveChange={saveChange}
                 							/>
                 						</div>
                     				);
@@ -219,11 +247,12 @@ var Field = React.createClass({
                 							field_id={fieldId}
                 							content_id={contentId}
                 							section_id={sectionId}
-                							removeLink={removeLink}/>
+                							removeLink={removeLink}
+                                            saveChange={saveChange}/>
                 						</div>
 						}
                 	
-                	<AddLink field_id={fieldId} content_id={contentId} section_id={sectionId} />
+                	<AddLink saveChange={saveChange} removeLink={removeLink} field_id={fieldId} content_id={contentId} section_id={sectionId} />
                 </div>
 
                 <div className="vertical-spacer-40">
@@ -255,35 +284,8 @@ var Link = React.createClass({
         state[e.target.name] =  $.trim(e.target.value);
         this.setState(state);
     },
-    saveChange: function(e) {
-		var data = {};
-
-    	if (this.state.field_content_id) { 
-    		data['id'] = this.state.field_content_id;
-    	}
-    	data['type'] = "link";
-    	data['uri'] = $.trim(e.target.value);
-    	data['content_id'] = this.props.content_id;
-    	data['template_section_field_id'] = this.props.field_id;
-
-    	$.ajax({
-            type: 'POST',
-            url: '/artifact/field',
-            data: data,
-            dataType: 'json',
-        })
-        .success(function(result) {
-        	if (result['id']) {
-                this.setState({ field_content_id: result['id'] });
-            }
-            this.setState({success:true});
-        }.bind(this))
-        .error(function(result) {
-            var error = result.responseJSON;
-            this.setState({ error: error });
-        }.bind(this));
-    },
     render: function() {
+
 		return(
 			<div>
 				<div>
@@ -292,16 +294,7 @@ var Link = React.createClass({
                 	: null}
             	</div>
                 <div className="row">
-                    <div className="col-sm-10 text-left">
-                        {this.state.field_content_id ?
-                            <div className="removeClick" id={this.props.id} onClick={this.props.removeLink}>
-                                <i className="fa fa-times" aria-hidden="true"></i> remove
-                            </div>
-                        : null }
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-sm-10">
+                    <div className="col-sm-8">
 				        <input 
                         className="form-control" 
                         name="uri"
@@ -310,8 +303,16 @@ var Link = React.createClass({
                         type="text" 
                         placeholder="ex: http://www.domain.com"
                         onChange={this.handleChange}
-                        onBlur={this.saveChange}
+                        id={this.props.field_content_id}
+                        onBlur={this.props.saveChange}
                         />
+                    </div>
+                    <div className="col-sm-4">
+                        {this.props.field_content_id ?
+                            <span className="removeLink" id={this.props.id} onClick={this.props.removeLink}>
+                                <i className="fa fa-times" aria-hidden="true"></i> remove
+                            </span>
+                        : null }
                     </div>
                 </div>
             </div>
@@ -339,6 +340,8 @@ var AddLink = React.createClass({
     	var links = this.state.links;
     	var contentId = this.props.content_id;
 		var sectionId = this.props.section_id;
+        var removeLink = this.props.removeLink;
+        var saveChange = this.props.saveChange;
 
         return (
 
@@ -346,7 +349,16 @@ var AddLink = React.createClass({
                 { this.state.links.map(function(link, i) {;
                     return (
                     	<div className="vertical-spacer-10">
-                    		<Link key={i} links={links} field_id={field_id} content_id={contentId} section_id={sectionId}/>
+                    		<Link 
+                            key={i} 
+                            id={i}
+                            links={links} 
+                            field_id={field_id} 
+                            content_id={contentId} 
+                            section_id={sectionId}
+                            removeLink={removeLink}
+                            saveChange={saveChange}
+                            />
                     	</div>
                     );
                 })}

@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-6">
             <div class="text-center">
                 <h2>{{ $pageTitle }}</h2>
             </div>
@@ -17,6 +17,6 @@
     data-contentId="{{ $contentId }}" 
     data-tags="{{ $tags }}">
     </div>
-
+</div>
 
 @endsection
