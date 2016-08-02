@@ -88,7 +88,7 @@
 
     			<div class="row  vertical-spacer-20">
         			<div class="col-md-10">
-            			<button type="submit" class="btn btn-primary">
+            			<button data-toggle="modal" data-target="#reviewModal" class="btn btn-primary">
                 			Submit Review
             			</button>
         			</div>
@@ -98,6 +98,8 @@
     		</div>
     	</div>
     @endif
+
+    @include('partials.confirmReviewModal')
 
 </div>
 @endsection

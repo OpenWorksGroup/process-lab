@@ -1,17 +1,17 @@
     <!-- Modal -->
-<div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModal">
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Ready to Publish?</h4>
+        <h4 class="modal-title" id="myModalLabel">Are you sure you've completed this review?</h4>
       </div>
       <div class="modal-body">
-        Once published, you will not be able to make any further changes.
+        Once submitted the review is complete.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <a href="/publish-content/{{ $contentId }}" class="btn btn-primary">Ready to Publish</a>
+        <button type="button" class="btn btn-primary" id="confirm">Submit Review</a>
       </div>
     </div>
   </div>
