@@ -72,12 +72,15 @@
 					
 				@endforeach
 
-				<div class="row">
-					<div class="col-md-10">
-            			<div class="form-group">            
+				<div class="row form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
+					<div class="col-md-10">           
                 		{{ Form::label('Comments', null, ['class' => 'control-label']) }}
                 		{{ Form::textarea('comment', null, array('class' => 'form-control')) }}
-            			</div>
+                        @if ($errors->has('comment'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('comment') }}</strong>
+                            </span>
+                        @endif
         			</div>
     			</div>
 

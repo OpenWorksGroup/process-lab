@@ -89,9 +89,8 @@ class ReviewerController extends Controller
             $category = CompetencyFrameworkCategory::where('id',$rubric->competency_framework_category_id)->first();
             $attributeNames = array(
                 'category_'.$category->id => $category->category
-            );
+            ); 
 
-             
             $validator = Validator::make($request->all(), ['category_'.$category->id => 'required']);
             $validator->setAttributeNames($attributeNames); 
 
@@ -111,8 +110,11 @@ class ReviewerController extends Controller
             array_push($results,$result);
             
         }
+        //Comment required
 
-       // $results['total_score'] = $totalScore;
+        $this->validate($request, [
+               'comment' => 'required'
+        ]);
 
         $comment = Purifier::clean($request['comment']);
 
