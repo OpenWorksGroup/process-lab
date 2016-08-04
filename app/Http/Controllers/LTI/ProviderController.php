@@ -187,10 +187,18 @@ class ProviderController extends Controller
                 foreach($roles as $role) {
                     $role = trim(strtolower($role));
                     Bouncer::assign($rolesTranslateArr[$role])->to($user);
+
+                    if ($role == 'peer reviewer' || $role == 'expert reviewer') {
+                        $user['reviewer'] = true;
+                    }
+
+                    if ($role == 'admin') {
+                        $user['admin'] = true;
+                    }
                 }
             }
             
-           // $request->session()->put('user', $user); 
+            $request->session()->put('user', $user); 
             
             /** redirect user based on role. Add LTI roles **/
             
