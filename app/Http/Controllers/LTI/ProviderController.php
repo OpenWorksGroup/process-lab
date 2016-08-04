@@ -15,6 +15,33 @@ use Validator;
 use Carbon\Carbon;
 use Bouncer;
 
+class OAuthHelper {
+    private $key;
+    private $secret;
+
+    public function __construct($consumerKey, $consumerSecret)
+    {
+        $this->key = $consumerKey;
+        $this->secret = $consumerSecret;
+    }
+
+    public function isSignatureValid($request)
+    {
+        return $this->buildSignature($request) === $request->input('oauth_signature');
+    }
+
+    public function buildSignature($request)
+    {
+        $input = $request->all();
+        unset($input['oauth_signature']);
+
+        $hmac_method = new \OAuthSignatureMethod_HMAC_SHA1();
+        $consumer = new \OAuthConsumer($this->key, $this->secret, NULL);
+        $req = \OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $request->fullUrl(), $input);
+        return $req->build_signature($hmac_method, $consumer, null);
+    }
+}
+
 class ProviderController extends Controller
 {
     public function __construct()
@@ -60,7 +87,7 @@ class ProviderController extends Controller
             
               // dd($input);
             
-            $validator->after(function($validator) use ($input,$settings) {
+            $validator->after(function($validator) use ($input, $settings, $request) {
                 
                 $providedSignature = $input['oauth_signature'];
                 unset($input['oauth_signature']);
@@ -74,43 +101,10 @@ class ProviderController extends Controller
                     return;
                 }
                 
-                //Update this to use htttp vars
-              //  $string1 = 'POST&http%3A%2F%2Fprocesslab.dev%3A8000%2Flti%2Fauth&';
-                $string1 = 'POST&https%3A%2F%2Fdml.viflearn.com%2Flti%2Fauth&';
-
-                $keys = UtilitiesClass::urlencode_rfc3986(array_keys($input));
-                $values = UtilitiesClass::urlencode_rfc3986(array_values($input));
-                $params = array_combine($keys, $values);
-
-                uksort($params, 'strcmp');
-     
-                $pairs = array();
-     
-                foreach ($params as $parameter => $value) {
-                  if (is_array($value)) {
-                    sort($value, SORT_STRING);
-                    foreach ($value as $duplicate_value) {
-                      $pairs[] = $parameter . '=' . $duplicate_value;
-                    }
-                  } else {
-                    $pairs[] = $parameter . '=' . $value;
-                  }
-                }
-     
-                $string2 = implode('&', $pairs);
-     
-                $string3 = $string1.UtilitiesClass::urlencode_rfc3986($string2);
-                
-                $key = $consumer_secret.'&';
-
-                $signed = base64_encode(hash_hmac('sha1', $string3, $key, true));
-                
-               // var_dump($providedSignature);
-               // var_dump($signed);
-                
-                if ($signed !== $providedSignature) {
-                    $validator->errors()->add('signature', 'Oauth signature is invalid.');
-                    return;
+                $oauthHelper = new OAuthHelper($consumer_key, $consumer_secret);
+                if (!$oauthHelper->isSignatureValid($request)) {
+                  $validator->errors()->add('signature', 'Oauth signature is invalid.');
+                  return;
                 } 
                 
  
