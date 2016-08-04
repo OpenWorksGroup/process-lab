@@ -19,6 +19,9 @@
         <div class="row">
             <div class="col-md-12">
                 <ul id="dashboardTabs" class="nav nav-tabs vertical-spacer-40" role="tablist">
+                    <li>
+                        <a href="#resources" data-toggle="tab" aria-controls="resources" aria-expanded="true">Resources @if($rCount)({{ $rCount }})@endif</a>
+                    </li>
                     <li class="active">
                         <a href="#content" data-toggle="tab" aria-controls="content" aria-expanded="true">My Published Content @if($pCount)({{ $pCount }})@endif</a>
                     </li>
@@ -35,6 +38,13 @@
                     @endif     
                 </ul> 
                 <div id="tabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="resources" aria-labelledby="content"> 
+                        @if($resourcesSearch)
+                        <div id="resources-search" data-resources="{{ $resourcesSearch }}"></div>
+                        @else
+                            <p>No resources have been published yet.</p>
+                        @endif 
+                    </div>
                     <div role="tabpanel" class="tab-pane active" id="content" aria-labelledby="content"> 
                         @if (! empty($published))
                             @foreach($published as $item)

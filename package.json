@@ -31,6 +31,7 @@
     "react-loader": "^2.4.0",
     "react-modal": "^1.4.0",
     "react-modal-bootstrap": "^1.0.0",
+    "react-search-input": "^0.10.1",
     "react-select": "^0.9.1",
     "react-tag-input": "^3.0.0",
     "react-tinymce": "^0.5.1",

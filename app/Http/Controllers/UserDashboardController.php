@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Bouncer;
 use Log;
 use App\Content;
+use App\TagRelationship;
+use App\Tag;
 use App\ContentStatus;
 use App\TemplateSection;
 use App\ContentSectionComment;
@@ -26,6 +28,51 @@ class UserDashboardController extends Controller
         $published = [];
         $feedbackNeeded = [];
         $reviewsNeeded = [];
+        $publishedResources = [];
+
+        $resources = Content::all()->sortByDesc('updated_at');
+        foreach($resources as $resource) {
+            $resourceStatus = ContentStatus::where('content_id', '=', $resource->id)->first();
+
+            if ($resourceStatus->status == "published") {
+
+                $userTagRels = TagRelationship::where('user_id', '=', $resource->created_by_user_id)->get();
+                $userTagsList = [];
+                foreach($userTagRels as $rel) {
+                    $tag = Tag::where('id', '=', $rel->tag_id)
+                                ->where('type', '=', 'user')
+                                ->first();
+                    if ($tag) {
+                        array_push($userTagsList,$tag->tag);
+                    }
+                    
+                }
+
+                $tagRels = TagRelationship::where('content_id', '=', $resource->id)->get();
+                $tagsList = [];
+                foreach($tagRels as $rel) {
+                    $tag = Tag::where('id', '=', $rel->tag_id)->first();
+                    if ($tag) {
+                        array_push($tagsList,$tag->tag);
+                    }
+                    
+                }
+
+                $author = User::find($resource->created_by_user_id);
+
+                array_push($publishedResources,Array(
+                    'id' => $resource->id,
+                    'title' => $resource->title,
+                    'author' => $author->name,
+                    'publishDate' => date('F, j, Y', $resourceStatus->updated_at->getTimestamp()),
+                    'userTags' => implode(",", $userTagsList),
+                    'tags' => implode(", ", $tagsList)
+                ));
+            }
+
+        }
+
+       // dd($publishedResources);
 
         $contents = Content::where('created_by_user_id', '=', $user->id)->get();
         
@@ -97,6 +144,9 @@ class UserDashboardController extends Controller
         return view('dashboard')->with([
 			'pageTitle'=>$user->name." Dashboard",
             'userName'=>$user->name,
+            'resources'=>$publishedResources,
+            'resourcesSearch'=>json_encode($publishedResources),
+            'rCount'=> count($publishedResources),
 			'workInProgress' => $workInProgress,
             'wipCount' =>count($workInProgress),
             'published' => $published,

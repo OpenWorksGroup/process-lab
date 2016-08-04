@@ -7,6 +7,7 @@ import FeedbackSwitchForm from './components/feedback_switch.jsx';
 import SectionFieldsForm  from './components/section.jsx';
 import FilesDisplay from './components/files_display.jsx';
 import TagsForm from './components/tags.jsx';
+import ResourcesSearch from './components/resources_search.jsx';
 
 $(() => {
   var templateForm  = document.querySelector('#template');
@@ -17,7 +18,6 @@ $(() => {
   var sectionsFields = $('#template').attr('data-sectionsFields');
   var rubric = $('#template').attr('data-rubric');
   var rubricCompetencies = $('#template').attr('data-rubricCompetencies');
-
 
   if (templateForm) {
     if (templateInfo) {
@@ -108,6 +108,15 @@ $(() => {
     ReactDOM.render(<FilesDisplay
     files={filesData} 
     />,files);
+  }
+
+var resourcesSearch = document.querySelector('#resources-search');
+var resourcesData = $('#resources-search').attr('data-resources');
+
+if (resourcesSearch) {
+    ReactDOM.render(<ResourcesSearch
+    data={resourcesData} 
+    />,resourcesSearch);
   }
 
 });
