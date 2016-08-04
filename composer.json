@@ -29,7 +29,8 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": ["app/Lib/OAuth/OAuth.php"]
     },
     "autoload-dev": {
         "classmap": [
