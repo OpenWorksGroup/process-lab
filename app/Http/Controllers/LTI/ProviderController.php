@@ -15,33 +15,6 @@ use Validator;
 use Carbon\Carbon;
 use Bouncer;
 
-class OAuthHelper {
-    private $key;
-    private $secret;
-
-    public function __construct($consumerKey, $consumerSecret)
-    {
-        $this->key = $consumerKey;
-        $this->secret = $consumerSecret;
-    }
-
-    public function isSignatureValid($request)
-    {
-        return $this->buildSignature($request) === $request->input('oauth_signature');
-    }
-
-    public function buildSignature($request)
-    {
-        $input = $request->all();
-        unset($input['oauth_signature']);
-
-        $hmac_method = new \OAuthSignatureMethod_HMAC_SHA1();
-        $consumer = new \OAuthConsumer($this->key, $this->secret, NULL);
-        $req = \OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $request->fullUrl(), $input);
-        return $req->build_signature($hmac_method, $consumer, null);
-    }
-}
-
 class ProviderController extends Controller
 {
     public function __construct()
@@ -210,5 +183,32 @@ class ProviderController extends Controller
             {
                 return redirect('/dashboard);  
             }
+    }
+}
+
+class OAuthHelper {
+    private $key;
+    private $secret;
+
+    public function __construct($consumerKey, $consumerSecret)
+    {
+        $this->key = $consumerKey;
+        $this->secret = $consumerSecret;
+    }
+
+    public function isSignatureValid($request)
+    {
+        return $this->buildSignature($request) === $request->input('oauth_signature');
+    }
+
+    public function buildSignature($request)
+    {
+        $input = $request->all();
+        unset($input['oauth_signature']);
+
+        $hmac_method = new \OAuthSignatureMethod_HMAC_SHA1();
+        $consumer = new \OAuthConsumer($this->key, $this->secret, NULL);
+        $req = \OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $request->fullUrl(), $input);
+        return $req->build_signature($hmac_method, $consumer, null);
     }
 }
