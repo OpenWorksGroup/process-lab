@@ -90,7 +90,6 @@ class HomeController extends Controller
             }
             else
             {
-                return response('Unauthorized.', 401);
                 return redirect('/login');
             }
         }
