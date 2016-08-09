@@ -73,6 +73,10 @@
       padding-left: 20px;
    }
 
+   .vertical-t-spacer-40 {
+      margin-top: 40px;
+   }
+
    .vertical-spacer-40 {
       margin-bottom: 40px;
    }
@@ -264,7 +268,7 @@ div.ReactTags__suggestions ul li.active {
 
 
 .crouton {
-  color: #FFF;
+  color: #01B5B6;
   line-height: 140%;
   position: fixed;
   top: 0px;
@@ -276,7 +280,7 @@ div.ReactTags__suggestions ul li.active {
   text-align: center;
   z-index: 99999;
   margin: 0 auto;
-  background-color: #01B5B6; 
+  background-color: none; 
 }
 
 /* These are example-specific */

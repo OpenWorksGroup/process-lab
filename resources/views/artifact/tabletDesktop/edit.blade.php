@@ -4,7 +4,7 @@
 
 @include('partials.artifactPublishConfirmModal')
 
-<div class="container">
+<div class="container vertical-t-spacer-40">
     <div class="row">
         <div class="col-md-10">
             <div class="text-center">

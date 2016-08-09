@@ -169,6 +169,7 @@ var TagsEditor = React.createClass({
         return (
           <div className={groupClass['tags']} id="tags-editor">
             <label htmlFor='tags' className="control-label">Template Tags</label>
+            <p>Enter tag and hit enter to add.</p>
             <div className="ReactTags__tags">
               <div className="ReactTags__selected">
                 <div className="ReactTags__tagInput">
@@ -194,7 +195,8 @@ var TagsEditor = React.createClass({
                 <FormSavedNotice/>
                 : null}
 
-        <label htmlFor='tags' className="control-label">Tags</label>
+        <label htmlFor='tags' className="control-label"><strong>Tags</strong></label>
+        <p>Enter tag and hit enter to add.</p>
           <ReactTags tags={tags}
           suggestions={contentTags}
           handleDelete={this.handleDelete}
