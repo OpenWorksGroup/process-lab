@@ -21,7 +21,7 @@ var ResourcesSearch = React.createClass({
           return (
             <div className="row vertical-spacer-20" key={resource.id}>
               <div classnmae="col-md-12">
-                <div><a href="/artifact/{resource.id}">{resource.title}</a></div>
+                <div><a href={"/artifact/"+resource.id}>{resource.title}</a></div>
                 <div>by {resource.author}</div>
                 <div>Published {resource.publishDate}</div>
                 { resource.tags ?
