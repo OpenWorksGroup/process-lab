@@ -28,6 +28,7 @@ Route::post('/lti/auth', 'LTI\ProviderController@store');
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('/',  'HomeController@index');
+    Route::get('/home',  'HomeController@index');
     Route::get('/start',  'Admin\StartController@index');
     Route::get('/lti/response', 'LTI\responseController@index');
     Route::get('/dashboard', 'UserDashboardController@index');
