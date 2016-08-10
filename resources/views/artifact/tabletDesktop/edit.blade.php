@@ -33,5 +33,13 @@
     data-loadInfo="{{ $loadInfo }}">
     </div>
 
+   @if($nextSection)
+   <div class="row">
+        <div class="col-md-10 text-right vertical-spacer-40">
+            <a href="/artifact/{{ $contentId }}/{{ $nextSection['id'] }}" class="btn btn-default"><i class="fa fa-arrow-right" aria-hidden="true"></i> {{  $nextSection['section_title'] }}</a>
+        </div> 
+    </div>
+    @endif
+
 </div>
 @endsection

@@ -71,15 +71,27 @@ class SectionController extends Controller
 
 
        // dd($loadInfo);
+       // 
+       // 
+       $templateSections = TemplateSection::where('template_id', '=', $templateId)
+                                                ->where('id', '!=', $sectionId)
+                                                ->get();  
+      // dd($templateSections); 
+
+       $nextSection = null;
+       foreach ($templateSections as $section) {
+        if ($section->id > $sectionId) {
+            $nextSection = $section;
+            break;
+        }
+       }
+      // dd($nextSection->section_title);
+
        
        $detect = new Mobile_Detect;
 
        if ($detect->isMobile() && !$detect->isTablet())
-       {
-
-        $templateSections = TemplateSection::where('template_id', '=', $templateId)
-                                                ->where('id', '!=', $sectionId)
-                                                ->get();
+       {                                   
 
         return view('artifact.phone.edit')->with([
             'pageTitle'=>$templateSection->section_title,
@@ -110,6 +122,7 @@ class SectionController extends Controller
             'templateId' => $templateId,
             'sectionsComments' => json_encode($feedbackSetting),
             'commentsCount' => $commentsCount,
+            'nextSection' => $nextSection
             ]); 
         }
 
