@@ -116,16 +116,15 @@
         			</div>
     			</div>
 
-
-
     			<div class="row  vertical-spacer-20">
         			<div class="col-md-10">
-            			<button data-toggle="modal" data-target="#reviewModal"class="btn btn-primary">
+            			<button id="reviewFormButton" data-toggle="modal" data-target="#reviewModal" class="btn btn-primary">
                 			Submit Review
             			</button>
         			</div>
     			</div>
-    			{!! Form::close(); !!}
+
+                {!! Form::close(); !!}
 
     		</div>
     	</div>
