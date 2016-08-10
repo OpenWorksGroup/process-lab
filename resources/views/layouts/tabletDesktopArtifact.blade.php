@@ -90,19 +90,9 @@
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
         });
 
-       // $(function () {
+        $(document).ready(function () {
             $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
-
-            //review form modal confirm
-            $('#reviewModal').on('show.bs.modal', function (e) {
-                e.preventDefault();
-                var form = $(e.relatedTarget).closest('form');
-                $(this).find('.modal-footer #confirm').data('form', form);
-            );
-            $('#reviewModal').find('.modal-footer #confirm').on('click', function(){
-                $(this).data('form').submit();
-            });
-       // });
+        });
     </script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <script src="{{ asset('/js/components.js') }}"></script>

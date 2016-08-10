@@ -73,6 +73,19 @@
         $.ajaxSetup({
             headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
         });
+
+        $(document).ready(function () {
+            //review form modal confirm
+            $('#reviewModal').on('show.bs.modal', function (e) {
+                e.preventDefault();
+                var form = $(e.relatedTarget).closest('form');
+                $(this).find('.modal-footer #confirm').data('form', form);
+            );
+            $('#reviewModal').find('.modal-footer #confirm').on('click', function(){
+                $(this).data('form').submit();
+            });
+        });
+        
     </script>
     <script src="{{ asset('/js/components.js') }}"></script>
 </body>
