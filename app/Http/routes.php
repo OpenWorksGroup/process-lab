@@ -25,6 +25,9 @@
 
 Route::post('/lti/auth', 'LTI\ProviderController@store');
 
+/** Status Report */
+Route::post('/status-report', 'API\ContentStatusReportController@index');
+
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
     Route::get('/',  'HomeController@index');
