@@ -176,6 +176,13 @@
                 $(this).data('form').submit();
             });
 
+            //delete artifact modal confirm content id
+            //delete artifact modal confirm content id
+            $('#deleteArtifactModal').on('show.bs.modal', function(e) {
+                var contentId = $(e.relatedTarget).data('id');
+                $("#deleteLink").attr("href", "/artifact-delete/"+contentId);
+            });
+
         });
     </script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>

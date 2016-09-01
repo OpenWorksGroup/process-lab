@@ -86,6 +86,12 @@
             $('#reviewModal').find('.modal-footer #confirm').on('click', function(){
                 $(this).data('form').submit();
             });
+
+            //delete artifact modal confirm content id
+            $('#deleteArtifactModal').on('show.bs.modal', function(e) {
+                var contentId = $(e.relatedTarget).data('id');
+                $("#deleteLink").attr("href", "/artifact-delete/"+contentId);
+            });
         });
 
     </script>

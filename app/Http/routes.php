@@ -65,6 +65,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/submit-review/{contentId}', 'Artifact\ReviewerController@edit');
     Route::post('/submit-review', 'Artifact\ReviewerController@store');
     Route::get('/artifact-reviews/{contentId}', 'Artifact\ReviewController@index');
+    Route::get('/artifact-delete/{contentId}', 'API\DeleteArtifactController@update');
 });
 
 /** Dashboard Pages  **/

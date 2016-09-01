@@ -34,7 +34,7 @@ class UserDashboardController extends Controller
         foreach($resources as $resource) {
             $resourceStatus = ContentStatus::where('content_id', '=', $resource->id)->first();
 
-            if ($resourceStatus->status == "published") {
+            if ($resourceStatus && $resourceStatus->status == "published") {
 
                 $userTagRels = TagRelationship::where('user_id', '=', $resource->created_by_user_id)->get();
                 $userTagsList = [];
@@ -80,7 +80,7 @@ class UserDashboardController extends Controller
             $contentStatus = ContentStatus::where('content_id', '=', $content->id)
                                             ->orderBy('updated_at','desc')
                                             ->first();
-            $content->status = $contentStatus->status;
+            if ($contentStatus) $content->status = $contentStatus->status;
 
             $reviewCheck = Review::where('content_id','=', $content->id)->get();
 
@@ -88,13 +88,14 @@ class UserDashboardController extends Controller
                 $content['reviewsLink'] = "/artifact-reviews/".$content->id;
             }
 
-            if ($contentStatus->status == "edit" || 
+            if ($contentStatus &&
+                ($contentStatus->status == "edit" || 
                 $contentStatus->status == "peer review" ||
-                $contentStatus->status == "expert review") {
+                $contentStatus->status == "expert review")) {
                 array_push($workInProgress,$content);
 
             }
-            elseif ($contentStatus->status == "published") {
+            elseif ($contentStatus && $contentStatus->status == "published") {
                 array_push($published,$content);
             }
 

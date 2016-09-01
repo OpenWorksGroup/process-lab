@@ -16,6 +16,12 @@
                 </div>
             </div>
         </div>
+
+        @if(Session::has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ Session::get('success') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-12">
                 <ul id="dashboardTabs" class="nav nav-tabs vertical-spacer-40" role="tablist">
@@ -56,6 +62,7 @@
                                         @if($item->reviewsLink)
                                             <a class="btn btn-default" href="{{$item->reviewsLink}}">reviews</a>
                                         @endif
+                                        <a class="btn btn-default" id="deleteArtifact" data-id={{$item->id}} data-toggle="modal" data-target="#deleteArtifactModal">delete</a>
                                     </div>
                                 </div>
                             @endforeach
@@ -75,6 +82,7 @@
                                         <a class="btn btn-default" href="{{$item->reviewsLink}}">reviews</a>
                                     @endif
                                         <a class="btn btn-default" href="/artifact-edit/{{$item->id}}">edit</a>
+                                        <a class="btn btn-default" id="deleteArtifact" data-id={{$item->id}} data-toggle="modal" data-target="#deleteArtifactModal">delete</a>
                                     </div>
                                 </div>
                             @endforeach
@@ -117,5 +125,6 @@
             </div>
         </div>
     </div>     
+    @include('partials.confirmDeleteArtifactModal')
 </div>
 @endsection
