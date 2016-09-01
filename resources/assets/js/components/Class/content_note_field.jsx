@@ -26,7 +26,7 @@ var ContentNote = React.createClass({
         data['note'] = this.state.note;
         data['content_id'] = this.props.contentId;
 
-        console.log("DATA "+JSON.stringify(data));
+      //  console.log("DATA "+JSON.stringify(data));
 
         $.ajax({
             type: 'POST',
@@ -35,12 +35,14 @@ var ContentNote = React.createClass({
             dataType: 'json',
         })
         .success(function(result) {
+            console.log("Hello ");
             if (result['id']) {
                 this.setState({ id: result['id'] });
             }
             this.setState({success:"true"});
         }.bind(this))
         .error(function(result) {
+           // console.log("goodbye "+ JSON.stringify(result));
             var error = result.responseJSON;
             this.setState({ error: error });
         }.bind(this));

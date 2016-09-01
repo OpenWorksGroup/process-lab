@@ -78,9 +78,9 @@ class NotesController extends Controller
 
     	$notes = Purifier::clean($request['note']);
 
-    	if ($request['content_id']) {
+    	if ($request['id']) {
 
-			$contentNote = ContentNote::find($request['content_id']);
+			$contentNote = ContentNote::find($request['id']);
 			$contentNote->note = $notes;
 
 			$contentNote->save();
