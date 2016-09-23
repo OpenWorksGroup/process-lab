@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <ul id="dashboardTabs" class="nav nav-tabs vertical-spacer-40" role="tablist">
                     <li>
-                        <a href="#resources" data-toggle="tab" aria-controls="resources" aria-expanded="true">Resources @if($rCount)({{ $rCount }})@endif</a>
+                        <a href="#resources" data-toggle="tab" aria-controls="resources" aria-expanded="true">Published Content @if($rCount)({{ $rCount }})@endif</a>
                     </li>
                     <li class="active">
                         <a href="#content" data-toggle="tab" aria-controls="content" aria-expanded="true">My Published Content @if($pCount)({{ $pCount }})@endif</a>
@@ -59,6 +59,9 @@
                                         <a href="/artifact/{{$item->id}}">{{ $item->title }}</a>
                                     </div>
                                     <div class="col-md-4 ">
+                                        @if($item->commentsCount)
+                                            <a class="btn btn-default" href="/artifact-collaboration/{{$item->id}}">feedback ($item->commentsCount)</a>
+                                        @endif
                                         @if($item->reviewsLink)
                                             <a class="btn btn-default" href="{{$item->reviewsLink}}">reviews</a>
                                         @endif
@@ -78,6 +81,9 @@
                                         {{ $item->title }}
                                     </div>
                                     <div class="col-md-4">
+                                    @if($item->commentsCount)
+                                        <a class="btn btn-default" href="/artifact-collaboration/{{$item->id}}">feedback ({{$item->commentsCount}})</a>
+                                    @endif
                                     @if($item->reviewsLink)
                                         <a class="btn btn-default" href="{{$item->reviewsLink}}">reviews</a>
                                     @endif

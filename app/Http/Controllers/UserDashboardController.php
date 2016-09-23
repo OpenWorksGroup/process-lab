@@ -14,6 +14,7 @@ use App\Tag;
 use App\ContentStatus;
 use App\TemplateSection;
 use App\ContentSectionComment;
+use App\Comment;
 use App\User;
 use App\ReviewRequest;
 use App\Review;
@@ -97,6 +98,12 @@ class UserDashboardController extends Controller
             }
             elseif ($contentStatus && $contentStatus->status == "published") {
                 array_push($published,$content);
+            }
+
+            $commentsCheck = Comment::where('content_id','=', $content->id)->get();
+
+            if (count($commentsCheck) > 0) {
+                $content['commentsCount'] = count($commentsCheck);
             }
 
         }
