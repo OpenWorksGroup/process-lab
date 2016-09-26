@@ -153,37 +153,40 @@ var Field = React.createClass({
 
   	},
     saveChange: function(e) {
-        var data = {};
-        var field_content_id = e.target.id;
 
-        if (field_content_id) { 
-            data['id'] = field_content_id;
-        }
-        data['type'] = "link";
-        data['uri'] = $.trim(e.target.value);
-        data['content_id'] = this.props.content_id;
-        data['template_section_field_id'] = this.props.field_id;
+        if (e.target.value) {
+            var data = {};
+            var field_content_id = e.target.id;
 
-        $.ajax({
-            type: 'POST',
-            url: '/artifact/field',
-            data: data,
-            dataType: 'json',
-        })
-        .success(function(result) {
-
-            if (result['id']) {
-                this.setState({ field_content_id: result['id'] });
-
-                this.state.links.push({'id':result['id'],'uri':result['uri']});
+            if (field_content_id) { 
+                data['id'] = field_content_id;
             }
+            data['type'] = "link";
+            data['uri'] = $.trim(e.target.value);
+            data['content_id'] = this.props.content_id;
+            data['template_section_field_id'] = this.props.field_id;
 
-            this.setState({success:true});
-        }.bind(this))
-        .error(function(result) {
-            var error = result.responseJSON;
-            this.setState({ error: error });
-        }.bind(this));
+            $.ajax({
+                type: 'POST',
+                url: '/artifact/field',
+                data: data,
+                dataType: 'json',
+            })
+            .success(function(result) {
+
+                if (result['id']) {
+                    this.setState({ field_content_id: result['id'] });
+
+                    this.state.links.push({'id':result['id'],'uri':result['uri']});
+                }
+
+                this.setState({success:true});
+            }.bind(this))
+            .error(function(result) {
+                var error = result.responseJSON;
+                this.setState({ error: error });
+            }.bind(this));
+        }
     },
 	render: function() {
 		var fieldId = this.props.field_id;
