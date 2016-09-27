@@ -1,4 +1,7 @@
 ## VIF Process Lab
+
+Planned and developed with leadership from [VIF International Education](https://www.vifprogram.com/), in partnership with [Little Bird Games](http://littlebirdgames.com/).
+
 This project recommends the use of Laravel Homestead 5.2 for development.
 
 ### Installation Instructions
