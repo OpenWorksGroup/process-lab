@@ -61,10 +61,6 @@ class FieldController extends Controller
 				'uri' => $uri
 			]);
 
-
-           // $contentStatus = ContentStatus::where('content_id', '=', $request['content_id'])->first();
-           // $contentStatus->touch();
-
 			$status = ContentStatus::create([
                 'content_id' => $request['content_id'],
                 'status' => 'edit'
