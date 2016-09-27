@@ -7,8 +7,7 @@ var Select = require('react-select');
 var selectIsLoadingExternally = true;
 var classNames = require('classnames');
 
-var template_id,
-frameworkCategories =[],
+var frameworkCategories =[],
 frameworkOptions = [],
 frameworkId,  
 savedFrameworkName = "",
@@ -29,17 +28,13 @@ var RubricEditor = React.createClass({
                 frameworkOptions.push({value: framework['id'], label: framework['framework']});
             });
             this.setState({frameworkOptions: frameworkOptions});
-            this.loadCategories(this.state.framework_id);
+            if (this.state.framework_id) {
+                this.loadCategories(this.state.framework_id);
+            }
         }.bind(this));
 
     },
     getInitialState: function() {
-        if (this.props.editId) {
-            template_id = this.props.editId;
-        }
-        else {
-            template_id = this.props.id;  
-        }
         
         if (this.props.rubric) {
             // only one framework saved per template
@@ -93,16 +88,20 @@ var RubricEditor = React.createClass({
             url: '/admin/competency-frameworks-categories/retrieve'
         })
         .success(function(categoryResults) {
-            
             //get categories for the framework selected
             _.each(categoryResults, function(category){
                 if (category['framework_id'] == value) {
                     // Get categories that haven't been selected yet
-                    _.each(savedFrameworkCategories, function(saved){
-                        if (category['id'] != saved) {
-                            frameworkCategories.push({value: category['id'], label: category['category']});
-                        }
-                    });
+                     if (savedFrameworkCategories.length > 0) {
+                        _.each(savedFrameworkCategories, function(saved){
+                            if (category['id'] != saved) {
+                                frameworkCategories.push({value: category['id'], label: category['category']});
+                            }
+                        });
+                    }
+                    else {
+                       frameworkCategories.push({value: category['id'], label: category['category']}); 
+                    }
                 }
             });
 
@@ -143,6 +142,14 @@ var RubricEditor = React.createClass({
         }.bind(this)); 
     },
     render: function() {
+
+        if (this.props.editId) {
+            var template_id = this.props.editId;
+        }
+        else {
+            var template_id = this.props.id;  
+        }
+
         if (this.state.frameworkOptions) {
 
             if (this.state.framework_name) {
