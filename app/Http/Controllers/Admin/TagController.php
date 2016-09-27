@@ -13,6 +13,12 @@ use App\User;
 
 class TagController extends Controller
 {
+    /**
+    * Display admin Manage Tags page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\manageTags.blade.php
+    */
     public function index(Request $request)
     {
         $tags = Tag::all()->sortBy('tag');
@@ -31,11 +37,23 @@ class TagController extends Controller
         ]);    
     }
 
+    /**
+    * Display Create New Tag page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\createTag.blade.php
+    */
     public function create(Request $request)
     {
         return view('admin.createTag')->with('pageTitle','Add New Tag');        
     }
     
+    /**
+    * Store a tag and reload page.
+    *
+    * @param  Request  $request
+    * @return \resources\views\admin\createTag.blade.php
+    */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -56,6 +74,12 @@ class TagController extends Controller
         return redirect('/admin/tags/create')->with('success', $request['tag'].' has been added.');
     }
 
+    /**
+    * Display Edit Tag page for a specified tag.
+    *
+    * @param  int $tagId
+    * @return \resources\views\admin\editTag.blade.php
+    */
     public function edit($tagId)
     {
         $tag = Tag::find($tagId);
@@ -69,12 +93,12 @@ class TagController extends Controller
     }
     
     /**
-     * Update a tag.
-     *
-     * @param  Request  $request
-     * @param  $tagId
-     * @return Response
-     */
+    * Update a tag and reload page.
+    *
+    * @param  Request  $request
+    * @param  int $tagId
+    * @return Response
+    */
     public function update(Request $request, $tagId)
     {      
         $this->validate($request, [

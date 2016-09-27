@@ -14,6 +14,14 @@ use App\ContentStatus;
 
 class FieldController extends Controller
 {
+	/**
+	 * Store a ContentFieldContent.
+     *  - if new content, store new content and content status information.
+     *  - if already exists, update content and content status information.
+     *
+	 * @param  Request  $request
+	 * @return ContentFieldContent  $fieldContent
+	 */
 	public function store(Request $request) {
 
 		$content = Purifier::clean($request['content']);
@@ -70,6 +78,12 @@ class FieldController extends Controller
 		}
 	}
 
+	/**
+	 * Delete a specified ContentFieldContent.
+     *
+	 * @param  Request  $request
+	 * @return int  $request[id]
+	 */
 	public function destroy(Request $request) {
 
 		Log::info($request);

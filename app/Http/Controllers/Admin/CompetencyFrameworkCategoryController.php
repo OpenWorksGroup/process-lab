@@ -12,6 +12,12 @@ use Log;
 
 class CompetencyFrameworkCategoryController extends Controller
 {
+	/**
+    * Store a competency framework category.
+    *
+    * @param  Request  $request
+    * @return CompetencyFrameworkCategories  $category
+    */
 	public function store(Request $request)
     {
     	if ($request['category_id'])
@@ -47,6 +53,12 @@ class CompetencyFrameworkCategoryController extends Controller
         return $category;     
     }
 
+	/**
+    * Read all competency framework categories.
+    *
+    * @param  Request  $request
+    * @return array  $categories
+    */
     public function retrieve(Request $request)
     {
 

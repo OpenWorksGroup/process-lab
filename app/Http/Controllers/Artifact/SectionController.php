@@ -19,6 +19,13 @@ Use Log;
 
 class SectionController extends Controller
 {
+    /**
+	 * Display section page for a given content.
+     *
+	 * @param int  $contentId
+     * @param int  $sectionId
+	 * @return view: artifact/phone||tabletDesktop/edit.blade.php
+	 */
     public function edit($contentId,$sectionId) {
         
         if (!$contentId && !$sectionId) {
