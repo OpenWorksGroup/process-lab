@@ -1,12 +1,12 @@
-## VIF Process Lab
+## Process Lab
 
-Planned and developed with leadership from [VIF International Education](https://www.vifprogram.com/), in partnership with [Little Bird Games](http://littlebirdgames.com/).
+Planned and developed with leadership from [VIF International Education](https://www.vifprogram.com/), in partnership with [Little Bird Games](http://littlebirdgames.com/) and the Digital Media and Learning Competition, supported by the John D. and Catherine T. MacArthur Foundation through a grant to the University of California, Irvine and administered by HASTAC.
 
 This project recommends the use of Laravel Homestead 5.2 for development.
 
 ### Installation Instructions
 1. Install Laravel Homestead 5.2, official instructions can be found [here](https://laravel.com/docs/5.2/homestead).  
-   * You will need to install [Vagrant](https://www.vagrantup.com/downloads.html) and a hypervisor, either [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMWare](http://www.vmware.com/), to run the virtual machine.
+   * Although not required, it is recommended that you install [Vagrant](https://www.vagrantup.com/downloads.html) and a hypervisor, either [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMWare](http://www.vmware.com/), to run the virtual machine.
 
    * Setup up the homestead vagrant box: 
    ```
@@ -95,4 +95,7 @@ This project recommends the use of Laravel Homestead 5.2 for development.
    (For error `Error: ENOENT: no such file or directory, scandir '/home/vagrant/sites/DMLmh/node_modules/node-sass/vendor'`
    run `npm install node-sass`)
 
+   $    gulp watch is also available
+
 5. You're done, open `http://processlabs.app:8000` in your browser to view your local process labs site!
+
