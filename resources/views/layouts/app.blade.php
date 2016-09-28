@@ -9,7 +9,7 @@
     <title>{{$siteTitle}}{{ isset($pageTitle) ? '| '.$pageTitle : '' }}</title>
     
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://npmcdn.com/react-select/dist/react-select.css">
+    <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css">
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
