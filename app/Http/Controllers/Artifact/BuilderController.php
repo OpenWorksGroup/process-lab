@@ -86,7 +86,7 @@ class BuilderController extends Controller
         $user = Auth::user();
 
         $this->validate($request, [
-            'title' => 'required|unique:contents,title,'.$user->id.',created_by_user_id'
+            'title' => 'required|unique:contents,title,NULL,id,created_by_user_id,'.$user->id.''
         ]);
 
         if ($request['contentId']) {
