@@ -10,7 +10,7 @@ title:            Process Lab
 tagline:          'A Content Creation and Review System'
 description:      'The Process Lab (v0.5) is a content creation system with features that allow for collaborative (formative) and summative feedback (reviews of content).'
 url:              http://process-lab.openworksgrp.com
-baseurl:          /
+baseurl:          /process-lab
 
 author:
   name:           'OpenWorks Group'
