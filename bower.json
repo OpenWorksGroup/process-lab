@@ -1,7 +1,0 @@
-{
-  "name": "process-lab",
-  "dependencies": {
-    "jquery": "^2.2.2",
-    "bootstrap-sass": "bootstrap-sass-official#^3.3.6"
-  }
-}
