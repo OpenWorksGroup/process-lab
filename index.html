@@ -1,37 +1,8 @@
 ---
 layout: default
-title: Home
+title: Overview
 ---
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  <div class="post">
-    <h1 class="post-title">
-      <a href="{{ post.url }}">
-        {{ post.title }}
-      </a>
-    </h1>
+The Process Lab (v0.5) is a content creation system with features that allow for collaborative (formative) and summative feedback (reviews of content). It provides a template system to accommodate unique content types. Content may be aligned to competency frameworks and rubrics providing guidelines for authors, feedback, and reviews. Content may be published and searched. The status report API may be used to connect to other systems which may calculate this data and issue credentials such as Open Badges.
 
-    <span class="post-date">{{ post.date | date_to_string }}</span>
-
-    {{ post.content }}
-  </div>
-  {% endfor %}
-</div>
-
-<div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ site.baseurl }}page{{paginator.next_page}}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
-    {% else %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}page{{paginator.previous_page}}">Newer</a>
-    {% endif %}
-  {% else %}
-    <span class="pagination-item newer">Newer</span>
-  {% endif %}
-</div>
+Planned and developed with leadership from [VIF International Education](https://www.vifprogram.com/), in partnership with [Little Bird Games](http://littlebirdgames.com/) and the Digital Media and Learning Competition, supported by the John D. and Catherine T. MacArthur Foundation through a grant to the University of California, Irvine and administered by HASTAC.
