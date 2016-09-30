@@ -8,7 +8,7 @@ permalink:        pretty
 # Setup
 title:            Process Lab
 tagline:          'A Content Creation and Review System'
-description:      'The Process Lab (v0.5) is a content creation system with features that allow for collaborative (formative) and summative feedback (reviews of content).'
+description:      'The Process Lab is a content creation system with features that allow for collaborative and summative feedback.'
 url:              http://process-lab.openworksgrp.com
 baseurl:          /
 
@@ -16,7 +16,6 @@ author:
   name:           'OpenWorks Group'
   url:            https://twitter.com/openworksgrp
 
-paginate:         5
 
 # Custom vars
 version:          0.5

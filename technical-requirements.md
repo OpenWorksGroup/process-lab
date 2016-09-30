@@ -1,30 +1,24 @@
 ---
 layout: page
-title: About
+title: Technical Requirements
+weight: 2
 ---
 
-<p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
-</p>
+Process Lab uses PHP Laravel (5.2) with MySQL. The front-end scripting is done with jQuery & ReactJS. It uses Bootstrap 3 for responsive layout.
 
-In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+Follow the instructions in the README for details on set up. This was tested using Homestead on a VM. This is recommended for development. The basic minimum server requirements include: 
+* Ubuntu 16.04
+* Git
+* PHP 7.0
+* HHVM
+* Nginx
+* MySQL
+* Composer
+* Node (With PM2, Bower, Grunt, and Gulp)
 
-There are currently two themes built on Poole:
+Other dependencies can be found listed in composer.json & package.json. 
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+It is suggested that a production version of Process Lab be hosted on a secure server using SSL encryption. 
 
-Learn more and contribute on [GitHub](https://github.com/poole).
+<a href="{{ site.github.repo }}/process-lab">Installation Instructions</a>
 
-## Setup
-
-Some fun facts about the setup of this project include:
-
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
-
-Thanks for reading!
