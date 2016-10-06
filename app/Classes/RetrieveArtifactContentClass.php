@@ -38,16 +38,12 @@ class RetrieveArtifactContentClass {
 					}
 				}
 
-				if (count($files)) {
-					$filesArr = json_encode($files);
-				}
-
 				if (count($contentFields) > 0 ) {
 					array_push($fieldInfo,Array(
 						'field_title' => $field->field_title,
 						'text' => $text,
 						'links' => $links,
-						'files' => $filesArr
+						'files' => json_encode($files)
 					));
 				}
 			}
