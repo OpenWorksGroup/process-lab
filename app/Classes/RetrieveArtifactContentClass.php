@@ -33,7 +33,7 @@ class RetrieveArtifactContentClass {
 					else if ($contentField->type == "link") {
 						array_push($links,$contentField);
 					}
-					else if ($contentField->type == "image" || $contentField->type == "file") {
+					else if ($contentField->type == "image"){
 						array_push($links,$contentField);
 					}
 				}
