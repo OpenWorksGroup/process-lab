@@ -48,6 +48,8 @@ class RetrieveArtifactContentClass {
 						'files' => json_encode($files)
 					));
 				}
+
+				dd($fieldInfo);
 			}
 
 			// Display sections with content
