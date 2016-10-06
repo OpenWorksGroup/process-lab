@@ -34,6 +34,7 @@ class RetrieveArtifactContentClass {
 						array_push($links,$contentField);
 					}
 					else {
+						json_decode($contentField);
 						array_push($files,$contentField);
 					}	
 				}
@@ -43,7 +44,7 @@ class RetrieveArtifactContentClass {
 						'field_title' => $field->field_title,
 						'text' => $text,
 						'links' => $links,
-						'files' => $files
+						'files' => json_encode($files)
 					));
 				}
 			}
