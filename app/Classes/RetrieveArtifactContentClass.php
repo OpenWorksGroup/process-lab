@@ -33,9 +33,13 @@ class RetrieveArtifactContentClass {
 					else if ($contentField->type == "link") {
 						array_push($links,$contentField);
 					}
-					else if ($contentField->type == "image"){
-						array_push($links,$contentField);
+					else if ($contentField->type == "image" || $contentField->type == "file"){
+						array_push($files,$contentField);
 					}
+				}
+
+				if (count($files)) {
+					$filesArr = json_encode($files);
 				}
 
 				if (count($contentFields) > 0 ) {
@@ -43,7 +47,7 @@ class RetrieveArtifactContentClass {
 						'field_title' => $field->field_title,
 						'text' => $text,
 						'links' => $links,
-						'files' => json_encode($files)
+						'files' => $filesArr
 					));
 				}
 			}
