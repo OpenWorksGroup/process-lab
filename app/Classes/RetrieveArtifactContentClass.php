@@ -34,7 +34,9 @@ class RetrieveArtifactContentClass {
 						array_push($links,$contentField);
 					}
 					else {
-						array_push($files,$contentField);
+						if ($contentField) {
+							array_push($files,$contentField);
+						}
 					}	
 				}
 
