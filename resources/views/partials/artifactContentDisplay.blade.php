@@ -34,7 +34,7 @@
             @endif
 
             @if(!empty($field['files']))
-                <div id="content-files" data-files="{{$field['files']}}"></div>
+                <div class="content-files" data-files="{{$field['files']}}"></div>
             @endif
         @endforeach
     @endforeach

@@ -101,8 +101,8 @@ $(() => {
     />,tags);
   }
 
-  var files = document.querySelector('#content-files');
-  var filesData = $('#content-files').attr('data-files');
+  var files = document.querySelector('.content-files');
+  var filesData = $('.content-files').attr('data-files');
 
   console.log("FILES "+JSON.stringify(files));
   console.log("FILES DATA "+JSON.stringify(filesData));
