@@ -34,12 +34,11 @@ class RetrieveArtifactContentClass {
 						array_push($links,$contentField);
 					}
 					else {
-						json_decode($contentField);
 						array_push($files,$contentField);
 					}	
 				}
 
-				if (count($contentFields) > 0 ) {
+				if (count($contentFields)) {
 					array_push($fieldInfo,Array(
 						'field_title' => $field->field_title,
 						'text' => $text,
