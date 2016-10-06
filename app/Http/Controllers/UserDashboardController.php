@@ -160,7 +160,7 @@ class UserDashboardController extends Controller
             'userName'=>$user->name,
             'resources'=>$publishedResources,
             'resourcesSearch'=>json_encode($publishedResources),
-            'rCount'=> count($publishedResources),
+            'prCount'=> count($publishedResources),
 			'workInProgress' => $workInProgress,
             'wipCount' =>count($workInProgress),
             'published' => $published,

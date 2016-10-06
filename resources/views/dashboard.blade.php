@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <ul id="dashboardTabs" class="nav nav-tabs vertical-spacer-40" role="tablist">
                     <li>
-                        <a href="#resources" data-toggle="tab" aria-controls="resources" aria-expanded="true">Published Content @if($rCount)({{ $rCount }})@endif</a>
+                        <a href="#resources" data-toggle="tab" aria-controls="resources" aria-expanded="true">Published Content @if($rCount)({{ $prCount }})@endif</a>
                     </li>
                     <li class="active">
                         <a href="#content" data-toggle="tab" aria-controls="content" aria-expanded="true">My Published Content @if($pCount)({{ $pCount }})@endif</a>
