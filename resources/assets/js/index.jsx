@@ -107,11 +107,11 @@ $(() => {
   console.log("FILES "+JSON.stringify(files));
   console.log("FILES DATA "+JSON.stringify(filesData));
 
-  if (files) {
+  //if (files) {
     ReactDOM.render(<FilesDisplay
     files={filesData} 
     />,files);
-  }
+  //}
 
 var resourcesSearch = document.querySelector('#resources-search');
 var resourcesData = $('#resources-search').attr('data-resources');
