@@ -5,9 +5,8 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading">Login (Please note that this is a demo site only)</div>
                 <div class="panel-body">
-                <div> Please note that this is a demo site only</div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
@@ -61,10 +60,12 @@
                     </form>
 
                     <div>
-                        <h4> Logins for Demo Accounts</h4>
-                        <div>Administrator email: admin@demopl.com pw: pldemo123</div>
-                        <div>Author email: author@demopl.com pw: pldemo123</div>
-                        <div>Reviewer email: reviewer@demopl.com pw: pldemo123</div>
+                        <div><strong>Logins for Demo Accounts</strong></div>
+                        <ul>
+                        <li><strong>Administrator</strong> email: admin@demopl.com pw: pldemo123</li>
+                        <li><strong>Author</strong> email: author@demopl.com pw: pldemo123</li>
+                        <li><strong>Reviewer</strong> email: reviewer@demopl.com pw: pldemo123</li>
+                        </ul>
                     </div>
                 </div>
             </div>
