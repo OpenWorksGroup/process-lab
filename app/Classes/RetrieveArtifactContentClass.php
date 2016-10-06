@@ -43,7 +43,7 @@ class RetrieveArtifactContentClass {
 						'field_title' => $field->field_title,
 						'text' => $text,
 						'links' => $links,
-						'files' => json_encode($files)
+						'files' => $files
 					));
 				}
 			}
