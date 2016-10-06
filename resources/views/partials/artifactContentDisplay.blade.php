@@ -33,7 +33,7 @@
                 @endforeach
             @endif
 
-            @if(count($field['files']) > 2)
+            @if(count($field['files']) > 1)
                 <div class="content-files" data-files="{{$field['files']}}"></div>
             @endif
         @endforeach
