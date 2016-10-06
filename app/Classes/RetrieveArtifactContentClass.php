@@ -38,7 +38,7 @@ class RetrieveArtifactContentClass {
 					}	
 				}
 
-				if (count($contentFields)) {
+				if (count($contentFields) > 0 ) {
 					array_push($fieldInfo,Array(
 						'field_title' => $field->field_title,
 						'text' => $text,
