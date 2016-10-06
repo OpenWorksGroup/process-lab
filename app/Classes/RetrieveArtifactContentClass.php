@@ -48,7 +48,7 @@ class RetrieveArtifactContentClass {
 				}
 			}
 
-			dd($fieldInfo);
+			//dd($fieldInfo);
 
 			// Display sections with content
 			if (count($fieldInfo) > 0) {
