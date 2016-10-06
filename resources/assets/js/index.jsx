@@ -104,6 +104,8 @@ $(() => {
   var files = document.querySelector('#content-files');
   var filesData = $('#content-files').attr('data-files');
 
+  consoloe.log("FILES "+JSON.stringify(filesData));
+
   if (files) {
     ReactDOM.render(<FilesDisplay
     files={filesData} 
