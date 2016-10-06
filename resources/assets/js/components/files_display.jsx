@@ -10,7 +10,7 @@ var FilesDisplay = React.createClass({
         var savedFiles = JSON.parse(this.props.files);
         var files = [];
 
-      //  console.log("savedFiles "+JSON.stringify(savedFiles));
+        console.log("savedFiles "+JSON.stringify(savedFiles));
 
         _.each(savedFiles, function(file) {
             var name = file['uri'].substr(file['uri'].lastIndexOf('/') + 1); 
