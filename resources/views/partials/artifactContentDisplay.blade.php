@@ -32,7 +32,13 @@
                     </div>
                 @endforeach
             @endif
-            
+
+            @if($field['field_title'] == "Photo") 
+            <div class="row">
+                        <div class="col-md-10"><img src="https://dml.viflearn.com/files/1475774615gallery1473880319delishpumpkinsmorescupcakes.jpg"/></div>
+            </div>
+
+            @endif
             @if(count($field['files']) > 0)
                 <div class="content-files" data-files="{{$field['files']}}"></div>
             @endif
