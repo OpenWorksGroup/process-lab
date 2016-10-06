@@ -48,9 +48,9 @@ class RetrieveArtifactContentClass {
 						'files' => json_encode($files)
 					));
 				}
-
-				dd($fieldInfo);
 			}
+
+			dd($fieldInfo);
 
 			// Display sections with content
 			if (count($fieldInfo) > 0) {
