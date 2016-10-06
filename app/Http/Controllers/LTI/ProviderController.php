@@ -201,6 +201,8 @@ class ProviderController extends Controller
             $request->session()->put('user', $user); 
             
             /** redirect user based on role. Add LTI roles **/
+
+            /** To Do: Add redirect to new or existing build template for context_id provided by LTI **/
             
             if (Bouncer::is($user)->an('admin'))
             {

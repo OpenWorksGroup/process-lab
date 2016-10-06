@@ -8,8 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Home Not Logged In</div>
 
-                <div class="panel-body">
-                    What to display here for guest users that land on process lab somehow?               
+                <div class="panel-body">             
                 </div>
             </div>
         </div>

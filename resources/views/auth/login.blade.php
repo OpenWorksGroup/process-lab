@@ -7,6 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                <div> Please note that this is a demo site only</div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
@@ -48,16 +49,23 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                     <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
+                                    <i class="fa fa-btn fa-sign-in"></i> Login
                                 </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                            <!-- hiding for demo site
+                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a> -->
                             </div>
                         </div>
                     </form>
+
+                    <div>
+                        <h4> Logins for Demo Accounts</h4>
+                        <div>Administrator email: admin@demopl.com pw: pldemo123</div>
+                        <div>Author email: author@demopl.com pw: pldemo123</div>
+                        <div>Reviewer email: reviewer@demopl.com pw: pldemo123</div>
+                    </div>
                 </div>
             </div>
         </div>

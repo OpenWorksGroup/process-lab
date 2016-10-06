@@ -26,11 +26,10 @@ class TemplateCourseController extends Controller
         if ($request['template_course_id']) {
 
            // Log::info($request);
-
+            // To Do: Unique course ids check
             $this->validate($request, [
                 'course_id' => 'sometimes|
-                required_with:course_title,course_url|
-                unique:template_courses,course_id',
+                required_with:course_title,course_url',
                 'course_title' => 'sometimes|required_with:course_id,course_url',
                 'course_url' => 'sometimes|required_with:course_id,course_title'
             ]);
