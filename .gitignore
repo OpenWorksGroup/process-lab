@@ -6,6 +6,5 @@ Homestead.json
 /public/css/*
 /public/files/*
 /public/js/components.js
-/composer.lock
 /resources/assets/bower/*
 
