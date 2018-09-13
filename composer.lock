@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0282cfc451b26fc0f737bf48ed6fe53b",
+    "content-hash": "9f8242b38e95bf4f0546786302cc9f02",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2852,7 +2852,7 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "dev-master",
+            "version": "v143",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
@@ -4139,9 +4139,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "heroku/heroku-buildpack-php": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
