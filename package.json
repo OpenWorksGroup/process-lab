@@ -6,7 +6,7 @@
     "babel-loader": "^6.2.1",
     "babel-polyfill": "^6.7.2",
     "expect": "^1.13.4",
-    "gulp": "^3.8.8",
+    "gulp": "^3.9.1",
     "gulp-run": "^1.6.12",
     "gulp-shell": "^0.5.2",
     "laravel-elixir-webpack": "^0.2.3",
@@ -37,7 +37,7 @@
     "react-tinymce": "^0.5.1",
     "react-toggle": "^2.1.1"
   },
-    "scripts": {
-        "postinstall": "bower install && gulp --production"
-    }
+  "scripts": {
+    "postinstall": "bower install && gulp --production"
+  }
 }
