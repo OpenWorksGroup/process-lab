@@ -3,8 +3,8 @@
 Homestead.yaml
 Homestead.json
 .env
-/public/css/*
-/public/files/*
-/public/js/components.js
+#/public/css/*
+#/public/files/*
+#/public/js/components.js
 /resources/assets/bower/*
 
